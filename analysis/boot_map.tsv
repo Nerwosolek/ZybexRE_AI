@@ -1,0 +1,6 @@
+cpu_start	cpu_end	size	kind	atr_offset_start	atr_offset_end
+0480	0485	6	data_or_unknown	00010	00015
+0486	0541	188	code	00016	000D1
+0542	0624	227	data_or_unknown	000D2	001B4
+0625	0678	84	code	001B5	00208
+0679	10FF	2695	data_or_unknown	00209	00C8F

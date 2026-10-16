@@ -1,0 +1,86 @@
+{
+  "image_name": "Zybex (v1).atr",
+  "image_bytes": 92176,
+  "image_sha256": "97f1aa6d09bbf6b772d8ce174a92f8b7870cfbd9efa148655af0b5557744fffe",
+  "atr_header_hex": "96028016800000000000000000000001",
+  "sector_count": 720,
+  "sector_size": 128,
+  "boot": {
+    "sectors": [
+      1,
+      25
+    ],
+    "cpu_range": [
+      "0480",
+      "10FF"
+    ],
+    "atr_offset": 16,
+    "entry": "0488"
+  },
+  "payload": {
+    "sectors": [
+      256,
+      620
+    ],
+    "cpu_range": [
+      "0600",
+      "BC7F"
+    ],
+    "atr_offset": 32656,
+    "entry": "0C80"
+  },
+  "zero_sector_ranges": [
+    [
+      26,
+      255
+    ],
+    [
+      621,
+      720
+    ]
+  ],
+  "blocks": {
+    "atr_header.bin": {
+      "bytes": 16,
+      "sha256": "e4db2c79c90ca847079c99ab94011319a1f954710515b19084a5269ea46bfb03"
+    },
+    "boot_0480_10ff.bin": {
+      "bytes": 3200,
+      "sha256": "2507cf84467e56534fdbbbf2b6a7f1765f963d39d50bd2ab5b9f942bce8683e4"
+    },
+    "payload_0600_bc7f.bin": {
+      "bytes": 46720,
+      "sha256": "dbb7983bf28c47d0e394ac8e695282f1b2c3ac01aa25c9ee0021def4cdb75a58"
+    },
+    "resource_e400_e8ff.bin": {
+      "bytes": 1280,
+      "sha256": "8abe74a46b84bf3bfb0ffef837fdb8ae47632240aaeaa80d0d5538f840f0cceb"
+    },
+    "resource_ff00_ffff.bin": {
+      "bytes": 256,
+      "sha256": "2e6c8f5f8cab04cd1b2957f150b648e33d7420f35bdc1561d74b38e2024229d8"
+    },
+    "resource_dc00_dfff.bin": {
+      "bytes": 1024,
+      "sha256": "111c51e2c4a17aaf9182669da44f7dc85aed1c1f1d9e1062e6e65cb91c86c6d4"
+    }
+  },
+  "resource_copies": [
+    {
+      "source": "0700-0BFF",
+      "destination": "E400-E8FF",
+      "bytes": 1280
+    },
+    {
+      "source": "0C00-0CFF",
+      "destination": "FF00-FFFF",
+      "bytes": 256
+    },
+    {
+      "source": "0D00-10FF",
+      "destination": "DC00-DFFF",
+      "bytes": 1024
+    }
+  ],
+  "notes": "Addresses refer to different loading phases. No relocation or decompression of main payload."
+}

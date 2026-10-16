@@ -1,0 +1,110 @@
+[
+  {
+    "name": "G00",
+    "start": 1536,
+    "end": 5630,
+    "binary_bytes": 4095,
+    "native_lines": 1533,
+    "text_bytes": 39927,
+    "external_symbols": 37
+  },
+  {
+    "name": "G01",
+    "start": 5631,
+    "end": 9726,
+    "binary_bytes": 4096,
+    "native_lines": 2272,
+    "text_bytes": 50522,
+    "external_symbols": 105
+  },
+  {
+    "name": "G02",
+    "start": 9727,
+    "end": 13820,
+    "binary_bytes": 4094,
+    "native_lines": 2477,
+    "text_bytes": 53104,
+    "external_symbols": 83
+  },
+  {
+    "name": "G03",
+    "start": 13821,
+    "end": 17907,
+    "binary_bytes": 4087,
+    "native_lines": 1427,
+    "text_bytes": 37726,
+    "external_symbols": 8
+  },
+  {
+    "name": "G04",
+    "start": 17908,
+    "end": 21999,
+    "binary_bytes": 4092,
+    "native_lines": 344,
+    "text_bytes": 22469,
+    "external_symbols": 0
+  },
+  {
+    "name": "G05",
+    "start": 22000,
+    "end": 26091,
+    "binary_bytes": 4092,
+    "native_lines": 343,
+    "text_bytes": 22454,
+    "external_symbols": 0
+  },
+  {
+    "name": "G06",
+    "start": 26092,
+    "end": 30179,
+    "binary_bytes": 4088,
+    "native_lines": 695,
+    "text_bytes": 26852,
+    "external_symbols": 0
+  },
+  {
+    "name": "G07",
+    "start": 30180,
+    "end": 34267,
+    "binary_bytes": 4088,
+    "native_lines": 346,
+    "text_bytes": 22476,
+    "external_symbols": 0
+  },
+  {
+    "name": "G08",
+    "start": 34268,
+    "end": 38363,
+    "binary_bytes": 4096,
+    "native_lines": 362,
+    "text_bytes": 22706,
+    "external_symbols": 0
+  },
+  {
+    "name": "G09",
+    "start": 38364,
+    "end": 42451,
+    "binary_bytes": 4088,
+    "native_lines": 370,
+    "text_bytes": 22778,
+    "external_symbols": 0
+  },
+  {
+    "name": "G10",
+    "start": 42452,
+    "end": 46543,
+    "binary_bytes": 4092,
+    "native_lines": 363,
+    "text_bytes": 22714,
+    "external_symbols": 0
+  },
+  {
+    "name": "G11",
+    "start": 46544,
+    "end": 48255,
+    "binary_bytes": 1712,
+    "native_lines": 146,
+    "text_bytes": 9383,
+    "external_symbols": 0
+  }
+]

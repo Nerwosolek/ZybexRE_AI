@@ -1,0 +1,117 @@
+{
+  "assembler": "Included tools/mac65_subset.py; not native MAC/65, not ATasm",
+  "native_toolchain_executed": false,
+  "full_atari_emulator_executed": false,
+  "variants": [
+    {
+      "source": "src/BOOT.M65",
+      "origin": "0480",
+      "bytes": 3200,
+      "sha256": "2507cf84467e56534fdbbbf2b6a7f1765f963d39d50bd2ab5b9f942bce8683e4",
+      "byte_identical": true
+    },
+    {
+      "source": "src/BOOTFLAT.M65",
+      "origin": "0480",
+      "bytes": 3200,
+      "sha256": "2507cf84467e56534fdbbbf2b6a7f1765f963d39d50bd2ab5b9f942bce8683e4",
+      "byte_identical": true
+    },
+    {
+      "source": "native/BOOT.LST",
+      "origin": "0480",
+      "bytes": 3200,
+      "sha256": "2507cf84467e56534fdbbbf2b6a7f1765f963d39d50bd2ab5b9f942bce8683e4",
+      "byte_identical": true
+    },
+    {
+      "source": "src/GAME.M65",
+      "origin": "0600",
+      "bytes": 46720,
+      "sha256": "dbb7983bf28c47d0e394ac8e695282f1b2c3ac01aa25c9ee0021def4cdb75a58",
+      "byte_identical": true
+    },
+    {
+      "source": "src/GAMEFLAT.M65",
+      "origin": "0600",
+      "bytes": 46720,
+      "sha256": "dbb7983bf28c47d0e394ac8e695282f1b2c3ac01aa25c9ee0021def4cdb75a58",
+      "byte_identical": true
+    },
+    {
+      "source": "native/GAME.LST",
+      "origin": "0600",
+      "bytes": 46720,
+      "sha256": "dbb7983bf28c47d0e394ac8e695282f1b2c3ac01aa25c9ee0021def4cdb75a58",
+      "byte_identical": true
+    }
+  ],
+  "parts": [
+    {
+      "name": "G00",
+      "bytes": 4095,
+      "byte_identical": true
+    },
+    {
+      "name": "G01",
+      "bytes": 4096,
+      "byte_identical": true
+    },
+    {
+      "name": "G02",
+      "bytes": 4094,
+      "byte_identical": true
+    },
+    {
+      "name": "G03",
+      "bytes": 4087,
+      "byte_identical": true
+    },
+    {
+      "name": "G04",
+      "bytes": 4092,
+      "byte_identical": true
+    },
+    {
+      "name": "G05",
+      "bytes": 4092,
+      "byte_identical": true
+    },
+    {
+      "name": "G06",
+      "bytes": 4088,
+      "byte_identical": true
+    },
+    {
+      "name": "G07",
+      "bytes": 4088,
+      "byte_identical": true
+    },
+    {
+      "name": "G08",
+      "bytes": 4096,
+      "byte_identical": true
+    },
+    {
+      "name": "G09",
+      "bytes": 4088,
+      "byte_identical": true
+    },
+    {
+      "name": "G10",
+      "bytes": 4092,
+      "byte_identical": true
+    },
+    {
+      "name": "G11",
+      "bytes": 1712,
+      "byte_identical": true
+    }
+  ],
+  "part_count": 12,
+  "rebuilt_atr_bytes": 92176,
+  "rebuilt_atr_sha256": "97f1aa6d09bbf6b772d8ce174a92f8b7870cfbd9efa148655af0b5557744fffe",
+  "atr_byte_identical": true,
+  "synthetic_trace_pcs_outside_static_analysis": [],
+  "limitations": "Byte equality verifies reconstruction, not correctness of all semantic labels or complete runtime behavior."
+}

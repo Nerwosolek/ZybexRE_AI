@@ -1,0 +1,147 @@
+module	address	proposed_label	note	status
+boot	0486	BOOTRETURN	Procedura fazy boot: CLC/RTS oznacza pomyslne zakonczenie.	analyst_proposed_not_original
+boot	0488	BOOTINIT	Wlasny loader. DCOMND i numer napedu sa odziedziczone po OS.	analyst_proposed_not_original
+boot	04A7	COPYLOADMSG		analyst_proposed_not_original
+boot	04B6	WARNBASIC		analyst_proposed_not_original
+boot	04B8	COPYWARNMSG		analyst_proposed_not_original
+boot	04C4	WAITRESET	Petla bez wyjscia. Uzytkownik ma nacisnac RESET zgodnie z komunikatem.	analyst_proposed_not_original
+boot	04C7	BOOTCONTINUE		analyst_proposed_not_original
+boot	04CF	WAITBOOTCLOCK		analyst_proposed_not_original
+boot	04EA	LOADPAYLOAD	Czyta kolejno sektory $0100-$026C (256-620), po 128 bajtow.	analyst_proposed_not_original
+boot	04FC	READSECTOR	DSKINV jest usluga ROM; dane sa ladowane od $0600.	analyst_proposed_not_original
+boot	0510	NEXTSECTOR		analyst_proposed_not_original
+boot	051A	INCSECTORLO		analyst_proposed_not_original
+boot	052C	NEXTBUFPAGE		analyst_proposed_not_original
+boot	0537	UNUSEDCHECK	Fragment kontroli bledu bez odnalezionego poprzednika w glownym CFG.	analyst_proposed_not_original
+boot	0539	LOADDONE		analyst_proposed_not_original
+boot	053A	BOOTERROR	Ustawia COLDST i wywoluje zimny restart OS. Sciezka nieosiagalna z loadera.	analyst_proposed_not_original
+boot	0625	COPYRESOURCES	Kopiuje zasoby do RAM pod ROM, nie kod systemu operacyjnego.	analyst_proposed_not_original
+boot	063A	COPYFONTMAP		analyst_proposed_not_original
+boot	0647	COPYLOGODATA		analyst_proposed_not_original
+boot	0651	COPYTOPRAM	X=liczba stron, COPYSRC/COPYDST=wskazniki. ROM off tylko na czas kopii.	analyst_proposed_not_original
+boot	065F	COPYRESOURCE		analyst_proposed_not_original
+game	0C80	GAMEENTRY	Wejscie po loaderze. RAM $0600-$BC7F pochodzi z sektorow 256-620.	analyst_proposed_not_original
+game	0C98	MENURESET		analyst_proposed_not_original
+game	0CB8	TITLESCREEN		analyst_proposed_not_original
+game	0CCF	MENULOOP1		analyst_proposed_not_original
+game	0CE5	MENUSWAP		analyst_proposed_not_original
+game	0D11	MENULOOP2		analyst_proposed_not_original
+game	0D2A	PRINTMENUTEXT		analyst_proposed_not_original
+game	0D51	STARTMUSIC	A = numer utworu. Zachowuje A na stosie podczas wyciszania.	analyst_proposed_not_original
+game	0D69	STOPMUSIC	Wylacza odtwarzanie muzyki i zeruje 9 rejestrow POKEY.	analyst_proposed_not_original
+game	0D7C	SETMENUCOLORS		analyst_proposed_not_original
+game	0DB0	MENUCOLORS		analyst_proposed_not_original
+game	0E07	BLINKCOLOR		analyst_proposed_not_original
+game	0E12	SETMENUPOS		analyst_proposed_not_original
+game	0E36	PACEMENU		analyst_proposed_not_original
+game	0E4C	STEPICONS		analyst_proposed_not_original
+game	0E6B	SETTITLECOLORS		analyst_proposed_not_original
+game	0EC8	MENUSTICK	Odczyt kierunkow joysticka z PORTA; wybor pozycji menu.	analyst_proposed_not_original
+game	0F13	MENUFIRE	TRIG0/TRIG1 to ODCZYT $D010/$D011, nie GRAFP3/GRAFM.	analyst_proposed_not_original
+game	0F5F	STARTREQUEST	Zeruje stos, czeka na zwolnienie fire, przechodzi do startu gry.	analyst_proposed_not_original
+game	0F99	TRANSITION		analyst_proposed_not_original
+game	1000	INITMENUNMI	Wylacza ROM przez PORTB=$FE i instaluje wlasne NMI/IRQ w RAM.	analyst_proposed_not_original
+game	102C	MENUEMPTYIRQ		analyst_proposed_not_original
+game	102D	MENUNMI	Bit 7 NMIST: DLI -> JMP (VDSLST); inaczej obsluga VBI menu.	analyst_proposed_not_original
+game	1035	MENUVBI	VBI: muzyka lub SFX, zegar $13/$14, kolory i cienie ANTIC.	analyst_proposed_not_original
+game	107A	HISCOREENTRY	Sciezka tabeli wynikow i wprowadzania inicjalow.	analyst_proposed_not_original
+game	115A	SAVEHISCORES		analyst_proposed_not_original
+game	1181	ENTERINITIALS		analyst_proposed_not_original
+game	11E8	P1INITIALS		analyst_proposed_not_original
+game	1235	WRAPLETTER		analyst_proposed_not_original
+game	1242	P2INITIALS		analyst_proposed_not_original
+game	128F	DLIHISCORE		analyst_proposed_not_original
+game	12CF	COPYSCORES		analyst_proposed_not_original
+game	1303	FINDHISCORE		analyst_proposed_not_original
+game	135B	SORTSCORES		analyst_proposed_not_original
+game	13A6	SWAPSCORE		analyst_proposed_not_original
+game	13B6	DLIRAINBOW1		analyst_proposed_not_original
+game	1410	DLIRAINBOW2		analyst_proposed_not_original
+game	142F	DLIRAINBOW3		analyst_proposed_not_original
+game	145C	CLEARMENU	Czysci 4 strony od $BC00; operand STA jest modyfikowany.	analyst_proposed_not_original
+game	1466	CLEARBCSTA	UWAGA SMC: poczatkowe $FF00 nie jest docelowym adresem czyszczenia.	analyst_proposed_not_original
+game	1483	CLEARSCREENS	Czysci $C000-$CFFF i $F000-$FEFF. Nie kasuje strony $FF00.	analyst_proposed_not_original
+game	1490	CLEARPAGES		analyst_proposed_not_original
+game	1495	CLEARPAGESTA	UWAGA SMC: starszy bajt adresu STA zmienia sie w petli.	analyst_proposed_not_original
+game	14A2	INITPMG	Konfiguracja DMA, PMBASE=$70 i grafiki player/missile.	analyst_proposed_not_original
+game	14C0	CLEARPMGSTA		analyst_proposed_not_original
+game	14D5	LOADMENUICONS		analyst_proposed_not_original
+game	1505	COPY16BYTES		analyst_proposed_not_original
+game	150F	BUILDMENUDLIST	Buduje liste ANTIC od $E200: dwa obszary bitmapy $C000 i $F000.	analyst_proposed_not_original
+game	157B	DLIMENU2A		analyst_proposed_not_original
+game	15CA	DLIMENU2B		analyst_proposed_not_original
+game	1622	DLIMENU1		analyst_proposed_not_original
+game	164F	SCROLLADJUST	UWAGA SMC: opcode $EE (INC abs) jest zmieniany na $CE (DEC abs).	analyst_proposed_not_original
+game	169D	PRINT8X8	Renderer tekstu; $15/$16 = wskaznik. Terminator tekstu: $1A.	analyst_proposed_not_original
+game	16B4	INCPTR0		analyst_proposed_not_original
+game	16BB	GETNEXTBYTE		analyst_proposed_not_original
+game	16CD	DRAWCHAR8X8		analyst_proposed_not_original
+game	1709	PRINTBITMAP	Tekst bitmapowy. Bajty < $1A ustawiaja wspolrzedne; $1A konczy.	analyst_proposed_not_original
+game	170D	PRINTTILES	Alternatywny tryb: znaki zlozone z kafelkow 2x2.	analyst_proposed_not_original
+game	173E	DRAWCHAR2X2	Mapa 4 kafelkow znaku jest w RAM $FF00 skopiowanym przez boot.	analyst_proposed_not_original
+game	1796	STORECHARCELL		analyst_proposed_not_original
+game	179D	SETBITMAPDEST		analyst_proposed_not_original
+game	17D5	DRAWBITMAPCHAR		analyst_proposed_not_original
+game	1839	SETGLYPHSRC		analyst_proposed_not_original
+game	1874	INITGAME	Nowa rozgrywka lub powrot do etapu; inicjalizacja stanu graczy.	analyst_proposed_not_original
+game	197F	MAINLOOP	Glowna petla: synchronizacja, obiekty, scrolling, gracze, uzbrojenie.	analyst_proposed_not_original
+game	1D32	UPDATESCORETEXT		analyst_proposed_not_original
+game	1D44	PRINTLEVELNUM		analyst_proposed_not_original
+game	1DB5	PRINTLEVELNAME	LEVELSTATE wybiera 16-bitowy wskaznik z tabeli LEVELNAMES.	analyst_proposed_not_original
+game	1DC3	ADDBONUSP1		analyst_proposed_not_original
+game	1DEC	ADDBONUSP2		analyst_proposed_not_original
+game	1E15	DLIBONUSP1		analyst_proposed_not_original
+game	1E3F	DLIBONUSP2		analyst_proposed_not_original
+game	1EC0	UPDATEORBITALS	Pozycje orbitalow wyliczane z 12-elementowych ORBITDX/ORBITDY.	analyst_proposed_not_original
+game	1F37	SETORBITPOS		analyst_proposed_not_original
+game	1F64	INITORBITAL		analyst_proposed_not_original
+game	2416	UPDATEP1WEAPON		analyst_proposed_not_original
+game	247A	SELECTP1WEAPON		analyst_proposed_not_original
+game	24A3	LOADP1WEAPON		analyst_proposed_not_original
+game	24CD	UPDATEP2WEAPON		analyst_proposed_not_original
+game	2536	SELECTP2WEAPON		analyst_proposed_not_original
+game	255F	LOADP2WEAPON		analyst_proposed_not_original
+game	2588	DRAWWEAPONICON		analyst_proposed_not_original
+game	258C	DRAWICONBASE		analyst_proposed_not_original
+game	25DF	DRAWICONLEVEL		analyst_proposed_not_original
+game	260C	CHECKSELECT	Sprawdzenie bitu SELECT w CONSOL. Nie jest odczytem joysticka.	analyst_proposed_not_original
+game	2630	SETLEVELDATA	Instaluje kolory etapu oraz wskazniki mapy i danych fal przez SMC.	analyst_proposed_not_original
+game	2698	INITHUD		analyst_proposed_not_original
+game	26CA	CLEAR16PAGES		analyst_proposed_not_original
+game	2770	PLAYERSVBI	Wywolywana przez VBI rozgrywki; obsluga danych i grafiki graczy.	analyst_proposed_not_original
+game	2DEA	INITOBJECTRAM	Dane obiektow sa w RAM $D800, dostepnym po wylaczeniu OS ROM.	analyst_proposed_not_original
+game	2E58	INITSHOTPOOL		analyst_proposed_not_original
+game	334E	MOVEXMINUS		analyst_proposed_not_original
+game	3386	MOVEXPLUS		analyst_proposed_not_original
+game	34E3	DRAWPOOL88		analyst_proposed_not_original
+game	35CE	DRAWPOOL28		analyst_proposed_not_original
+game	3635	BLITOBJECT		analyst_proposed_not_original
+game	3676	DRAWPOOL42		analyst_proposed_not_original
+game	370B	DRAWPLAYERPOOL		analyst_proposed_not_original
+game	37A3	INITGAMENMI	Instaluje NMI rozgrywki $37DB i pusty IRQ $37DA.	analyst_proposed_not_original
+game	37DA	GAMEEMPTYIRQ		analyst_proposed_not_original
+game	37DB	GAMENMI	Rozdzielenie DLI/VBI jak w menu, ale z innym cialem VBI.	analyst_proposed_not_original
+game	37E3	GAMEVBI		analyst_proposed_not_original
+game	3881	INITPLAYFIELD	Inicjalizuje dwie listy ANTIC i bufory przewijanego pola gry.	analyst_proposed_not_original
+game	38E8	BUILDPLAYFIELD	Oryginal wykonuje dwukrotnie STA $0129 (takze dla bajtu high).	analyst_proposed_not_original
+game	396F	DLIGAMEA		analyst_proposed_not_original
+game	3993	DLIGAMEB		analyst_proposed_not_original
+game	39DD	SCROLLWORLD	Przewijanie i generowanie kolejnej kolumny mapy.	analyst_proposed_not_original
+game	3A7A	DRAWNEXTMAPCOL		analyst_proposed_not_original
+game	3A99	SELECTMAPTILE		analyst_proposed_not_original
+game	3AC4	DRAWCOMPTILE		analyst_proposed_not_original
+game	3AFC	DRAWTILEGROUP		analyst_proposed_not_original
+game	3B3D	BLIT4ROWS	Zapis 4 wierszy kafelka; krok adresu ekranu wynosi $2C = 44 bajty.	analyst_proposed_not_original
+game	3B6A	ADVANCEDLISTLMS	Inkrementuje 88 adresow LMS w liscie ANTIC; wpis ma 3 bajty.	analyst_proposed_not_original
+game	3B91	WAITFRAMEFLIP	Czeka na VBI, kopiuje wiersz HUD i zada zamiany bufora przez VBI.	analyst_proposed_not_original
+game	3ED4	SFX3TICK	Efekt na trzecim kanale POKEY ($D204/$D205).	analyst_proposed_not_original
+game	3F2E	SFX3STEP	Czesc wspolna dwoch odtwarzaczy SFX; makro zachowuje 100 bajtow.	analyst_proposed_not_original
+game	4056	SFX2TICK	Efekt na drugim kanale POKEY ($D202/$D203).	analyst_proposed_not_original
+game	40B0	SFX2STEP	Druga instancja tego samego algorytmu SFXSTEP.	analyst_proposed_not_original
+game	6A00	MUSICINITVEC	Trzy punkty interfejsu muzyki: inicjalizacja, stop, tick.	analyst_proposed_not_original
+game	6A03	MUSICSTOPVEC		analyst_proposed_not_original
+game	6A06	MUSICVBI	Zachowuje $C0-$C3, oblicza glosy i kopiuje bufor do POKEY.	analyst_proposed_not_original
+game	6A2D	MUSICPLAYER	Interpreter sekwencji muzycznych; dane i tablice pozostaja .BYTE.	analyst_proposed_not_original
+game	725E	MUSICRESETSTATE		analyst_proposed_not_original
+game	7264	MUSICSTOP		analyst_proposed_not_original
+game	7268	MUSICINIT	Inicjalizacja muzyki wybranej w A; wybiera wskazniki sekwencji.	analyst_proposed_not_original

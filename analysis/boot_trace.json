@@ -1,0 +1,1965 @@
+{
+  "method": "Instruction-level 6502, DSKINV mocked, OS clock synthetic; not a hardware emulation",
+  "image_sha256": "97f1aa6d09bbf6b772d8ce174a92f8b7870cfbd9efa148655af0b5557744fffe",
+  "entry": "0488",
+  "exit_pc": "0C80",
+  "instructions_executed": 16831,
+  "unique_instruction_addresses": 109,
+  "code": {
+    "0488": "a936",
+    "048A": "8dc402",
+    "048D": "a900",
+    "048F": "8541",
+    "0491": "8dc602",
+    "0494": "a944",
+    "0496": "8d3002",
+    "0499": "a905",
+    "049B": "8d3102",
+    "049E": "ad01d3",
+    "04A1": "c9ff",
+    "04A3": "d011",
+    "04A5": "a24f",
+    "04A7": "bdad05",
+    "04AA": "38",
+    "04AB": "e920",
+    "04AD": "9d5105",
+    "04B0": "ca",
+    "04B1": "10f4",
+    "04B3": "4cc704",
+    "04C7": "202506",
+    "04CA": "a514",
+    "04CC": "18",
+    "04CD": "6902",
+    "04CF": "c514",
+    "04D1": "d0fc",
+    "04D3": "20ea04",
+    "04D6": "a900",
+    "04D8": "8d4402",
+    "04DB": "a901",
+    "04DD": "8509",
+    "04DF": "a980",
+    "04E1": "850c",
+    "04E3": "a90c",
+    "04E5": "850d",
+    "04E7": "4c800c",
+    "04EA": "a900",
+    "04EC": "8d0403",
+    "04EF": "8d0a03",
+    "04F2": "a906",
+    "04F4": "8d0503",
+    "04F7": "a901",
+    "04F9": "8d0b03",
+    "04FC": "2053e4",
+    "04FF": "ad0b03",
+    "0502": "c902",
+    "0504": "d00a",
+    "0506": "ad0a03",
+    "0509": "c96c",
+    "050B": "d003",
+    "050D": "4c3905",
+    "0510": "ad0a03",
+    "0513": "c9ff",
+    "0515": "d003",
+    "0517": "ee0b03",
+    "051A": "ee0a03",
+    "051D": "ad0403",
+    "0520": "c980",
+    "0522": "f008",
+    "0524": "a980",
+    "0526": "8d0403",
+    "0529": "4cfc04",
+    "052C": "a900",
+    "052E": "8d0403",
+    "0531": "ee0503",
+    "0534": "4cfc04",
+    "0539": "60",
+    "0625": "a207",
+    "0627": "a000",
+    "0629": "8693",
+    "062B": "8492",
+    "062D": "a2e4",
+    "062F": "a000",
+    "0631": "8695",
+    "0633": "8494",
+    "0635": "a205",
+    "0637": "205106",
+    "063A": "a2ff",
+    "063C": "a000",
+    "063E": "8695",
+    "0640": "8494",
+    "0642": "a201",
+    "0644": "205106",
+    "0647": "a2dc",
+    "0649": "a000",
+    "064B": "8695",
+    "064D": "8494",
+    "064F": "a204",
+    "0651": "a900",
+    "0653": "78",
+    "0654": "8d0ed4",
+    "0657": "78",
+    "0658": "a9fe",
+    "065A": "8d01d3",
+    "065D": "a000",
+    "065F": "b192",
+    "0661": "9194",
+    "0663": "c8",
+    "0664": "d0f9",
+    "0666": "e693",
+    "0668": "e695",
+    "066A": "ca",
+    "066B": "d0f2",
+    "066D": "a9ff",
+    "066F": "8d01d3",
+    "0672": "a940",
+    "0674": "8d0ed4",
+    "0677": "58",
+    "0678": "60"
+  },
+  "reads": [
+    {
+      "sector": 256,
+      "destination": "0600",
+      "file_offset": 32656
+    },
+    {
+      "sector": 257,
+      "destination": "0680",
+      "file_offset": 32784
+    },
+    {
+      "sector": 258,
+      "destination": "0700",
+      "file_offset": 32912
+    },
+    {
+      "sector": 259,
+      "destination": "0780",
+      "file_offset": 33040
+    },
+    {
+      "sector": 260,
+      "destination": "0800",
+      "file_offset": 33168
+    },
+    {
+      "sector": 261,
+      "destination": "0880",
+      "file_offset": 33296
+    },
+    {
+      "sector": 262,
+      "destination": "0900",
+      "file_offset": 33424
+    },
+    {
+      "sector": 263,
+      "destination": "0980",
+      "file_offset": 33552
+    },
+    {
+      "sector": 264,
+      "destination": "0A00",
+      "file_offset": 33680
+    },
+    {
+      "sector": 265,
+      "destination": "0A80",
+      "file_offset": 33808
+    },
+    {
+      "sector": 266,
+      "destination": "0B00",
+      "file_offset": 33936
+    },
+    {
+      "sector": 267,
+      "destination": "0B80",
+      "file_offset": 34064
+    },
+    {
+      "sector": 268,
+      "destination": "0C00",
+      "file_offset": 34192
+    },
+    {
+      "sector": 269,
+      "destination": "0C80",
+      "file_offset": 34320
+    },
+    {
+      "sector": 270,
+      "destination": "0D00",
+      "file_offset": 34448
+    },
+    {
+      "sector": 271,
+      "destination": "0D80",
+      "file_offset": 34576
+    },
+    {
+      "sector": 272,
+      "destination": "0E00",
+      "file_offset": 34704
+    },
+    {
+      "sector": 273,
+      "destination": "0E80",
+      "file_offset": 34832
+    },
+    {
+      "sector": 274,
+      "destination": "0F00",
+      "file_offset": 34960
+    },
+    {
+      "sector": 275,
+      "destination": "0F80",
+      "file_offset": 35088
+    },
+    {
+      "sector": 276,
+      "destination": "1000",
+      "file_offset": 35216
+    },
+    {
+      "sector": 277,
+      "destination": "1080",
+      "file_offset": 35344
+    },
+    {
+      "sector": 278,
+      "destination": "1100",
+      "file_offset": 35472
+    },
+    {
+      "sector": 279,
+      "destination": "1180",
+      "file_offset": 35600
+    },
+    {
+      "sector": 280,
+      "destination": "1200",
+      "file_offset": 35728
+    },
+    {
+      "sector": 281,
+      "destination": "1280",
+      "file_offset": 35856
+    },
+    {
+      "sector": 282,
+      "destination": "1300",
+      "file_offset": 35984
+    },
+    {
+      "sector": 283,
+      "destination": "1380",
+      "file_offset": 36112
+    },
+    {
+      "sector": 284,
+      "destination": "1400",
+      "file_offset": 36240
+    },
+    {
+      "sector": 285,
+      "destination": "1480",
+      "file_offset": 36368
+    },
+    {
+      "sector": 286,
+      "destination": "1500",
+      "file_offset": 36496
+    },
+    {
+      "sector": 287,
+      "destination": "1580",
+      "file_offset": 36624
+    },
+    {
+      "sector": 288,
+      "destination": "1600",
+      "file_offset": 36752
+    },
+    {
+      "sector": 289,
+      "destination": "1680",
+      "file_offset": 36880
+    },
+    {
+      "sector": 290,
+      "destination": "1700",
+      "file_offset": 37008
+    },
+    {
+      "sector": 291,
+      "destination": "1780",
+      "file_offset": 37136
+    },
+    {
+      "sector": 292,
+      "destination": "1800",
+      "file_offset": 37264
+    },
+    {
+      "sector": 293,
+      "destination": "1880",
+      "file_offset": 37392
+    },
+    {
+      "sector": 294,
+      "destination": "1900",
+      "file_offset": 37520
+    },
+    {
+      "sector": 295,
+      "destination": "1980",
+      "file_offset": 37648
+    },
+    {
+      "sector": 296,
+      "destination": "1A00",
+      "file_offset": 37776
+    },
+    {
+      "sector": 297,
+      "destination": "1A80",
+      "file_offset": 37904
+    },
+    {
+      "sector": 298,
+      "destination": "1B00",
+      "file_offset": 38032
+    },
+    {
+      "sector": 299,
+      "destination": "1B80",
+      "file_offset": 38160
+    },
+    {
+      "sector": 300,
+      "destination": "1C00",
+      "file_offset": 38288
+    },
+    {
+      "sector": 301,
+      "destination": "1C80",
+      "file_offset": 38416
+    },
+    {
+      "sector": 302,
+      "destination": "1D00",
+      "file_offset": 38544
+    },
+    {
+      "sector": 303,
+      "destination": "1D80",
+      "file_offset": 38672
+    },
+    {
+      "sector": 304,
+      "destination": "1E00",
+      "file_offset": 38800
+    },
+    {
+      "sector": 305,
+      "destination": "1E80",
+      "file_offset": 38928
+    },
+    {
+      "sector": 306,
+      "destination": "1F00",
+      "file_offset": 39056
+    },
+    {
+      "sector": 307,
+      "destination": "1F80",
+      "file_offset": 39184
+    },
+    {
+      "sector": 308,
+      "destination": "2000",
+      "file_offset": 39312
+    },
+    {
+      "sector": 309,
+      "destination": "2080",
+      "file_offset": 39440
+    },
+    {
+      "sector": 310,
+      "destination": "2100",
+      "file_offset": 39568
+    },
+    {
+      "sector": 311,
+      "destination": "2180",
+      "file_offset": 39696
+    },
+    {
+      "sector": 312,
+      "destination": "2200",
+      "file_offset": 39824
+    },
+    {
+      "sector": 313,
+      "destination": "2280",
+      "file_offset": 39952
+    },
+    {
+      "sector": 314,
+      "destination": "2300",
+      "file_offset": 40080
+    },
+    {
+      "sector": 315,
+      "destination": "2380",
+      "file_offset": 40208
+    },
+    {
+      "sector": 316,
+      "destination": "2400",
+      "file_offset": 40336
+    },
+    {
+      "sector": 317,
+      "destination": "2480",
+      "file_offset": 40464
+    },
+    {
+      "sector": 318,
+      "destination": "2500",
+      "file_offset": 40592
+    },
+    {
+      "sector": 319,
+      "destination": "2580",
+      "file_offset": 40720
+    },
+    {
+      "sector": 320,
+      "destination": "2600",
+      "file_offset": 40848
+    },
+    {
+      "sector": 321,
+      "destination": "2680",
+      "file_offset": 40976
+    },
+    {
+      "sector": 322,
+      "destination": "2700",
+      "file_offset": 41104
+    },
+    {
+      "sector": 323,
+      "destination": "2780",
+      "file_offset": 41232
+    },
+    {
+      "sector": 324,
+      "destination": "2800",
+      "file_offset": 41360
+    },
+    {
+      "sector": 325,
+      "destination": "2880",
+      "file_offset": 41488
+    },
+    {
+      "sector": 326,
+      "destination": "2900",
+      "file_offset": 41616
+    },
+    {
+      "sector": 327,
+      "destination": "2980",
+      "file_offset": 41744
+    },
+    {
+      "sector": 328,
+      "destination": "2A00",
+      "file_offset": 41872
+    },
+    {
+      "sector": 329,
+      "destination": "2A80",
+      "file_offset": 42000
+    },
+    {
+      "sector": 330,
+      "destination": "2B00",
+      "file_offset": 42128
+    },
+    {
+      "sector": 331,
+      "destination": "2B80",
+      "file_offset": 42256
+    },
+    {
+      "sector": 332,
+      "destination": "2C00",
+      "file_offset": 42384
+    },
+    {
+      "sector": 333,
+      "destination": "2C80",
+      "file_offset": 42512
+    },
+    {
+      "sector": 334,
+      "destination": "2D00",
+      "file_offset": 42640
+    },
+    {
+      "sector": 335,
+      "destination": "2D80",
+      "file_offset": 42768
+    },
+    {
+      "sector": 336,
+      "destination": "2E00",
+      "file_offset": 42896
+    },
+    {
+      "sector": 337,
+      "destination": "2E80",
+      "file_offset": 43024
+    },
+    {
+      "sector": 338,
+      "destination": "2F00",
+      "file_offset": 43152
+    },
+    {
+      "sector": 339,
+      "destination": "2F80",
+      "file_offset": 43280
+    },
+    {
+      "sector": 340,
+      "destination": "3000",
+      "file_offset": 43408
+    },
+    {
+      "sector": 341,
+      "destination": "3080",
+      "file_offset": 43536
+    },
+    {
+      "sector": 342,
+      "destination": "3100",
+      "file_offset": 43664
+    },
+    {
+      "sector": 343,
+      "destination": "3180",
+      "file_offset": 43792
+    },
+    {
+      "sector": 344,
+      "destination": "3200",
+      "file_offset": 43920
+    },
+    {
+      "sector": 345,
+      "destination": "3280",
+      "file_offset": 44048
+    },
+    {
+      "sector": 346,
+      "destination": "3300",
+      "file_offset": 44176
+    },
+    {
+      "sector": 347,
+      "destination": "3380",
+      "file_offset": 44304
+    },
+    {
+      "sector": 348,
+      "destination": "3400",
+      "file_offset": 44432
+    },
+    {
+      "sector": 349,
+      "destination": "3480",
+      "file_offset": 44560
+    },
+    {
+      "sector": 350,
+      "destination": "3500",
+      "file_offset": 44688
+    },
+    {
+      "sector": 351,
+      "destination": "3580",
+      "file_offset": 44816
+    },
+    {
+      "sector": 352,
+      "destination": "3600",
+      "file_offset": 44944
+    },
+    {
+      "sector": 353,
+      "destination": "3680",
+      "file_offset": 45072
+    },
+    {
+      "sector": 354,
+      "destination": "3700",
+      "file_offset": 45200
+    },
+    {
+      "sector": 355,
+      "destination": "3780",
+      "file_offset": 45328
+    },
+    {
+      "sector": 356,
+      "destination": "3800",
+      "file_offset": 45456
+    },
+    {
+      "sector": 357,
+      "destination": "3880",
+      "file_offset": 45584
+    },
+    {
+      "sector": 358,
+      "destination": "3900",
+      "file_offset": 45712
+    },
+    {
+      "sector": 359,
+      "destination": "3980",
+      "file_offset": 45840
+    },
+    {
+      "sector": 360,
+      "destination": "3A00",
+      "file_offset": 45968
+    },
+    {
+      "sector": 361,
+      "destination": "3A80",
+      "file_offset": 46096
+    },
+    {
+      "sector": 362,
+      "destination": "3B00",
+      "file_offset": 46224
+    },
+    {
+      "sector": 363,
+      "destination": "3B80",
+      "file_offset": 46352
+    },
+    {
+      "sector": 364,
+      "destination": "3C00",
+      "file_offset": 46480
+    },
+    {
+      "sector": 365,
+      "destination": "3C80",
+      "file_offset": 46608
+    },
+    {
+      "sector": 366,
+      "destination": "3D00",
+      "file_offset": 46736
+    },
+    {
+      "sector": 367,
+      "destination": "3D80",
+      "file_offset": 46864
+    },
+    {
+      "sector": 368,
+      "destination": "3E00",
+      "file_offset": 46992
+    },
+    {
+      "sector": 369,
+      "destination": "3E80",
+      "file_offset": 47120
+    },
+    {
+      "sector": 370,
+      "destination": "3F00",
+      "file_offset": 47248
+    },
+    {
+      "sector": 371,
+      "destination": "3F80",
+      "file_offset": 47376
+    },
+    {
+      "sector": 372,
+      "destination": "4000",
+      "file_offset": 47504
+    },
+    {
+      "sector": 373,
+      "destination": "4080",
+      "file_offset": 47632
+    },
+    {
+      "sector": 374,
+      "destination": "4100",
+      "file_offset": 47760
+    },
+    {
+      "sector": 375,
+      "destination": "4180",
+      "file_offset": 47888
+    },
+    {
+      "sector": 376,
+      "destination": "4200",
+      "file_offset": 48016
+    },
+    {
+      "sector": 377,
+      "destination": "4280",
+      "file_offset": 48144
+    },
+    {
+      "sector": 378,
+      "destination": "4300",
+      "file_offset": 48272
+    },
+    {
+      "sector": 379,
+      "destination": "4380",
+      "file_offset": 48400
+    },
+    {
+      "sector": 380,
+      "destination": "4400",
+      "file_offset": 48528
+    },
+    {
+      "sector": 381,
+      "destination": "4480",
+      "file_offset": 48656
+    },
+    {
+      "sector": 382,
+      "destination": "4500",
+      "file_offset": 48784
+    },
+    {
+      "sector": 383,
+      "destination": "4580",
+      "file_offset": 48912
+    },
+    {
+      "sector": 384,
+      "destination": "4600",
+      "file_offset": 49040
+    },
+    {
+      "sector": 385,
+      "destination": "4680",
+      "file_offset": 49168
+    },
+    {
+      "sector": 386,
+      "destination": "4700",
+      "file_offset": 49296
+    },
+    {
+      "sector": 387,
+      "destination": "4780",
+      "file_offset": 49424
+    },
+    {
+      "sector": 388,
+      "destination": "4800",
+      "file_offset": 49552
+    },
+    {
+      "sector": 389,
+      "destination": "4880",
+      "file_offset": 49680
+    },
+    {
+      "sector": 390,
+      "destination": "4900",
+      "file_offset": 49808
+    },
+    {
+      "sector": 391,
+      "destination": "4980",
+      "file_offset": 49936
+    },
+    {
+      "sector": 392,
+      "destination": "4A00",
+      "file_offset": 50064
+    },
+    {
+      "sector": 393,
+      "destination": "4A80",
+      "file_offset": 50192
+    },
+    {
+      "sector": 394,
+      "destination": "4B00",
+      "file_offset": 50320
+    },
+    {
+      "sector": 395,
+      "destination": "4B80",
+      "file_offset": 50448
+    },
+    {
+      "sector": 396,
+      "destination": "4C00",
+      "file_offset": 50576
+    },
+    {
+      "sector": 397,
+      "destination": "4C80",
+      "file_offset": 50704
+    },
+    {
+      "sector": 398,
+      "destination": "4D00",
+      "file_offset": 50832
+    },
+    {
+      "sector": 399,
+      "destination": "4D80",
+      "file_offset": 50960
+    },
+    {
+      "sector": 400,
+      "destination": "4E00",
+      "file_offset": 51088
+    },
+    {
+      "sector": 401,
+      "destination": "4E80",
+      "file_offset": 51216
+    },
+    {
+      "sector": 402,
+      "destination": "4F00",
+      "file_offset": 51344
+    },
+    {
+      "sector": 403,
+      "destination": "4F80",
+      "file_offset": 51472
+    },
+    {
+      "sector": 404,
+      "destination": "5000",
+      "file_offset": 51600
+    },
+    {
+      "sector": 405,
+      "destination": "5080",
+      "file_offset": 51728
+    },
+    {
+      "sector": 406,
+      "destination": "5100",
+      "file_offset": 51856
+    },
+    {
+      "sector": 407,
+      "destination": "5180",
+      "file_offset": 51984
+    },
+    {
+      "sector": 408,
+      "destination": "5200",
+      "file_offset": 52112
+    },
+    {
+      "sector": 409,
+      "destination": "5280",
+      "file_offset": 52240
+    },
+    {
+      "sector": 410,
+      "destination": "5300",
+      "file_offset": 52368
+    },
+    {
+      "sector": 411,
+      "destination": "5380",
+      "file_offset": 52496
+    },
+    {
+      "sector": 412,
+      "destination": "5400",
+      "file_offset": 52624
+    },
+    {
+      "sector": 413,
+      "destination": "5480",
+      "file_offset": 52752
+    },
+    {
+      "sector": 414,
+      "destination": "5500",
+      "file_offset": 52880
+    },
+    {
+      "sector": 415,
+      "destination": "5580",
+      "file_offset": 53008
+    },
+    {
+      "sector": 416,
+      "destination": "5600",
+      "file_offset": 53136
+    },
+    {
+      "sector": 417,
+      "destination": "5680",
+      "file_offset": 53264
+    },
+    {
+      "sector": 418,
+      "destination": "5700",
+      "file_offset": 53392
+    },
+    {
+      "sector": 419,
+      "destination": "5780",
+      "file_offset": 53520
+    },
+    {
+      "sector": 420,
+      "destination": "5800",
+      "file_offset": 53648
+    },
+    {
+      "sector": 421,
+      "destination": "5880",
+      "file_offset": 53776
+    },
+    {
+      "sector": 422,
+      "destination": "5900",
+      "file_offset": 53904
+    },
+    {
+      "sector": 423,
+      "destination": "5980",
+      "file_offset": 54032
+    },
+    {
+      "sector": 424,
+      "destination": "5A00",
+      "file_offset": 54160
+    },
+    {
+      "sector": 425,
+      "destination": "5A80",
+      "file_offset": 54288
+    },
+    {
+      "sector": 426,
+      "destination": "5B00",
+      "file_offset": 54416
+    },
+    {
+      "sector": 427,
+      "destination": "5B80",
+      "file_offset": 54544
+    },
+    {
+      "sector": 428,
+      "destination": "5C00",
+      "file_offset": 54672
+    },
+    {
+      "sector": 429,
+      "destination": "5C80",
+      "file_offset": 54800
+    },
+    {
+      "sector": 430,
+      "destination": "5D00",
+      "file_offset": 54928
+    },
+    {
+      "sector": 431,
+      "destination": "5D80",
+      "file_offset": 55056
+    },
+    {
+      "sector": 432,
+      "destination": "5E00",
+      "file_offset": 55184
+    },
+    {
+      "sector": 433,
+      "destination": "5E80",
+      "file_offset": 55312
+    },
+    {
+      "sector": 434,
+      "destination": "5F00",
+      "file_offset": 55440
+    },
+    {
+      "sector": 435,
+      "destination": "5F80",
+      "file_offset": 55568
+    },
+    {
+      "sector": 436,
+      "destination": "6000",
+      "file_offset": 55696
+    },
+    {
+      "sector": 437,
+      "destination": "6080",
+      "file_offset": 55824
+    },
+    {
+      "sector": 438,
+      "destination": "6100",
+      "file_offset": 55952
+    },
+    {
+      "sector": 439,
+      "destination": "6180",
+      "file_offset": 56080
+    },
+    {
+      "sector": 440,
+      "destination": "6200",
+      "file_offset": 56208
+    },
+    {
+      "sector": 441,
+      "destination": "6280",
+      "file_offset": 56336
+    },
+    {
+      "sector": 442,
+      "destination": "6300",
+      "file_offset": 56464
+    },
+    {
+      "sector": 443,
+      "destination": "6380",
+      "file_offset": 56592
+    },
+    {
+      "sector": 444,
+      "destination": "6400",
+      "file_offset": 56720
+    },
+    {
+      "sector": 445,
+      "destination": "6480",
+      "file_offset": 56848
+    },
+    {
+      "sector": 446,
+      "destination": "6500",
+      "file_offset": 56976
+    },
+    {
+      "sector": 447,
+      "destination": "6580",
+      "file_offset": 57104
+    },
+    {
+      "sector": 448,
+      "destination": "6600",
+      "file_offset": 57232
+    },
+    {
+      "sector": 449,
+      "destination": "6680",
+      "file_offset": 57360
+    },
+    {
+      "sector": 450,
+      "destination": "6700",
+      "file_offset": 57488
+    },
+    {
+      "sector": 451,
+      "destination": "6780",
+      "file_offset": 57616
+    },
+    {
+      "sector": 452,
+      "destination": "6800",
+      "file_offset": 57744
+    },
+    {
+      "sector": 453,
+      "destination": "6880",
+      "file_offset": 57872
+    },
+    {
+      "sector": 454,
+      "destination": "6900",
+      "file_offset": 58000
+    },
+    {
+      "sector": 455,
+      "destination": "6980",
+      "file_offset": 58128
+    },
+    {
+      "sector": 456,
+      "destination": "6A00",
+      "file_offset": 58256
+    },
+    {
+      "sector": 457,
+      "destination": "6A80",
+      "file_offset": 58384
+    },
+    {
+      "sector": 458,
+      "destination": "6B00",
+      "file_offset": 58512
+    },
+    {
+      "sector": 459,
+      "destination": "6B80",
+      "file_offset": 58640
+    },
+    {
+      "sector": 460,
+      "destination": "6C00",
+      "file_offset": 58768
+    },
+    {
+      "sector": 461,
+      "destination": "6C80",
+      "file_offset": 58896
+    },
+    {
+      "sector": 462,
+      "destination": "6D00",
+      "file_offset": 59024
+    },
+    {
+      "sector": 463,
+      "destination": "6D80",
+      "file_offset": 59152
+    },
+    {
+      "sector": 464,
+      "destination": "6E00",
+      "file_offset": 59280
+    },
+    {
+      "sector": 465,
+      "destination": "6E80",
+      "file_offset": 59408
+    },
+    {
+      "sector": 466,
+      "destination": "6F00",
+      "file_offset": 59536
+    },
+    {
+      "sector": 467,
+      "destination": "6F80",
+      "file_offset": 59664
+    },
+    {
+      "sector": 468,
+      "destination": "7000",
+      "file_offset": 59792
+    },
+    {
+      "sector": 469,
+      "destination": "7080",
+      "file_offset": 59920
+    },
+    {
+      "sector": 470,
+      "destination": "7100",
+      "file_offset": 60048
+    },
+    {
+      "sector": 471,
+      "destination": "7180",
+      "file_offset": 60176
+    },
+    {
+      "sector": 472,
+      "destination": "7200",
+      "file_offset": 60304
+    },
+    {
+      "sector": 473,
+      "destination": "7280",
+      "file_offset": 60432
+    },
+    {
+      "sector": 474,
+      "destination": "7300",
+      "file_offset": 60560
+    },
+    {
+      "sector": 475,
+      "destination": "7380",
+      "file_offset": 60688
+    },
+    {
+      "sector": 476,
+      "destination": "7400",
+      "file_offset": 60816
+    },
+    {
+      "sector": 477,
+      "destination": "7480",
+      "file_offset": 60944
+    },
+    {
+      "sector": 478,
+      "destination": "7500",
+      "file_offset": 61072
+    },
+    {
+      "sector": 479,
+      "destination": "7580",
+      "file_offset": 61200
+    },
+    {
+      "sector": 480,
+      "destination": "7600",
+      "file_offset": 61328
+    },
+    {
+      "sector": 481,
+      "destination": "7680",
+      "file_offset": 61456
+    },
+    {
+      "sector": 482,
+      "destination": "7700",
+      "file_offset": 61584
+    },
+    {
+      "sector": 483,
+      "destination": "7780",
+      "file_offset": 61712
+    },
+    {
+      "sector": 484,
+      "destination": "7800",
+      "file_offset": 61840
+    },
+    {
+      "sector": 485,
+      "destination": "7880",
+      "file_offset": 61968
+    },
+    {
+      "sector": 486,
+      "destination": "7900",
+      "file_offset": 62096
+    },
+    {
+      "sector": 487,
+      "destination": "7980",
+      "file_offset": 62224
+    },
+    {
+      "sector": 488,
+      "destination": "7A00",
+      "file_offset": 62352
+    },
+    {
+      "sector": 489,
+      "destination": "7A80",
+      "file_offset": 62480
+    },
+    {
+      "sector": 490,
+      "destination": "7B00",
+      "file_offset": 62608
+    },
+    {
+      "sector": 491,
+      "destination": "7B80",
+      "file_offset": 62736
+    },
+    {
+      "sector": 492,
+      "destination": "7C00",
+      "file_offset": 62864
+    },
+    {
+      "sector": 493,
+      "destination": "7C80",
+      "file_offset": 62992
+    },
+    {
+      "sector": 494,
+      "destination": "7D00",
+      "file_offset": 63120
+    },
+    {
+      "sector": 495,
+      "destination": "7D80",
+      "file_offset": 63248
+    },
+    {
+      "sector": 496,
+      "destination": "7E00",
+      "file_offset": 63376
+    },
+    {
+      "sector": 497,
+      "destination": "7E80",
+      "file_offset": 63504
+    },
+    {
+      "sector": 498,
+      "destination": "7F00",
+      "file_offset": 63632
+    },
+    {
+      "sector": 499,
+      "destination": "7F80",
+      "file_offset": 63760
+    },
+    {
+      "sector": 500,
+      "destination": "8000",
+      "file_offset": 63888
+    },
+    {
+      "sector": 501,
+      "destination": "8080",
+      "file_offset": 64016
+    },
+    {
+      "sector": 502,
+      "destination": "8100",
+      "file_offset": 64144
+    },
+    {
+      "sector": 503,
+      "destination": "8180",
+      "file_offset": 64272
+    },
+    {
+      "sector": 504,
+      "destination": "8200",
+      "file_offset": 64400
+    },
+    {
+      "sector": 505,
+      "destination": "8280",
+      "file_offset": 64528
+    },
+    {
+      "sector": 506,
+      "destination": "8300",
+      "file_offset": 64656
+    },
+    {
+      "sector": 507,
+      "destination": "8380",
+      "file_offset": 64784
+    },
+    {
+      "sector": 508,
+      "destination": "8400",
+      "file_offset": 64912
+    },
+    {
+      "sector": 509,
+      "destination": "8480",
+      "file_offset": 65040
+    },
+    {
+      "sector": 510,
+      "destination": "8500",
+      "file_offset": 65168
+    },
+    {
+      "sector": 511,
+      "destination": "8580",
+      "file_offset": 65296
+    },
+    {
+      "sector": 512,
+      "destination": "8600",
+      "file_offset": 65424
+    },
+    {
+      "sector": 513,
+      "destination": "8680",
+      "file_offset": 65552
+    },
+    {
+      "sector": 514,
+      "destination": "8700",
+      "file_offset": 65680
+    },
+    {
+      "sector": 515,
+      "destination": "8780",
+      "file_offset": 65808
+    },
+    {
+      "sector": 516,
+      "destination": "8800",
+      "file_offset": 65936
+    },
+    {
+      "sector": 517,
+      "destination": "8880",
+      "file_offset": 66064
+    },
+    {
+      "sector": 518,
+      "destination": "8900",
+      "file_offset": 66192
+    },
+    {
+      "sector": 519,
+      "destination": "8980",
+      "file_offset": 66320
+    },
+    {
+      "sector": 520,
+      "destination": "8A00",
+      "file_offset": 66448
+    },
+    {
+      "sector": 521,
+      "destination": "8A80",
+      "file_offset": 66576
+    },
+    {
+      "sector": 522,
+      "destination": "8B00",
+      "file_offset": 66704
+    },
+    {
+      "sector": 523,
+      "destination": "8B80",
+      "file_offset": 66832
+    },
+    {
+      "sector": 524,
+      "destination": "8C00",
+      "file_offset": 66960
+    },
+    {
+      "sector": 525,
+      "destination": "8C80",
+      "file_offset": 67088
+    },
+    {
+      "sector": 526,
+      "destination": "8D00",
+      "file_offset": 67216
+    },
+    {
+      "sector": 527,
+      "destination": "8D80",
+      "file_offset": 67344
+    },
+    {
+      "sector": 528,
+      "destination": "8E00",
+      "file_offset": 67472
+    },
+    {
+      "sector": 529,
+      "destination": "8E80",
+      "file_offset": 67600
+    },
+    {
+      "sector": 530,
+      "destination": "8F00",
+      "file_offset": 67728
+    },
+    {
+      "sector": 531,
+      "destination": "8F80",
+      "file_offset": 67856
+    },
+    {
+      "sector": 532,
+      "destination": "9000",
+      "file_offset": 67984
+    },
+    {
+      "sector": 533,
+      "destination": "9080",
+      "file_offset": 68112
+    },
+    {
+      "sector": 534,
+      "destination": "9100",
+      "file_offset": 68240
+    },
+    {
+      "sector": 535,
+      "destination": "9180",
+      "file_offset": 68368
+    },
+    {
+      "sector": 536,
+      "destination": "9200",
+      "file_offset": 68496
+    },
+    {
+      "sector": 537,
+      "destination": "9280",
+      "file_offset": 68624
+    },
+    {
+      "sector": 538,
+      "destination": "9300",
+      "file_offset": 68752
+    },
+    {
+      "sector": 539,
+      "destination": "9380",
+      "file_offset": 68880
+    },
+    {
+      "sector": 540,
+      "destination": "9400",
+      "file_offset": 69008
+    },
+    {
+      "sector": 541,
+      "destination": "9480",
+      "file_offset": 69136
+    },
+    {
+      "sector": 542,
+      "destination": "9500",
+      "file_offset": 69264
+    },
+    {
+      "sector": 543,
+      "destination": "9580",
+      "file_offset": 69392
+    },
+    {
+      "sector": 544,
+      "destination": "9600",
+      "file_offset": 69520
+    },
+    {
+      "sector": 545,
+      "destination": "9680",
+      "file_offset": 69648
+    },
+    {
+      "sector": 546,
+      "destination": "9700",
+      "file_offset": 69776
+    },
+    {
+      "sector": 547,
+      "destination": "9780",
+      "file_offset": 69904
+    },
+    {
+      "sector": 548,
+      "destination": "9800",
+      "file_offset": 70032
+    },
+    {
+      "sector": 549,
+      "destination": "9880",
+      "file_offset": 70160
+    },
+    {
+      "sector": 550,
+      "destination": "9900",
+      "file_offset": 70288
+    },
+    {
+      "sector": 551,
+      "destination": "9980",
+      "file_offset": 70416
+    },
+    {
+      "sector": 552,
+      "destination": "9A00",
+      "file_offset": 70544
+    },
+    {
+      "sector": 553,
+      "destination": "9A80",
+      "file_offset": 70672
+    },
+    {
+      "sector": 554,
+      "destination": "9B00",
+      "file_offset": 70800
+    },
+    {
+      "sector": 555,
+      "destination": "9B80",
+      "file_offset": 70928
+    },
+    {
+      "sector": 556,
+      "destination": "9C00",
+      "file_offset": 71056
+    },
+    {
+      "sector": 557,
+      "destination": "9C80",
+      "file_offset": 71184
+    },
+    {
+      "sector": 558,
+      "destination": "9D00",
+      "file_offset": 71312
+    },
+    {
+      "sector": 559,
+      "destination": "9D80",
+      "file_offset": 71440
+    },
+    {
+      "sector": 560,
+      "destination": "9E00",
+      "file_offset": 71568
+    },
+    {
+      "sector": 561,
+      "destination": "9E80",
+      "file_offset": 71696
+    },
+    {
+      "sector": 562,
+      "destination": "9F00",
+      "file_offset": 71824
+    },
+    {
+      "sector": 563,
+      "destination": "9F80",
+      "file_offset": 71952
+    },
+    {
+      "sector": 564,
+      "destination": "A000",
+      "file_offset": 72080
+    },
+    {
+      "sector": 565,
+      "destination": "A080",
+      "file_offset": 72208
+    },
+    {
+      "sector": 566,
+      "destination": "A100",
+      "file_offset": 72336
+    },
+    {
+      "sector": 567,
+      "destination": "A180",
+      "file_offset": 72464
+    },
+    {
+      "sector": 568,
+      "destination": "A200",
+      "file_offset": 72592
+    },
+    {
+      "sector": 569,
+      "destination": "A280",
+      "file_offset": 72720
+    },
+    {
+      "sector": 570,
+      "destination": "A300",
+      "file_offset": 72848
+    },
+    {
+      "sector": 571,
+      "destination": "A380",
+      "file_offset": 72976
+    },
+    {
+      "sector": 572,
+      "destination": "A400",
+      "file_offset": 73104
+    },
+    {
+      "sector": 573,
+      "destination": "A480",
+      "file_offset": 73232
+    },
+    {
+      "sector": 574,
+      "destination": "A500",
+      "file_offset": 73360
+    },
+    {
+      "sector": 575,
+      "destination": "A580",
+      "file_offset": 73488
+    },
+    {
+      "sector": 576,
+      "destination": "A600",
+      "file_offset": 73616
+    },
+    {
+      "sector": 577,
+      "destination": "A680",
+      "file_offset": 73744
+    },
+    {
+      "sector": 578,
+      "destination": "A700",
+      "file_offset": 73872
+    },
+    {
+      "sector": 579,
+      "destination": "A780",
+      "file_offset": 74000
+    },
+    {
+      "sector": 580,
+      "destination": "A800",
+      "file_offset": 74128
+    },
+    {
+      "sector": 581,
+      "destination": "A880",
+      "file_offset": 74256
+    },
+    {
+      "sector": 582,
+      "destination": "A900",
+      "file_offset": 74384
+    },
+    {
+      "sector": 583,
+      "destination": "A980",
+      "file_offset": 74512
+    },
+    {
+      "sector": 584,
+      "destination": "AA00",
+      "file_offset": 74640
+    },
+    {
+      "sector": 585,
+      "destination": "AA80",
+      "file_offset": 74768
+    },
+    {
+      "sector": 586,
+      "destination": "AB00",
+      "file_offset": 74896
+    },
+    {
+      "sector": 587,
+      "destination": "AB80",
+      "file_offset": 75024
+    },
+    {
+      "sector": 588,
+      "destination": "AC00",
+      "file_offset": 75152
+    },
+    {
+      "sector": 589,
+      "destination": "AC80",
+      "file_offset": 75280
+    },
+    {
+      "sector": 590,
+      "destination": "AD00",
+      "file_offset": 75408
+    },
+    {
+      "sector": 591,
+      "destination": "AD80",
+      "file_offset": 75536
+    },
+    {
+      "sector": 592,
+      "destination": "AE00",
+      "file_offset": 75664
+    },
+    {
+      "sector": 593,
+      "destination": "AE80",
+      "file_offset": 75792
+    },
+    {
+      "sector": 594,
+      "destination": "AF00",
+      "file_offset": 75920
+    },
+    {
+      "sector": 595,
+      "destination": "AF80",
+      "file_offset": 76048
+    },
+    {
+      "sector": 596,
+      "destination": "B000",
+      "file_offset": 76176
+    },
+    {
+      "sector": 597,
+      "destination": "B080",
+      "file_offset": 76304
+    },
+    {
+      "sector": 598,
+      "destination": "B100",
+      "file_offset": 76432
+    },
+    {
+      "sector": 599,
+      "destination": "B180",
+      "file_offset": 76560
+    },
+    {
+      "sector": 600,
+      "destination": "B200",
+      "file_offset": 76688
+    },
+    {
+      "sector": 601,
+      "destination": "B280",
+      "file_offset": 76816
+    },
+    {
+      "sector": 602,
+      "destination": "B300",
+      "file_offset": 76944
+    },
+    {
+      "sector": 603,
+      "destination": "B380",
+      "file_offset": 77072
+    },
+    {
+      "sector": 604,
+      "destination": "B400",
+      "file_offset": 77200
+    },
+    {
+      "sector": 605,
+      "destination": "B480",
+      "file_offset": 77328
+    },
+    {
+      "sector": 606,
+      "destination": "B500",
+      "file_offset": 77456
+    },
+    {
+      "sector": 607,
+      "destination": "B580",
+      "file_offset": 77584
+    },
+    {
+      "sector": 608,
+      "destination": "B600",
+      "file_offset": 77712
+    },
+    {
+      "sector": 609,
+      "destination": "B680",
+      "file_offset": 77840
+    },
+    {
+      "sector": 610,
+      "destination": "B700",
+      "file_offset": 77968
+    },
+    {
+      "sector": 611,
+      "destination": "B780",
+      "file_offset": 78096
+    },
+    {
+      "sector": 612,
+      "destination": "B800",
+      "file_offset": 78224
+    },
+    {
+      "sector": 613,
+      "destination": "B880",
+      "file_offset": 78352
+    },
+    {
+      "sector": 614,
+      "destination": "B900",
+      "file_offset": 78480
+    },
+    {
+      "sector": 615,
+      "destination": "B980",
+      "file_offset": 78608
+    },
+    {
+      "sector": 616,
+      "destination": "BA00",
+      "file_offset": 78736
+    },
+    {
+      "sector": 617,
+      "destination": "BA80",
+      "file_offset": 78864
+    },
+    {
+      "sector": 618,
+      "destination": "BB00",
+      "file_offset": 78992
+    },
+    {
+      "sector": 619,
+      "destination": "BB80",
+      "file_offset": 79120
+    },
+    {
+      "sector": 620,
+      "destination": "BC00",
+      "file_offset": 79248
+    }
+  ],
+  "payload_matches_disk": true,
+  "resource_copies_match_disk": true,
+  "copies": [
+    {
+      "from": "0700",
+      "to": "E400",
+      "length": 1280
+    },
+    {
+      "from": "0C00",
+      "to": "FF00",
+      "length": 256
+    },
+    {
+      "from": "0D00",
+      "to": "DC00",
+      "length": 1024
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+[
+  {
+    "module": "boot",
+    "start": 1152,
+    "end": 4351,
+    "size": 3200,
+    "instruction_count": 123,
+    "code_bytes": 272,
+    "data_or_unknown_bytes": 2928,
+    "labels": 29,
+    "equates": 25,
+    "manual_code_labels": 21,
+    "macro_invocations": 6,
+    "macro_types": {
+      "SETWORD": 2,
+      "SETPTRXY": 4
+    },
+    "macro_covered_bytes": 50,
+    "smc_direct_writes": 0,
+    "smc_target_bytes": 0,
+    "smc_instructions": 0,
+    "seeds": [
+      1158,
+      1160,
+      1335
+    ],
+    "issues": [],
+    "vectors": [],
+    "source_lines": 452,
+    "native_max_line": 461,
+    "roundtrip_macros": true,
+    "roundtrip_flat": true,
+    "roundtrip_native_text": true
+  },
+  {
+    "module": "game",
+    "start": 1536,
+    "end": 48255,
+    "size": 46720,
+    "instruction_count": 6009,
+    "code_bytes": 12741,
+    "data_or_unknown_bytes": 33979,
+    "labels": 1085,
+    "equates": 308,
+    "manual_code_labels": 125,
+    "macro_invocations": 74,
+    "macro_types": {
+      "SETWORD": 18,
+      "WAITCLOCK": 7,
+      "SETPTRXY": 36,
+      "PUSHREGS": 4,
+      "COPYWORD": 3,
+      "POPREGS": 4,
+      "SFXSTEP": 2
+    },
+    "macro_covered_bytes": 807,
+    "smc_direct_writes": 126,
+    "smc_target_bytes": 80,
+    "smc_instructions": 57,
+    "seeds": [
+      3200,
+      4140,
+      4141,
+      4751,
+      5046,
+      5136,
+      5167,
+      5499,
+      5578,
+      5666,
+      7701,
+      7743,
+      14298,
+      14299,
+      14703,
+      14739
+    ],
+    "issues": [
+      [
+        "indirect",
+        4146,
+        512
+      ],
+      [
+        "indirect",
+        14304,
+        512
+      ]
+    ],
+    "vectors": [
+      [
+        3474,
+        512,
+        5499
+      ],
+      [
+        4050,
+        512,
+        5046
+      ],
+      [
+        4121,
+        65530,
+        4141
+      ],
+      [
+        4126,
+        65530,
+        4141
+      ],
+      [
+        4131,
+        65530,
+        4141
+      ],
+      [
+        4131,
+        65534,
+        4140
+      ],
+      [
+        4289,
+        512,
+        4751
+      ],
+      [
+        5112,
+        512,
+        5136
+      ],
+      [
+        5162,
+        512,
+        5167
+      ],
+      [
+        5203,
+        512,
+        5046
+      ],
+      [
+        5559,
+        512,
+        5578
+      ],
+      [
+        5604,
+        512,
+        5499
+      ],
+      [
+        5628,
+        512,
+        5666
+      ],
+      [
+        6802,
+        512,
+        7701
+      ],
+      [
+        7100,
+        512,
+        7743
+      ],
+      [
+        14265,
+        65530,
+        14299
+      ],
+      [
+        14272,
+        65530,
+        14299
+      ],
+      [
+        14275,
+        65530,
+        14299
+      ],
+      [
+        14275,
+        65534,
+        14298
+      ],
+      [
+        14534,
+        512,
+        14703
+      ],
+      [
+        14734,
+        512,
+        14739
+      ],
+      [
+        14796,
+        512,
+        14703
+      ]
+    ],
+    "source_lines": 10287,
+    "native_max_line": 10296,
+    "roundtrip_macros": true,
+    "roundtrip_flat": true,
+    "roundtrip_native_text": true
+  }
+]

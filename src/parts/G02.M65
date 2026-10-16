@@ -1,0 +1,2485 @@
+; ZYBEX: osobny modul MAC/65, adresy stale.
+FRAMELO          = $14
+PTR0             = $15
+PTR0H            = $16
+BUFFERSELECT     = $1A
+HSCROLLA         = $1B
+ZP29             = $29
+ZP2A             = $2A
+ZP2B             = $2B
+ZP2C             = $2C
+ZP2D             = $2D
+ZP2E             = $2E
+ZP2F             = $2F
+ZP30             = $30
+ZP33             = $33
+ZP38             = $38
+ZP39             = $39
+ZP3A             = $3A
+ZP3B             = $3B
+ZP3C             = $3C
+ZP3D             = $3D
+ZP3E             = $3E
+ZP3F             = $3F
+ZP40             = $40
+ZP41             = $41
+ZP42             = $42
+ZP43             = $43
+ZP46             = $46
+ZP47             = $47
+ZP49             = $49
+ZP4A             = $4A
+ZP4B             = $4B
+ZP4E             = $4E
+ZP50             = $50
+TWOPLAYERS       = $51
+ZP52             = $52
+ZP53             = $53
+ZP54             = $54
+ZP55             = $55
+ZP56             = $56
+ZP57             = $57
+ZP58             = $58
+ZP59             = $59
+ZP5A             = $5A
+ZP5E             = $5E
+ZP5F             = $5F
+ZP61             = $61
+ZP62             = $62
+ZP63             = $63
+ZP64             = $64
+LEVELSTATE       = $65
+ZP66             = $66
+GAMEMUSICMODE    = $67
+ZP68             = $68
+ZP69             = $69
+ZP6A             = $6A
+ZP6B             = $6B
+ZP70             = $70
+ZP71             = $71
+ZP76             = $76
+ZP77             = $77
+ZP7C             = $7C
+ZP82             = $82
+ZP83             = $83
+ZP88             = $88
+ZP8E             = $8E
+ZP95             = $95
+ZP9B             = $9B
+ZPA1             = $A1
+ZPA7             = $A7
+ZPAD             = $AD
+ZPB2             = $B2
+ZPB3             = $B3
+ZPB9             = $B9
+ZPBF             = $BF
+ZPC5             = $C5
+ZPCB             = $CB
+ZPD0             = $D0
+ZPD1             = $D1
+ZPD6             = $D6
+ZPD7             = $D7
+ZPDD             = $DD
+ZPDE             = $DE
+ZPE0             = $E0
+ZPE1             = $E1
+ZPE2             = $E2
+ZPE4             = $E4
+ZPE6             = $E6
+ZPE8             = $E8
+ZPE9             = $E9
+ZPEB             = $EB
+ZPED             = $ED
+ZPEE             = $EE
+ZPEF             = $EF
+P1COLOR          = $F2
+ZPFA             = $FA
+ZPFB             = $FB
+ZPFC             = $FC
+ZPFD             = $FD
+ZPFE             = $FE
+ZPFF             = $FF
+M0107            = $0107
+M0109            = $0109
+M010A            = $010A
+M010B            = $010B
+M010C            = $010C
+M010D            = $010D
+M0110            = $0110
+M0112            = $0112
+M0114            = $0114
+M0116            = $0116
+M011A            = $011A
+VDSLSTH          = $0201
+ADR3BC7          = $3BC7 ; D3BC7 (adres dla makra)
+ADR4200          = $4200 ; D4200 (adres dla makra)
+HPOSP0           = $D000
+HPOSP1           = $D001
+P0PF             = $D004
+COLPM0           = $D012
+COLPM1           = $D013
+CONSOL           = $D01F
+RANDOM           = $D20A
+PORTA            = $D300
+OBJECTRAM        = $D800
+MD801            = $D801
+MD802            = $D802
+MD815            = $D815
+MD829            = $D829
+MD82A            = $D82A
+MD833            = $D833
+MD835            = $D835
+MD9A5            = $D9A5
+MDAA5            = $DAA5
+MFF05            = $FF05
+        .MACRO SETPTRXY
+        LDX #>%2
+        LDY #<%2
+        STX %1+1
+        STY %1
+        .ENDM
+        .MACRO SETWORD
+        LDA #<%2
+        STA %1
+        LDA #>%2
+        STA %1+1
+        .ENDM
+        .MACRO COPYWORD
+        LDA %2
+        STA %1
+        LDA %2+1
+        STA %1+1
+        .ENDM
+
+; Symbole z innych modulow; adresy oryginalne, bez relokacji.
+BLITOBJECT       = $3635
+D06C0            = $06C0
+D06C1            = $06C1
+D07DC            = $07DC
+D07FF            = $07FF
+D08EB            = $08EB
+D08EC            = $08EC
+D0B0B            = $0B0B
+D0B0C            = $0B0C
+D236E            = $236E
+D3BC0            = $3BC0
+D3BC7            = $3BC7
+D3BD1            = $3BD1
+D3BD5            = $3BD5
+D3BD6            = $3BD6
+D3BD7            = $3BD7
+D3BDD            = $3BDD
+D3BDE            = $3BDE
+D3BED            = $3BED
+D3BEE            = $3BEE
+D3BF5            = $3BF5
+D3BF6            = $3BF6
+D3BFD            = $3BFD
+D3C05            = $3C05
+D3C0D            = $3C0D
+D3C93            = $3C93
+D3C97            = $3C97
+D3CA4            = $3CA4
+D3CA8            = $3CA8
+D4300            = $4300
+D86E0            = $86E0
+D8700            = $8700
+D8780            = $8780
+D94D4            = $94D4
+D9500            = $9500
+D9560            = $9560
+D95C0            = $95C0
+D95C8            = $95C8
+D95D0            = $95D0
+D9608            = $9608
+D9640            = $9640
+D9678            = $9678
+D96B0            = $96B0
+D96E8            = $96E8
+D9720            = $9720
+D9738            = $9738
+D9750            = $9750
+D9768            = $9768
+D9780            = $9780
+D9790            = $9790
+D97A0            = $97A0
+D97A8            = $97A8
+D97B0            = $97B0
+D97B8            = $97B8
+D97C0            = $97C0
+D97C8            = $97C8
+DB02F            = $B02F
+DLISTPTRS        = $3BBF
+GAMEENTRY        = $0C80
+HUDROW2          = $B080
+HUDTEXT          = $3D3F
+L25F3            = $25F3
+L3625            = $3625
+LEVELCOLOR0      = $079C
+LEVELCOLOR1      = $07AC
+LEVELCOLOR2      = $07BC
+LEVELTILEPAGE    = $07CC
+P1CHECKPOINT     = $3C66
+P1LIVES          = $3C7F
+P1STATE          = $3C78
+P2CHECKPOINT     = $3C6F
+P2LIVES          = $3C88
+P2STATE          = $3C81
+SFX2PRIORITY     = $3ED3
+SFX2REQUEST      = $3ED1
+SFX3PRIORITY     = $3ED2
+SFX3REQUEST      = $3ED0
+SM210C           = $210C
+SM3970           = $3970
+SM397D           = $397D
+SM3982           = $3982
+SM3A84           = $3A84
+STARTMUSIC       = $0D51
+
+        *= $25FF
+        TYA ; $25FF
+        CLC ; $2600
+        ADC #$25 ; $2601
+        TAY ; $2603
+        DEC D260B ; $2604
+        BNE L25F3 ; $2607
+        RTS ; $2609
+D260A
+        .BYTE $00 ; $260A
+D260B
+        .BYTE $00 ; $260B
+; Sprawdzenie bitu SELECT w CONSOL. Nie jest odczytem joysticka.
+CHECKSELECT
+        LDA CONSOL ; $260C
+        AND #$02 ; $260F
+        BNE L262A ; $2611
+        LDA #$01 ; $2613
+        STA PLAYERSVBI+1 ; $2615
+L2618
+        LDA CONSOL ; $2618
+        BIT D3BD7 ; $261B
+        BEQ L262B ; $261E
+        BIT D3BD5 ; $2620
+        BNE L2618 ; $2623
+        LDA #$00 ; $2625
+        STA PLAYERSVBI+1 ; $2627
+L262A
+        RTS ; $262A
+L262B
+        PLA ; $262B
+        PLA ; $262C
+        JMP GAMEENTRY ; $262D
+; Instaluje kolory etapu oraz wskazniki mapy i danych fal przez SMC.
+SETLEVELDATA
+        LDX LEVELSTATE ; $2630
+        LDA LEVELCOLOR1,X ; $2632
+        STA SM3970+1 ; $2635
+        LDA LEVELCOLOR0,X ; $2638
+        STA SM397D+1 ; $263B
+        LDA LEVELCOLOR2,X ; $263E
+        STA SM3982+1 ; $2641
+        LDA LEVELTILEPAGE,X ; $2644
+        STA ZPDD ; $2647
+        TXA ; $2649
+        ASL A ; $264A
+        ASL A ; $264B
+        ASL A ; $264C
+        ASL A ; $264D
+        ASL A ; $264E
+        LDY #$9D ; $264F
+        BCC L2654 ; $2651
+        INY ; $2653
+L2654
+        STA SM3A84+1 ; $2654
+        STY SM3A84+2 ; $2657
+        LDA #$FF ; $265A
+        STA ZPE0 ; $265C
+        LDA LEVELSTATE ; $265E
+        LDX #$00 ; $2660
+        STX SM210C+1 ; $2662
+        LSR A ; $2665
+        ROR SM210C+1 ; $2666
+        LSR A ; $2669
+        ROR SM210C+1 ; $266A
+        LSR A ; $266D
+        ROR SM210C+1 ; $266E
+        CLC ; $2671
+        ADC #$52 ; $2672
+        STA SM210C+2 ; $2674
+        LDY #$00 ; $2677
+        LDX #$04 ; $2679
+        LDA LEVELSTATE ; $267B
+        CMP #$01 ; $267D
+        BEQ L2683 ; $267F
+        LDX #$00 ; $2681
+L2683
+        LDA D2690,X ; $2683
+        STA D94D4,Y ; $2686
+        INX ; $2689
+        INY ; $268A
+        CPY #$04 ; $268B
+        BNE L2683 ; $268D
+        RTS ; $268F
+D2690
+        .BYTE $14,$55,$14,$00,$00,$14,$14,$00 ; $2690
+INITHUD
+        LDA #$0F ; $2698
+        LDX #$D0 ; $269A
+L269C
+        STA DB02F,X ; $269C
+        DEX ; $269F
+        BNE L269C ; $26A0
+        LDA #$00 ; $26A2
+        LDX #$27 ; $26A4
+L26A6
+        LDA HUDTEXT,X ; $26A6
+        CMP #$20 ; $26A9
+        BNE L26AF ; $26AB
+        LDA #$F1 ; $26AD
+L26AF
+        CMP #$3C ; $26AF
+        BCS L26B6 ; $26B1
+        CLC ; $26B3
+        ADC #$2C ; $26B4
+L26B6
+        CLC ; $26B6
+        ADC #$10 ; $26B7
+        STA HUDROW2,X ; $26B9
+        DEX ; $26BC
+        BPL L26A6 ; $26BD
+        LDX #$BC ; $26BF
+        LDY #$00 ; $26C1
+        JSR CLEAR16PAGES ; $26C3
+        LDX #$EB ; $26C6
+        LDY #$00 ; $26C8
+CLEAR16PAGES
+        STX PTR0H ; $26CA
+        STY PTR0 ; $26CC
+        LDX #$10 ; $26CE
+        LDY #$00 ; $26D0
+        TYA ; $26D2
+L26D3
+        STA (PTR0),Y ; $26D3
+        INY ; $26D5
+        BNE L26D3 ; $26D6
+        INC PTR0H ; $26D8
+        DEX ; $26DA
+        BNE L26D3 ; $26DB
+L26DD
+        RTS ; $26DD
+SUB26DE
+        LDA ZP63 ; $26DE
+        CMP #$06 ; $26E0
+        BCS L26DD ; $26E2
+        SETPTRXY ZP33,$D88C ; $26E4-$26EB
+        LDA ZP6A ; $26EC
+        STA ZPDE ; $26EE
+        LDX #$05 ; $26F0
+L26F2
+        LDY #$00 ; $26F2
+        ASL ZPDE ; $26F4
+        BCC L26FA ; $26F6
+        LDY #$80 ; $26F8
+L26FA
+        LDA ZP77,X ; $26FA
+        CMP #$02 ; $26FC
+        BEQ L275F ; $26FE
+        LDA ZPA7,X ; $2700
+        AND #$7F ; $2702
+        BNE L275F ; $2704
+        TYA ; $2706
+        ASL A ; $2707
+        LDY #$01 ; $2708
+        LDA ZP95,X ; $270A
+        ROR A ; $270C
+        CMP #$04 ; $270D
+        BCC L2740 ; $270F
+        STA (ZP33),Y ; $2711
+        CMP #$A4 ; $2713
+        BCS L2746 ; $2715
+        LDA ZPAD,X ; $2717
+        BNE L272B ; $2719
+        LDA ZPA7,X ; $271B
+        BPL L275F ; $271D
+        LDY #$0B ; $271F
+        LDA #$FF ; $2721
+        STA (ZP33),Y ; $2723
+        INY ; $2725
+        INY ; $2726
+        STA (ZP33),Y ; $2727
+        STA ZPAD,X ; $2729
+L272B
+        LDY #$02 ; $272B
+        LDA ZP9B,X ; $272D
+        CMP #$42 ; $272F
+        BCC L2740 ; $2731
+        CMP #$DE ; $2733
+        BCS L2740 ; $2735
+        SEC ; $2737
+        SBC #$42 ; $2738
+        LSR A ; $273A
+        STA (ZP33),Y ; $273B
+        JMP L275F ; $273D
+L2740
+        JSR SUB3356 ; $2740
+        JMP L275F ; $2743
+L2746
+        LDA ZPAD,X ; $2746
+        BEQ L275F ; $2748
+        LDY #$0B ; $274A
+        LDA (ZP33),Y ; $274C
+        INY ; $274E
+        AND (ZP33),Y ; $274F
+        CMP #$FF ; $2751
+        BEQ L275F ; $2753
+        LDA ZPA7,X ; $2755
+        AND #$7F ; $2757
+        BNE L275F ; $2759
+        LDA #$83 ; $275B
+        STA ZPA7,X ; $275D
+L275F
+        LDA ZP33 ; $275F
+        SEC ; $2761
+        SBC #$14 ; $2762
+        STA ZP33 ; $2764
+        DEX ; $2766
+        BMI L276C ; $2767
+        JMP L26F2 ; $2769
+L276C
+        RTS ; $276C
+D276D
+        .BYTE $00 ; $276D
+D276E
+        .BYTE $00 ; $276E
+D276F
+        .BYTE $00 ; $276F
+; Wywolywana przez VBI rozgrywki; obsluga danych i grafiki graczy.
+PLAYERSVBI
+        LDA #$FF ; $2770
+        BNE L276C ; $2772
+        LDX #$00 ; $2774
+        STX D276D ; $2776
+        LDY #$00 ; $2779
+        STY D276E ; $277B
+        STX D276F ; $277E
+        LDA PORTA ; $2781
+        AND #$0F ; $2784
+        STA ZP52 ; $2786
+        LDA PORTA ; $2788
+        LSR A ; $278B
+        LSR A ; $278C
+        LSR A ; $278D
+        LSR A ; $278E
+        AND ZP52 ; $278F
+        JSR SUB27B0 ; $2791
+        LDA TWOPLAYERS ; $2794
+        BEQ L276C ; $2796
+        LDX #$01 ; $2798
+        LDY #$02 ; $279A
+        STX D276D ; $279C
+        STY D276E ; $279F
+        LDA #$14 ; $27A2
+        STA D276F ; $27A4
+        LDA PORTA ; $27A7
+        LSR A ; $27AA
+        LSR A ; $27AB
+        LSR A ; $27AC
+        LSR A ; $27AD
+        STA ZP52 ; $27AE
+SUB27B0
+        LDX D276D ; $27B0
+        LDY D276E ; $27B3
+        LDA M010B,X ; $27B6
+        BEQ L276C ; $27B9
+        LDA GAMEMUSICMODE ; $27BB
+        BNE L2808 ; $27BD
+        LDA M0107,X ; $27BF
+        BEQ L2805 ; $27C2
+        LDA FRAMELO ; $27C4
+        ASL A ; $27C6
+        ASL A ; $27C7
+        ASL A ; $27C8
+        ASL A ; $27C9
+        ORA #$06 ; $27CA
+        STA COLPM0,Y ; $27CC
+        LDA P1COLOR,X ; $27CF
+        AND #$F0 ; $27D1
+        ORA #$0F ; $27D3
+        STA COLPM1,Y ; $27D5
+        LDA #$00 ; $27D8
+        STA M0109,X ; $27DA
+        INC M0107,X ; $27DD
+        BEQ SUB27B0 ; $27E0
+        LDA M0107,X ; $27E2
+        CMP #$50 ; $27E5
+        BCC L27EC ; $27E7
+        JMP L2892 ; $27E9
+L27EC
+        STA HPOSP0,Y ; $27EC
+        STA HPOSP1,Y ; $27EF
+        SEC ; $27F2
+        SBC #$30 ; $27F3
+        BCS L27F9 ; $27F5
+        LDA #$00 ; $27F7
+L27F9
+        LDX D276F ; $27F9
+        STA MD801,X ; $27FC
+        LDX D276D ; $27FF
+        JMP L28AA ; $2802
+L2805
+        LDA M0109,X ; $2805
+L2808
+        BNE L2861 ; $2808
+        LDA P0PF,Y ; $280A
+        AND #$01 ; $280D
+        BEQ L2884 ; $280F
+        STA M0109,X ; $2811
+        LDA #$03 ; $2814
+        CPX #$00 ; $2816
+        BEQ L2829 ; $2818
+        STA MDAA5 ; $281A
+        LDA #$07 ; $281D
+        STA SFX2REQUEST ; $281F
+        LDA #$28 ; $2822
+        STA SFX2PRIORITY ; $2824
+        BNE L2836 ; $2827
+L2829
+        STA MD9A5 ; $2829
+        LDA #$05 ; $282C
+        STA SFX3REQUEST ; $282E
+        LDA #$28 ; $2831
+        STA SFX3PRIORITY ; $2833
+L2836
+        LDA #$2C ; $2836
+        STA COLPM1,Y ; $2838
+        LDA #$36 ; $283B
+        STA COLPM0,Y ; $283D
+        CPX #$00 ; $2840
+        BNE L2864 ; $2842
+        DEC P1LIVES ; $2844
+        LDX ZP49 ; $2847
+        LDA P1STATE,X ; $2849
+        CMP #$01 ; $284C
+        BNE L285B ; $284E
+        CPX #$00 ; $2850
+        BEQ L285E ; $2852
+        LDA #$FF ; $2854
+        STA P1CHECKPOINT,X ; $2856
+        BNE L285E ; $2859
+L285B
+        DEC P1STATE,X ; $285B
+L285E
+        LDX D276D ; $285E
+L2861
+        JMP L2898 ; $2861
+L2864
+        DEC P2LIVES ; $2864
+        LDX ZP4A ; $2867
+        LDA P2STATE,X ; $2869
+        CMP #$01 ; $286C
+        BNE L287B ; $286E
+        CPX #$00 ; $2870
+        BEQ L287E ; $2872
+        LDA #$FF ; $2874
+        STA P2CHECKPOINT,X ; $2876
+        BNE L287E ; $2879
+L287B
+        DEC P2STATE,X ; $287B
+L287E
+        LDX D276D ; $287E
+        JMP L2898 ; $2881
+L2884
+        LDA P1COLOR,X ; $2884
+        AND #$F0 ; $2886
+        ORA #$04 ; $2888
+        STA COLPM0,Y ; $288A
+        ORA #$0C ; $288D
+        STA COLPM1,Y ; $288F
+L2892
+        LDY D276F ; $2892
+        JSR SUB2A28 ; $2895
+L2898
+        LDY D276F ; $2898
+        LDX D276E ; $289B
+        LDA MD801,Y ; $289E
+        CLC ; $28A1
+        ADC #$30 ; $28A2
+        STA HPOSP0,X ; $28A4
+        STA HPOSP1,X ; $28A7
+L28AA
+        LDY D276F ; $28AA
+        LDX D276D ; $28AD
+        LDA MD801,Y ; $28B0
+        ASL A ; $28B3
+        STA ZPE9,X ; $28B4
+        LDA MD802,Y ; $28B6
+        ASL A ; $28B9
+        CLC ; $28BA
+        ADC #$42 ; $28BB
+        STA ZPEB,X ; $28BD
+        LDY D276D ; $28BF
+        LDX D28F5,Y ; $28C2
+        LDY #$00 ; $28C5
+        STX ZP2E ; $28C7
+        STY ZP2D ; $28C9
+        DEX ; $28CB
+        STX ZP30 ; $28CC
+        STY ZP2F ; $28CE
+        LDX D276D ; $28D0
+        LDA M0109,X ; $28D3
+        BEQ L28FE ; $28D6
+        LDA FRAMELO ; $28D8
+        AND #$03 ; $28DA
+        BNE L28E1 ; $28DC
+        INC M0109,X ; $28DE
+L28E1
+        LDA M0109,X ; $28E1
+        CMP #$15 ; $28E4
+        BCC L28F7 ; $28E6
+        LDA #$00 ; $28E8
+        STA M0109,X ; $28EA
+        LDA #$0E ; $28ED
+        STA M0107,X ; $28EF
+        JMP SUB27B0 ; $28F2
+D28F5
+        .BYTE $75,$77 ; $28F5
+L28F7
+        CLC ; $28F7
+        ADC #$0E ; $28F8
+        TAX ; $28FA
+        JMP L29F3 ; $28FB
+L28FE
+        LDX D276D ; $28FE
+        INC ZPE4,X ; $2901
+        LDA ZPE4,X ; $2903
+        LDY D276D ; $2905
+        LDX ZPE6,Y ; $2908
+        AND #$03 ; $290A
+        BEQ L2911 ; $290C
+        JMP L29F3 ; $290E
+L2911
+        LDA ZP52 ; $2911
+        AND #$0F ; $2913
+        CMP M0114,Y ; $2915
+        STA M0114,Y ; $2918
+        BEQ L2928 ; $291B
+        LDA #$00 ; $291D
+        STA M0116,Y ; $291F
+        STA ZPE2,Y ; $2922
+        STA M0112,Y ; $2925
+L2928
+        CMP #$0F ; $2928
+        BNE L298C ; $292A
+        LDA ZPE2,Y ; $292C
+        BNE L295E ; $292F
+        LDX D276D ; $2931
+        INC M0116,X ; $2934
+        LDA M0116,X ; $2937
+        CMP #$3C ; $293A
+        BCS L294D ; $293C
+        LDX D276D ; $293E
+        INC M0110,X ; $2941
+        LDA M0110,X ; $2944
+        AND #$01 ; $2947
+        TAX ; $2949
+        JMP L29F3 ; $294A
+L294D
+        LDY #$01 ; $294D
+        LDA RANDOM ; $294F
+        AND #$01 ; $2952
+        BEQ L2958 ; $2954
+        LDY #$07 ; $2956
+L2958
+        LDX D276D ; $2958
+        TYA ; $295B
+        STA ZPE2,X ; $295C
+L295E
+        LDY D276D ; $295E
+        LDX ZPE2,Y ; $2961
+        LDA D3C97,X ; $2963
+        TAX ; $2966
+        JSR L29F3 ; $2967
+        LDX D276D ; $296A
+        INC M0110,X ; $296D
+        LDA M0110,X ; $2970
+        AND #$01 ; $2973
+        BNE L2983 ; $2975
+        INC ZPE2,X ; $2977
+        LDY ZPE2,X ; $2979
+        CPY #$07 ; $297B
+        BEQ L2984 ; $297D
+        CPY #$0D ; $297F
+        BEQ L2984 ; $2981
+L2983
+        RTS ; $2983
+L2984
+        LDA #$00 ; $2984
+        STA M0116,X ; $2986
+        STA ZPE2,X ; $2989
+        RTS ; $298B
+L298C
+        LDX D276D ; $298C
+        INC M0110,X ; $298F
+        LDA M0110,X ; $2992
+        AND #$01 ; $2995
+        BNE L299C ; $2997
+        INC M0112,X ; $2999
+L299C
+        LDA ZP52 ; $299C
+        BIT D3BD5 ; $299E
+        BEQ L29C9 ; $29A1
+        BIT D3BD6 ; $29A3
+        BEQ L29D5 ; $29A6
+        BIT D3BD7 ; $29A8
+        BEQ L29DA ; $29AB
+        LDY M0112,X ; $29AD
+        CPY #$04 ; $29B0
+        BCS L29BA ; $29B2
+        LDX D3C93,Y ; $29B4
+        JMP L29F3 ; $29B7
+L29BA
+        LDX D276D ; $29BA
+        LDA M0110,X ; $29BD
+        AND #$01 ; $29C0
+        CLC ; $29C2
+        ADC #$04 ; $29C3
+        TAX ; $29C5
+        JMP L29F3 ; $29C6
+L29C9
+        LDA M0112,X ; $29C9
+        AND #$03 ; $29CC
+        TAY ; $29CE
+        LDX D3CA4,Y ; $29CF
+        JMP L29F3 ; $29D2
+L29D5
+        LDX #$0A ; $29D5
+        JMP L29F3 ; $29D7
+L29DA
+        LDY M0112,X ; $29DA
+        CPY #$04 ; $29DD
+        BCS L29E7 ; $29DF
+        LDX D3CA8,Y ; $29E1
+        JMP L29F3 ; $29E4
+L29E7
+        LDX D276D ; $29E7
+        LDA M0110,X ; $29EA
+        AND #$01 ; $29ED
+        CLC ; $29EF
+        ADC #$0A ; $29F0
+        TAX ; $29F2
+L29F3
+        LDA GAMEMUSICMODE ; $29F3
+        CMP #$03 ; $29F5
+        BNE L29FB ; $29F7
+        LDX #$00 ; $29F9
+L29FB
+        TXA ; $29FB
+        LDY D276D ; $29FC
+        STA ZPE6,Y ; $29FF
+        LDA D07DC,X ; $2A02
+        STA SM2A84+1 ; $2A05
+        LDY D07FF,X ; $2A08
+        STY SM2A84+2 ; $2A0B
+        CLC ; $2A0E
+        ADC #$14 ; $2A0F
+        STA SM2A89+1 ; $2A11
+        BCC L2A17 ; $2A14
+        INY ; $2A16
+L2A17
+        STY SM2A89+2 ; $2A17
+        LDY D276F ; $2A1A
+        LDA MD802,Y ; $2A1D
+        ASL A ; $2A20
+        CLC ; $2A21
+        ADC #$1C ; $2A22
+        TAY ; $2A24
+        JMP L2A77 ; $2A25
+SUB2A28
+        LDA #$01 ; $2A28
+        AND ZP52 ; $2A2A
+        BNE L2A3D ; $2A2C
+        LDA MD802,Y ; $2A2E
+        SEC ; $2A31
+        SBC #$01 ; $2A32
+        BCC L2A3D ; $2A34
+        CMP #$08 ; $2A36
+        BCC L2A3D ; $2A38
+        STA MD802,Y ; $2A3A
+L2A3D
+        LDA #$02 ; $2A3D
+        AND ZP52 ; $2A3F
+        BNE L2A50 ; $2A41
+        LDA #$01 ; $2A43
+        CLC ; $2A45
+        ADC MD802,Y ; $2A46
+        CMP #$4A ; $2A49
+        BCS L2A50 ; $2A4B
+        STA MD802,Y ; $2A4D
+L2A50
+        LDA #$04 ; $2A50
+        AND ZP52 ; $2A52
+        BNE L2A63 ; $2A54
+        LDA MD801,Y ; $2A56
+        SEC ; $2A59
+        SBC #$01 ; $2A5A
+        BCC L2A63 ; $2A5C
+        BEQ L2A63 ; $2A5E
+        STA MD801,Y ; $2A60
+L2A63
+        LDA #$08 ; $2A63
+        AND ZP52 ; $2A65
+        BNE L2A76 ; $2A67
+        LDA #$01 ; $2A69
+        CLC ; $2A6B
+        ADC MD801,Y ; $2A6C
+        CMP #$98 ; $2A6F
+        BCS L2A76 ; $2A71
+        STA MD801,Y ; $2A73
+L2A76
+        RTS ; $2A76
+L2A77
+        LDX #$04 ; $2A77
+        LDA #$00 ; $2A79
+L2A7B
+        STA (ZP2D),Y ; $2A7B
+        STA (ZP2F),Y ; $2A7D
+        INY ; $2A7F
+        DEX ; $2A80
+        BNE L2A7B ; $2A81
+        TAX ; $2A83
+SM2A84
+        LDA $FFFF,X ; $2A84
+        STA (ZP2D),Y ; $2A87
+SM2A89
+        LDA $FFFF,X ; $2A89
+        STA (ZP2F),Y ; $2A8C
+        INY ; $2A8E
+        INX ; $2A8F
+        CPX #$14 ; $2A90
+        BNE SM2A84 ; $2A92
+        LDX #$04 ; $2A94
+        LDA #$00 ; $2A96
+L2A98
+        STA (ZP2D),Y ; $2A98
+        STA (ZP2F),Y ; $2A9A
+        INY ; $2A9C
+        DEX ; $2A9D
+        BNE L2A98 ; $2A9E
+L2AA0
+        RTS ; $2AA0
+SUB2AA1
+        LDX #$06 ; $2AA1
+        STX ZP46 ; $2AA3
+        SETPTRXY ZP33,ADR4200 ; $2AA5-$2AAC
+        JSR SUB2ACF ; $2AAD
+        LDX #$08 ; $2AB0
+        STX ZP46 ; $2AB2
+        SETPTRXY ZP33,$D900 ; $2AB4-$2ABB
+        JSR SUB2ACF ; $2ABC
+        LDA TWOPLAYERS ; $2ABF
+        BEQ L2AA0 ; $2AC1
+        LDX #$08 ; $2AC3
+        STX ZP46 ; $2AC5
+        SETPTRXY ZP33,$DA00 ; $2AC7-$2ACE
+SUB2ACF
+        LDY #$00 ; $2ACF
+        LDA (ZP33),Y ; $2AD1
+        BEQ L2B03 ; $2AD3
+        LDY #$05 ; $2AD5
+        LDA (ZP33),Y ; $2AD7
+        BNE L2B03 ; $2AD9
+        LDY #$03 ; $2ADB
+        LDA (ZP33),Y ; $2ADD
+        BEQ L2AF0 ; $2ADF
+        LDY #$01 ; $2AE1
+        CLC ; $2AE3
+        ADC (ZP33),Y ; $2AE4
+        CMP #$04 ; $2AE6
+        BCC L2B0F ; $2AE8
+        CMP #$A8 ; $2AEA
+        BCS L2B0F ; $2AEC
+        STA (ZP33),Y ; $2AEE
+L2AF0
+        LDY #$04 ; $2AF0
+        LDA (ZP33),Y ; $2AF2
+        BEQ L2B03 ; $2AF4
+        LDY #$02 ; $2AF6
+        CLC ; $2AF8
+        ADC (ZP33),Y ; $2AF9
+        BEQ L2B0F ; $2AFB
+        CMP #$54 ; $2AFD
+        BCS L2B0F ; $2AFF
+        STA (ZP33),Y ; $2B01
+L2B03
+        LDA #$14 ; $2B03
+        CLC ; $2B05
+        ADC ZP33 ; $2B06
+        STA ZP33 ; $2B08
+        DEC ZP46 ; $2B0A
+        BNE SUB2ACF ; $2B0C
+        RTS ; $2B0E
+L2B0F
+        LDA #$03 ; $2B0F
+        LDY #$05 ; $2B11
+        STA (ZP33),Y ; $2B13
+        BNE L2B03 ; $2B15
+        RTS ; $2B17
+SUB2B18
+        LDA M0109 ; $2B18
+        ORA GAMEMUSICMODE ; $2B1B
+        BNE L2B7C ; $2B1D
+        LDA M010B ; $2B1F
+        BEQ L2B7C ; $2B22
+        LDA MD801 ; $2B24
+        CMP #$A4 ; $2B27
+        BCS L2B7C ; $2B29
+        LDA #$FF ; $2B2B
+        STA M011A ; $2B2D
+        LDX ZP49 ; $2B30
+        STX ZP50 ; $2B32
+        LDA P1STATE,X ; $2B34
+        ASL A ; $2B37
+        STA ZP4E ; $2B38
+        LDA #$00 ; $2B3A
+        STA ZP4B ; $2B3C
+        COPYWORD ZP53,MD801 ; $2B3E-$2B47
+        SETPTRXY ZP33,$D900 ; $2B48-$2B4F
+        LDA ZP57 ; $2B50
+        STA ZP55 ; $2B52
+        LDA ZP59 ; $2B54
+        STA ZP56 ; $2B56
+        LDA #$01 ; $2B58
+        STA SM2C59+1 ; $2B5A
+        LDA #$0B ; $2B5D
+        STA SM2CDB+1 ; $2B5F
+        JSR SUB2BE7 ; $2B62
+        LDA ZP55 ; $2B65
+        STA ZP57 ; $2B67
+        LDA ZP56 ; $2B69
+        STA ZP59 ; $2B6B
+        LDX M011A ; $2B6D
+        DEX ; $2B70
+        LDA D2BDD,X ; $2B71
+        STA SFX3REQUEST ; $2B74
+        LDA #$0A ; $2B77
+        STA SFX3PRIORITY ; $2B79
+L2B7C
+        LDA M010C ; $2B7C
+        BEQ L2BDC ; $2B7F
+        LDA M010A ; $2B81
+        ORA GAMEMUSICMODE ; $2B84
+        BNE L2BDC ; $2B86
+        LDA MD815 ; $2B88
+        CMP #$A4 ; $2B8B
+        BCS L2BDC ; $2B8D
+        LDX ZP4A ; $2B8F
+        STX ZP50 ; $2B91
+        LDA P2STATE,X ; $2B93
+        ASL A ; $2B96
+        STA ZP4E ; $2B97
+        LDA #$00 ; $2B99
+        STA ZP4B ; $2B9B
+        COPYWORD ZP53,MD815 ; $2B9D-$2BA6
+        SETPTRXY ZP33,$DA00 ; $2BA7-$2BAE
+        LDA ZP58 ; $2BAF
+        STA ZP55 ; $2BB1
+        LDA ZP5A ; $2BB3
+        STA ZP56 ; $2BB5
+        LDA #$02 ; $2BB7
+        STA SM2C59+1 ; $2BB9
+        LDA #$0C ; $2BBC
+        STA SM2CDB+1 ; $2BBE
+        JSR SUB2BE7 ; $2BC1
+        LDA ZP55 ; $2BC4
+        STA ZP58 ; $2BC6
+        LDA ZP56 ; $2BC8
+        STA ZP5A ; $2BCA
+        LDX M011A ; $2BCC
+        BMI L2BDC ; $2BCF
+        LDA D2BE2,X ; $2BD1
+        STA SFX3REQUEST ; $2BD4
+        LDA #$0A ; $2BD7
+        STA SFX3PRIORITY ; $2BD9
+L2BDC
+        RTS ; $2BDC
+D2BDD
+        .BYTE $01,$07,$06,$03,$00 ; $2BDD
+D2BE2
+        .BYTE $01,$0C,$09,$03,$00 ; $2BE2
+SUB2BE7
+        JSR SUB2C12 ; $2BE7
+        JSR SUB2C31 ; $2BEA
+        LDY #$02 ; $2BED
+        LDA (ZP33),Y ; $2BEF
+        CMP #$55 ; $2BF1
+        BCS L2BFD ; $2BF3
+        LDY #$01 ; $2BF5
+        LDA (ZP33),Y ; $2BF7
+        CMP #$A4 ; $2BF9
+        BCC SUB2BE7 ; $2BFB
+L2BFD
+        LDY #$00 ; $2BFD
+        TYA ; $2BFF
+        STA (ZP33),Y ; $2C00
+        LDA #$14 ; $2C02
+        CLC ; $2C04
+        ADC ZP33 ; $2C05
+        STA ZP33 ; $2C07
+        INC ZP4B ; $2C09
+        LDA ZP4B ; $2C0B
+        CMP ZP4E ; $2C0D
+        BNE SUB2BE7 ; $2C0F
+        RTS ; $2C11
+SUB2C12
+        LDY #$00 ; $2C12
+        LDA (ZP33),Y ; $2C14
+        BEQ L2C2A ; $2C16
+        LDA #$14 ; $2C18
+        CLC ; $2C1A
+        ADC ZP33 ; $2C1B
+        STA ZP33 ; $2C1D
+        INC ZP4B ; $2C1F
+        LDA ZP4B ; $2C21
+        CMP ZP4E ; $2C23
+        BNE SUB2C12 ; $2C25
+        PLA ; $2C27
+        PLA ; $2C28
+        RTS ; $2C29
+L2C2A
+        LDY #$05 ; $2C2A
+        LDA #$00 ; $2C2C
+        STA (ZP33),Y ; $2C2E
+        RTS ; $2C30
+SUB2C31
+        LDX ZP50 ; $2C31
+        DEX ; $2C33
+        BMI L2C48 ; $2C34
+        DEX ; $2C36
+        BMI L2C84 ; $2C37
+        DEX ; $2C39
+        BPL L2C3F ; $2C3A
+        JMP L2CC8 ; $2C3C
+L2C3F
+        DEX ; $2C3F
+        BPL L2C45 ; $2C40
+        JMP L2D0A ; $2C42
+L2C45
+        JMP L2D84 ; $2C45
+L2C48
+        PLA ; $2C48
+        PLA ; $2C49
+        LDA ZP55 ; $2C4A
+        BNE L2C83 ; $2C4C
+        LDA #$01 ; $2C4E
+        STA ZP55 ; $2C50
+        LDY #$00 ; $2C52
+        LDA #$00 ; $2C54
+        STA M011A ; $2C56
+SM2C59
+        LDA #$01 ; $2C59
+        STA (ZP33),Y ; $2C5B
+        LDY #$0B ; $2C5D
+        LDA #$FF ; $2C5F
+        STA (ZP33),Y ; $2C61
+        INY ; $2C63
+        INY ; $2C64
+        STA (ZP33),Y ; $2C65
+        LDY #$03 ; $2C67
+        LDA #$08 ; $2C69
+        STA (ZP33),Y ; $2C6B
+        INY ; $2C6D
+        LDA #$00 ; $2C6E
+        STA (ZP33),Y ; $2C70
+        LDY #$01 ; $2C72
+        LDA ZP53 ; $2C74
+        CLC ; $2C76
+        ADC #$06 ; $2C77
+        STA (ZP33),Y ; $2C79
+        LDA ZP54 ; $2C7B
+        CLC ; $2C7D
+        ADC #$02 ; $2C7E
+        INY ; $2C80
+        STA (ZP33),Y ; $2C81
+L2C83
+        RTS ; $2C83
+L2C84
+        INC SM2C87+1 ; $2C84
+SM2C87
+        LDA #$FF ; $2C87
+        AND #$07 ; $2C89
+        BNE L2C92 ; $2C8B
+        LDA #$01 ; $2C8D
+        STA M011A ; $2C8F
+L2C92
+        LDY #$00 ; $2C92
+        LDA ZP4B ; $2C94
+        CLC ; $2C96
+        ADC #$03 ; $2C97
+        STA (ZP33),Y ; $2C99
+        LDY #$0B ; $2C9B
+        LDA #$FF ; $2C9D
+        STA (ZP33),Y ; $2C9F
+        INY ; $2CA1
+        INY ; $2CA2
+        STA (ZP33),Y ; $2CA3
+        LDA ZP4B ; $2CA5
+        ASL A ; $2CA7
+        TAX ; $2CA8
+        LDA D3BDD,X ; $2CA9
+        LDY #$03 ; $2CAC
+        STA (ZP33),Y ; $2CAE
+        INY ; $2CB0
+        LDA D3BDE,X ; $2CB1
+        STA (ZP33),Y ; $2CB4
+        LDY #$01 ; $2CB6
+        LDA ZP53 ; $2CB8
+        CLC ; $2CBA
+        ADC #$07 ; $2CBB
+        STA (ZP33),Y ; $2CBD
+        LDA ZP54 ; $2CBF
+        CLC ; $2CC1
+        ADC #$03 ; $2CC2
+        INY ; $2CC4
+        STA (ZP33),Y ; $2CC5
+        RTS ; $2CC7
+L2CC8
+        LDX ZP4B ; $2CC8
+        BNE L2CD5 ; $2CCA
+        LDA #$02 ; $2CCC
+        STA M011A ; $2CCE
+        LDA #$00 ; $2CD1
+        STA ZP56 ; $2CD3
+L2CD5
+        LDA ZP56 ; $2CD5
+        BNE L2D52 ; $2CD7
+        LDY #$00 ; $2CD9
+SM2CDB
+        LDA #$FF ; $2CDB
+        STA (ZP33),Y ; $2CDD
+        INY ; $2CDF
+        LDA ZP4B ; $2CE0
+        ASL A ; $2CE2
+        ASL A ; $2CE3
+        CLC ; $2CE4
+        ADC ZP53 ; $2CE5
+        CLC ; $2CE7
+        ADC #$0A ; $2CE8
+        STA (ZP33),Y ; $2CEA
+        LDA ZP54 ; $2CEC
+        CLC ; $2CEE
+        ADC #$02 ; $2CEF
+        INY ; $2CF1
+        STA (ZP33),Y ; $2CF2
+        LDY #$04 ; $2CF4
+        LDA #$00 ; $2CF6
+        STA (ZP33),Y ; $2CF8
+        DEY ; $2CFA
+        LDA #$04 ; $2CFB
+        STA (ZP33),Y ; $2CFD
+        LDY #$0B ; $2CFF
+        LDA #$FF ; $2D01
+        STA (ZP33),Y ; $2D03
+        INY ; $2D05
+        INY ; $2D06
+        STA (ZP33),Y ; $2D07
+        RTS ; $2D09
+L2D0A
+        LDX ZP4B ; $2D0A
+        CPX #$04 ; $2D0C
+        BCS L2D55 ; $2D0E
+        LDX ZP4B ; $2D10
+        BNE L2D1D ; $2D12
+        LDA #$03 ; $2D14
+        STA M011A ; $2D16
+        LDA #$00 ; $2D19
+        STA ZP56 ; $2D1B
+L2D1D
+        LDA ZP56 ; $2D1D
+        BNE L2D52 ; $2D1F
+        TXA ; $2D21
+        ASL A ; $2D22
+        TAX ; $2D23
+        LDA D3BED,X ; $2D24
+        LDY #$00 ; $2D27
+        STA (ZP33),Y ; $2D29
+        INY ; $2D2B
+        LDA ZP53 ; $2D2C
+        CLC ; $2D2E
+        ADC #$08 ; $2D2F
+        STA (ZP33),Y ; $2D31
+        LDA D3BEE,X ; $2D33
+        SEC ; $2D36
+        ADC ZP54 ; $2D37
+        INY ; $2D39
+        STA (ZP33),Y ; $2D3A
+        LDY #$04 ; $2D3C
+        LDA #$00 ; $2D3E
+        STA (ZP33),Y ; $2D40
+        DEY ; $2D42
+        LDA #$06 ; $2D43
+        STA (ZP33),Y ; $2D45
+L2D47
+        LDY #$0B ; $2D47
+        LDA #$FF ; $2D49
+        STA (ZP33),Y ; $2D4B
+        INY ; $2D4D
+        INY ; $2D4E
+        STA (ZP33),Y ; $2D4F
+        RTS ; $2D51
+L2D52
+        PLA ; $2D52
+        PLA ; $2D53
+        RTS ; $2D54
+L2D55
+        TXA ; $2D55
+        SEC ; $2D56
+        SBC #$04 ; $2D57
+        ASL A ; $2D59
+        TAX ; $2D5A
+        LDA D3BF5,X ; $2D5B
+        LDY #$00 ; $2D5E
+        STA (ZP33),Y ; $2D60
+        LDA D3BFD,X ; $2D62
+        LDY #$03 ; $2D65
+        STA (ZP33),Y ; $2D67
+        INY ; $2D69
+        LDA D3BF6,X ; $2D6A
+        STA (ZP33),Y ; $2D6D
+        LDA ZP53 ; $2D6F
+        CLC ; $2D71
+        ADC #$08 ; $2D72
+        LDY #$01 ; $2D74
+        STA (ZP33),Y ; $2D76
+        LDA ZP54 ; $2D78
+        CLC ; $2D7A
+        ADC #$08 ; $2D7B
+        LDY #$02 ; $2D7D
+        STA (ZP33),Y ; $2D7F
+        JMP L2D47 ; $2D81
+L2D84
+        LDX ZP4B ; $2D84
+        BNE L2D91 ; $2D86
+        LDA #$04 ; $2D88
+        STA M011A ; $2D8A
+        LDA #$00 ; $2D8D
+        STA ZP56 ; $2D8F
+L2D91
+        LDA ZP56 ; $2D91
+        BNE L2D52 ; $2D93
+        LDY #$00 ; $2D95
+        LDX ZP4B ; $2D97
+        LDA D3C0D,X ; $2D99
+        STA (ZP33),Y ; $2D9C
+        INY ; $2D9E
+        LDA ZP53 ; $2D9F
+        CLC ; $2DA1
+        ADC #$08 ; $2DA2
+        STA (ZP33),Y ; $2DA4
+        LDA D3C05,X ; $2DA6
+        CLC ; $2DA9
+        ADC ZP54 ; $2DAA
+        INY ; $2DAC
+        STA (ZP33),Y ; $2DAD
+        LDY #$04 ; $2DAF
+        LDA #$00 ; $2DB1
+        STA (ZP33),Y ; $2DB3
+        DEY ; $2DB5
+        LDA #$08 ; $2DB6
+        STA (ZP33),Y ; $2DB8
+        LDY #$0B ; $2DBA
+        LDA #$FF ; $2DBC
+        STA (ZP33),Y ; $2DBE
+        INY ; $2DC0
+        INY ; $2DC1
+        STA (ZP33),Y ; $2DC2
+        RTS ; $2DC4
+SUB2DC5
+        STX ZP2A ; $2DC5
+        STY ZP29 ; $2DC7
+        LDY #$00 ; $2DC9
+L2DCB
+        LDA (ZP29),Y ; $2DCB
+        BEQ L2DE2 ; $2DCD
+        TYA ; $2DCF
+        CLC ; $2DD0
+        ADC #$05 ; $2DD1
+        TAY ; $2DD3
+        LDA #$03 ; $2DD4
+        STA (ZP29),Y ; $2DD6
+        TYA ; $2DD8
+        CLC ; $2DD9
+        ADC #$0F ; $2DDA
+        TAY ; $2DDC
+L2DDD
+        CPY #$C8 ; $2DDD
+        BNE L2DCB ; $2DDF
+        RTS ; $2DE1
+L2DE2
+        TYA ; $2DE2
+        CLC ; $2DE3
+        ADC #$14 ; $2DE4
+        TAY ; $2DE6
+        JMP L2DDD ; $2DE7
+; Dane obiektow sa w RAM $D800, dostepnym po wylaczeniu OS ROM.
+INITOBJECTRAM
+        LDX #$28 ; $2DEA
+        LDA #$00 ; $2DEC
+L2DEE
+        STA OBJECTRAM,X ; $2DEE
+        INX ; $2DF1
+        BNE L2DEE ; $2DF2
+        SETPTRXY ZP33,$D828 ; $2DF4-$2DFB
+        SETPTRXY PTR0,$E040 ; $2DFC-$2E03
+        LDX #$06 ; $2E04
+L2E06
+        LDY #$01 ; $2E06
+        LDA #$28 ; $2E08
+        STA (ZP33),Y ; $2E0A
+        LDY #$06 ; $2E0C
+        LDA PTR0 ; $2E0E
+        STA (ZP33),Y ; $2E10
+        INY ; $2E12
+        LDA PTR0H ; $2E13
+        STA (ZP33),Y ; $2E15
+        INY ; $2E17
+        LDA PTR0 ; $2E18
+        CLC ; $2E1A
+        ADC #$20 ; $2E1B
+        STA PTR0 ; $2E1D
+        BCC L2E23 ; $2E1F
+        INC PTR0H ; $2E21
+L2E23
+        LDA PTR0 ; $2E23
+        STA (ZP33),Y ; $2E25
+        LDA PTR0H ; $2E27
+        INY ; $2E29
+        STA (ZP33),Y ; $2E2A
+        LDY #$0B ; $2E2C
+        LDA #$FF ; $2E2E
+        STA (ZP33),Y ; $2E30
+        LDY #$0D ; $2E32
+        LDA #$FF ; $2E34
+        STA (ZP33),Y ; $2E36
+        LDA #$20 ; $2E38
+        CLC ; $2E3A
+        ADC PTR0 ; $2E3B
+        STA PTR0 ; $2E3D
+        BCC L2E43 ; $2E3F
+        INC PTR0H ; $2E41
+L2E43
+        LDA #$14 ; $2E43
+        CLC ; $2E45
+        ADC ZP33 ; $2E46
+        STA ZP33 ; $2E48
+        DEX ; $2E4A
+        PHP ; $2E4B
+        LDA #$00 ; $2E4C
+        STA ZPA7,X ; $2E4E
+        STA ZPAD,X ; $2E50
+        STA ZPD1,X ; $2E52
+        PLP ; $2E54
+        BNE L2E06 ; $2E55
+        RTS ; $2E57
+INITSHOTPOOL
+        SETPTRXY ZP33,$D900 ; $2E58-$2E5F
+        SETPTRXY PTR0,$DB00 ; $2E60-$2E67
+        LDX #$0A ; $2E68
+        JSR SUB2E84 ; $2E6A
+        SETPTRXY ZP33,$DA00 ; $2E6D-$2E74
+        LDX #$0A ; $2E75
+        JSR SUB2E84 ; $2E77
+        SETPTRXY ZP33,ADR4200 ; $2E7A-$2E81
+        LDX #$06 ; $2E82
+SUB2E84
+        LDY #$00 ; $2E84
+        TYA ; $2E86
+        STA (ZP33),Y ; $2E87
+        LDY #$05 ; $2E89
+        LDA #$00 ; $2E8B
+        STA (ZP33),Y ; $2E8D
+        INY ; $2E8F
+        LDA PTR0 ; $2E90
+        STA (ZP33),Y ; $2E92
+        INY ; $2E94
+        LDA PTR0H ; $2E95
+        STA (ZP33),Y ; $2E97
+        INY ; $2E99
+        LDA PTR0 ; $2E9A
+        CLC ; $2E9C
+        ADC #$04 ; $2E9D
+        STA PTR0 ; $2E9F
+        BCC L2EA5 ; $2EA1
+        INC PTR0H ; $2EA3
+L2EA5
+        LDA PTR0 ; $2EA5
+        STA (ZP33),Y ; $2EA7
+        LDA PTR0H ; $2EA9
+        INY ; $2EAB
+        STA (ZP33),Y ; $2EAC
+        LDA #$04 ; $2EAE
+        CLC ; $2EB0
+        ADC PTR0 ; $2EB1
+        STA PTR0 ; $2EB3
+        BCC L2EB9 ; $2EB5
+        INC PTR0H ; $2EB7
+L2EB9
+        LDA #$14 ; $2EB9
+        CLC ; $2EBB
+        ADC ZP33 ; $2EBC
+        STA ZP33 ; $2EBE
+        DEX ; $2EC0
+        BNE SUB2E84 ; $2EC1
+L2EC3
+        RTS ; $2EC3
+SUB2EC4
+        LDA GAMEMUSICMODE ; $2EC4
+        BNE L2EC3 ; $2EC6
+        LDA M010B ; $2EC8
+        BEQ L2EF2 ; $2ECB
+        LDA #$01 ; $2ECD
+        STA SM2F80+1 ; $2ECF
+        LDY ZP49 ; $2ED2
+        LDA P1STATE,Y ; $2ED4
+        LDX #$D9 ; $2ED7
+        LDY #$00 ; $2ED9
+        JSR SUB2F1E ; $2EDB
+        LDX ZP49 ; $2EDE
+        BNE L2EF2 ; $2EE0
+        LDA P1STATE,X ; $2EE2
+        CMP #$03 ; $2EE5
+        BCC L2EF2 ; $2EE7
+        LDA #$01 ; $2EE9
+        LDX #$D9 ; $2EEB
+        LDY #$A0 ; $2EED
+        JSR SUB2F23 ; $2EEF
+L2EF2
+        LDA TWOPLAYERS ; $2EF2
+        AND M010C ; $2EF4
+        BEQ L2EC3 ; $2EF7
+        LDA #$02 ; $2EF9
+        STA SM2F80+1 ; $2EFB
+        LDX ZP4A ; $2EFE
+        LDA P2STATE,X ; $2F00
+        LDX #$DA ; $2F03
+        LDY #$00 ; $2F05
+        JSR SUB2F1E ; $2F07
+        LDX ZP4A ; $2F0A
+        BNE L2EC3 ; $2F0C
+        LDA P2STATE,X ; $2F0E
+        CMP #$03 ; $2F11
+        BCC L2EC3 ; $2F13
+        LDA #$01 ; $2F15
+        LDX #$DA ; $2F17
+        LDY #$A0 ; $2F19
+        JMP SUB2F23 ; $2F1B
+SUB2F1E
+        ASL A ; $2F1E
+        STX PTR0H ; $2F1F
+        STY PTR0 ; $2F21
+SUB2F23
+        STA SM2FA1+1 ; $2F23
+        LDX #$00 ; $2F26
+        STX ZPEE ; $2F28
+        STX ZPEF ; $2F2A
+        STX ZP46 ; $2F2C
+L2F2E
+        LDY #$00 ; $2F2E
+        LDA (PTR0),Y ; $2F30
+        BEQ L2F92 ; $2F32
+        LDY #$05 ; $2F34
+        LDA (PTR0),Y ; $2F36
+        BNE L2F92 ; $2F38
+        LDY #$01 ; $2F3A
+        LDA (PTR0),Y ; $2F3C
+        STA ZP5E ; $2F3E
+        INY ; $2F40
+        LDA (PTR0),Y ; $2F41
+        STA ZP5F ; $2F43
+        LDX #$00 ; $2F45
+        LDY #$00 ; $2F47
+L2F49
+        LDA ZPA7,X ; $2F49
+        AND #$7F ; $2F4B
+        BNE L2F88 ; $2F4D
+        LDA ZPAD,X ; $2F4F
+        BEQ L2F88 ; $2F51
+        LDA ZP77,X ; $2F53
+        BNE L2F88 ; $2F55
+        LDA ZPD1,X ; $2F57
+        BNE L2F88 ; $2F59
+        LDA ZP5E ; $2F5B
+        SEC ; $2F5D
+        SBC MD829,Y ; $2F5E
+        BCC L2F88 ; $2F61
+        CMP #$0D ; $2F63
+        BCS L2F88 ; $2F65
+        LDA ZP5F ; $2F67
+        SEC ; $2F69
+        SBC MD82A,Y ; $2F6A
+        BCC L2F88 ; $2F6D
+        CMP #$0B ; $2F6F
+        BCS L2F88 ; $2F71
+        STY ZPED ; $2F73
+        JSR SUB2FB4 ; $2F75
+        LDY ZPED ; $2F78
+        LDA ZP83,X ; $2F7A
+        CMP #$FF ; $2F7C
+        BEQ L2F84 ; $2F7E
+SM2F80
+        LDA #$FF ; $2F80
+        STA ZPD1,X ; $2F82
+L2F84
+        LDA #$01 ; $2F84
+        STA ZP6B,X ; $2F86
+L2F88
+        TYA ; $2F88
+        CLC ; $2F89
+        ADC #$14 ; $2F8A
+        TAY ; $2F8C
+        INX ; $2F8D
+        CPX #$06 ; $2F8E
+        BNE L2F49 ; $2F90
+L2F92
+        LDA #$14 ; $2F92
+        CLC ; $2F94
+        ADC PTR0 ; $2F95
+        STA PTR0 ; $2F97
+        BCC L2F9D ; $2F99
+        INC PTR0H ; $2F9B
+L2F9D
+        INC ZP46 ; $2F9D
+        LDA ZP46 ; $2F9F
+SM2FA1
+        CMP #$FF ; $2FA1
+        BNE L2F2E ; $2FA3
+        LDA ZPEE ; $2FA5
+        BEQ L2FAC ; $2FA7
+        JMP L2FDD ; $2FA9
+L2FAC
+        LDA ZPEF ; $2FAC
+        BEQ L2FB3 ; $2FAE
+        JMP L2FF3 ; $2FB0
+L2FB3
+        RTS ; $2FB3
+SUB2FB4
+        LDY #$00 ; $2FB4
+        LDA (PTR0),Y ; $2FB6
+        CMP #$11 ; $2FB8
+        BCS L2FD3 ; $2FBA
+        CMP #$0D ; $2FBC
+        BCC L2FC4 ; $2FBE
+        CMP #$10 ; $2FC0
+        BCC L2FD8 ; $2FC2
+L2FC4
+        CMP #$0B ; $2FC4
+        BCC L2FCC ; $2FC6
+        CMP #$0D ; $2FC8
+        BCC L2FB3 ; $2FCA
+L2FCC
+        LDY #$05 ; $2FCC
+        LDA #$03 ; $2FCE
+        STA (PTR0),Y ; $2FD0
+        RTS ; $2FD2
+L2FD3
+        LDA #$01 ; $2FD3
+        STA ZPEE ; $2FD5
+        RTS ; $2FD7
+L2FD8
+        LDA #$01 ; $2FD8
+        STA ZPEF ; $2FDA
+        RTS ; $2FDC
+L2FDD
+        LDA PTR0H ; $2FDD
+        STA SM2FE6+2 ; $2FDF
+        LDY #$00 ; $2FE2
+L2FE4
+        LDA #$03 ; $2FE4
+SM2FE6
+        STA MFF05,Y ; $2FE6
+        TYA ; $2FE9
+        CLC ; $2FEA
+        ADC #$14 ; $2FEB
+        TAY ; $2FED
+        CPY #$A0 ; $2FEE
+        BNE L2FE4 ; $2FF0
+        RTS ; $2FF2
+L2FF3
+        LDA PTR0H ; $2FF3
+        STA SM2FFC+2 ; $2FF5
+        LDY #$00 ; $2FF8
+L2FFA
+        LDA #$03 ; $2FFA
+SM2FFC
+        STA MFF05,Y ; $2FFC
+        TYA ; $2FFF
+        CLC ; $3000
+        ADC #$14 ; $3001
+        TAY ; $3003
+        CPY #$50 ; $3004
+        BNE L2FFA ; $3006
+        RTS ; $3008
+SUB3009
+        LDA ZPE1 ; $3009
+        BEQ L2FB3 ; $300B
+        LDX #$04 ; $300D
+        STX D301B ; $300F
+L3012
+        JSR SUB301C ; $3012
+        DEC D301B ; $3015
+        BNE L3012 ; $3018
+        RTS ; $301A
+D301B
+        .BYTE $00 ; $301B
+SUB301C
+        LDX #$09 ; $301C
+        STX ZP47 ; $301E
+L3020
+        LDX ZP47 ; $3020
+        LDA D3BC7,X ; $3022
+        BEQ L3031 ; $3025
+        PHA ; $3027
+        LDA #$00 ; $3028
+        STA D3BC7,X ; $302A
+        PLA ; $302D
+        JMP L303A ; $302E
+L3031
+        DEC ZP47 ; $3031
+        BPL L3020 ; $3033
+        PLA ; $3035
+        PLA ; $3036
+        JMP L3143 ; $3037
+L303A
+        LDY #$55 ; $303A
+        STY PTR0H ; $303C
+        LDY #$00 ; $303E
+        STY PTR0 ; $3040
+        LSR A ; $3042
+        ROR PTR0 ; $3043
+        LSR A ; $3045
+        ROR PTR0 ; $3046
+        LSR A ; $3048
+        ROR PTR0 ; $3049
+        CLC ; $304B
+        ADC PTR0H ; $304C
+        STA PTR0H ; $304E
+        TXA ; $3050
+        ASL A ; $3051
+        TAX ; $3052
+        LDA D06C0,X ; $3053
+        STA ZP29 ; $3056
+        CLC ; $3058
+        ADC #$20 ; $3059
+        STA ZP2B ; $305B
+        LDA D06C1,X ; $305D
+        STA ZP2A ; $3060
+        STA ZP2C ; $3062
+        LDY #$1D ; $3064
+L3066
+        LDA (PTR0),Y ; $3066
+        STA (ZP29),Y ; $3068
+        DEY ; $306A
+        BPL L3066 ; $306B
+        LDX #$03 ; $306D
+L306F
+        CLC ; $306F
+        PHP ; $3070
+        LDY #$00 ; $3071
+L3073
+        LDA (ZP29),Y ; $3073
+        PLP ; $3075
+        ROR A ; $3076
+        PHP ; $3077
+        STA (ZP2B),Y ; $3078
+        INY ; $307A
+        CPY #$1E ; $307B
+        BNE L3073 ; $307D
+        PLP ; $307F
+        CLC ; $3080
+        PHP ; $3081
+        LDY #$00 ; $3082
+L3084
+        LDA (ZP2B),Y ; $3084
+        PLP ; $3086
+        ROR A ; $3087
+        PHP ; $3088
+        STA (ZP2B),Y ; $3089
+        INY ; $308B
+        CPY #$1E ; $308C
+        BNE L3084 ; $308E
+        PLP ; $3090
+        LDA #$20 ; $3091
+        CLC ; $3093
+        ADC ZP29 ; $3094
+        STA ZP29 ; $3096
+        LDA #$20 ; $3098
+        CLC ; $309A
+        ADC ZP2B ; $309B
+        STA ZP2B ; $309D
+        DEX ; $309F
+        BNE L306F ; $30A0
+        RTS ; $30A2
+L30A3
+        LDA ZP63 ; $30A3
+        CMP #$06 ; $30A5
+        BCC L30FB ; $30A7
+        LDX #$05 ; $30A9
+L30AB
+        LDA ZPAD,X ; $30AB
+        BNE L30FB ; $30AD
+        DEX ; $30AF
+        BPL L30AB ; $30B0
+        LDX #$05 ; $30B2
+L30B4
+        LDA #$80 ; $30B4
+        STA ZPA7,X ; $30B6
+        LDA #$00 ; $30B8
+        STA ZPD1,X ; $30BA
+        STA ZP77,X ; $30BC
+        LDA #$FF ; $30BE
+        STA ZP95,X ; $30C0
+        LDY D236E,X ; $30C2
+        STA MD833,Y ; $30C5
+        STA MD835,Y ; $30C8
+        DEX ; $30CB
+        BPL L30B4 ; $30CC
+        LDA #$FF ; $30CE
+        STA ZP6A ; $30D0
+        JSR SUB26DE ; $30D2
+        INC ZP64 ; $30D5
+        LDA ZP64 ; $30D7
+        CMP #$20 ; $30D9
+        BCS L30E0 ; $30DB
+        JMP L3108 ; $30DD
+L30E0
+        LDA #$00 ; $30E0
+        STA M010D ; $30E2
+        LDA #$01 ; $30E5
+        STA ZP66 ; $30E7
+        JSR STARTMUSIC ; $30E9
+        LDA #$01 ; $30EC
+        STA GAMEMUSICMODE ; $30EE
+        LDA #$03 ; $30F0
+        STA MD9A5 ; $30F2
+        STA MDAA5 ; $30F5
+        JMP L34C8 ; $30F8
+L30FB
+        RTS ; $30FB
+SUB30FC
+        LDA ZPE1 ; $30FC
+        BNE L30FB ; $30FE
+        LDA GAMEMUSICMODE ; $3100
+        BNE L30FB ; $3102
+        LDA ZP66 ; $3104
+        BNE L30A3 ; $3106
+L3108
+        LDA #$01 ; $3108
+        STA ZP66 ; $310A
+        LDA #$00 ; $310C
+        STA ZP63 ; $310E
+        LDA LEVELSTATE ; $3110
+        ASL A ; $3112
+        TAY ; $3113
+        LDA D08EB,Y ; $3114
+        STA ZPFE ; $3117
+        LDA D08EC,Y ; $3119
+        STA ZPFF ; $311C
+        LDY ZP64 ; $311E
+        LDA (ZPFE),Y ; $3120
+        TAY ; $3122
+        LDA D0B0B,Y ; $3123
+        STA ZPFE ; $3126
+        LDA D0B0C,Y ; $3128
+        STA ZPFF ; $312B
+        LDY #$00 ; $312D
+L312F
+        LDA (ZPFE),Y ; $312F
+        CMP #$FF ; $3131
+        BEQ L313E ; $3133
+        CLC ; $3135
+        ADC #$01 ; $3136
+        STA D3BC7,Y ; $3138
+        INY ; $313B
+        BNE L312F ; $313C
+L313E
+        LDA #$01 ; $313E
+        STA ZPE1 ; $3140
+L3142
+        RTS ; $3142
+L3143
+        LDA #$00 ; $3143
+        STA ZPE1 ; $3145
+        LDA GAMEMUSICMODE ; $3147
+        BNE L3142 ; $3149
+        LDY LEVELSTATE ; $314B
+        LDA D9780,Y ; $314D
+        STA ZPFE ; $3150
+        LDA D9790,Y ; $3152
+        CLC ; $3155
+        ADC #$78 ; $3156
+        STA ZPFF ; $3158
+        LDY ZP64 ; $315A
+        LDA (ZPFE),Y ; $315C
+        TAY ; $315E
+        LDA D9500,Y ; $315F
+        STA ZPFE ; $3162
+        LDA D9560,Y ; $3164
+        CLC ; $3167
+        ADC #$78 ; $3168
+        STA ZPFF ; $316A
+        LDA #$06 ; $316C
+        STA ZPFD ; $316E
+        LDY #$00 ; $3170
+        LDA (ZPFE),Y ; $3172
+        STA ZP6A ; $3174
+        INY ; $3176
+        LDX #$00 ; $3177
+L3179
+        LDA (ZPFE),Y ; $3179
+        STA ZP95,X ; $317B
+        INY ; $317D
+        INX ; $317E
+        CPX #$0C ; $317F
+        BNE L3179 ; $3181
+        LDA (ZPFE),Y ; $3183
+        CMP #$FF ; $3185
+        BEQ L3198 ; $3187
+        LDX #$00 ; $3189
+L318B
+        LDA (ZPFE),Y ; $318B
+        STA ZPA1,X ; $318D
+        INY ; $318F
+        INX ; $3190
+        CPX #$06 ; $3191
+        BNE L318B ; $3193
+        JMP L31A5 ; $3195
+L3198
+        INY ; $3198
+        LDX #$00 ; $3199
+        LDA (ZPFE),Y ; $319B
+L319D
+        STA ZPA1,X ; $319D
+        INX ; $319F
+        CPX #$06 ; $31A0
+        BNE L319D ; $31A2
+        INY ; $31A4
+L31A5
+        LDA (ZPFE),Y ; $31A5
+        CMP #$FF ; $31A7
+        BEQ L31B2 ; $31A9
+        CMP #$FE ; $31AB
+        BEQ L31C6 ; $31AD
+        JMP L31D6 ; $31AF
+L31B2
+        INY ; $31B2
+        LDX #$00 ; $31B3
+L31B5
+        LDA (ZPFE),Y ; $31B5
+        STA ZPC5,X ; $31B7
+        LDA #$FF ; $31B9
+        STA ZPBF,X ; $31BB
+        INX ; $31BD
+        CPX #$06 ; $31BE
+        BNE L31B5 ; $31C0
+        INY ; $31C2
+        JMP L31F6 ; $31C3
+L31C6
+        LDX #$00 ; $31C6
+        INY ; $31C8
+        LDA (ZPFE),Y ; $31C9
+L31CB
+        STA ZPBF,X ; $31CB
+        INX ; $31CD
+        CPX #$06 ; $31CE
+        BNE L31CB ; $31D0
+        INY ; $31D2
+        JMP L31F6 ; $31D3
+L31D6
+        STA ZPFC ; $31D6
+        INY ; $31D8
+        LDX #$00 ; $31D9
+L31DB
+        ASL ZPFC ; $31DB
+        BCS L31EC ; $31DD
+        LDA (ZPFE),Y ; $31DF
+        AND #$07 ; $31E1
+        STA ZPC5,X ; $31E3
+        LDA #$FF ; $31E5
+        STA ZPBF,X ; $31E7
+        JMP L31F0 ; $31E9
+L31EC
+        LDA (ZPFE),Y ; $31EC
+        STA ZPBF,X ; $31EE
+L31F0
+        INY ; $31F0
+        INX ; $31F1
+        CPX #$06 ; $31F2
+        BNE L31DB ; $31F4
+L31F6
+        LDA (ZPFE),Y ; $31F6
+        STA ZP68 ; $31F8
+        INY ; $31FA
+        LDA (ZPFE),Y ; $31FB
+        STA ZPFC ; $31FD
+        LDX #$00 ; $31FF
+L3201
+        LDA #$00 ; $3201
+        STA ZP6B,X ; $3203
+        ASL ZPFC ; $3205
+        BCC L320D ; $3207
+        LDA #$01 ; $3209
+        STA ZP6B,X ; $320B
+L320D
+        INX ; $320D
+        CPX #$06 ; $320E
+        BNE L3201 ; $3210
+        INY ; $3212
+        LDA (ZPFE),Y ; $3213
+        STY ZPFA ; $3215
+        TAY ; $3217
+        LDA D95C0,Y ; $3218
+        STA ZPFB ; $321B
+        LDA D95C8,Y ; $321D
+        CLC ; $3220
+        ADC #$78 ; $3221
+        STA ZPFC ; $3223
+        LDY #$00 ; $3225
+L3227
+        LDA (ZPFB),Y ; $3227
+        STA ZPB9,Y ; $3229
+        INY ; $322C
+        CPY #$06 ; $322D
+        BNE L3227 ; $322F
+        LDY ZPFA ; $3231
+        INY ; $3233
+        STY ZPFA ; $3234
+        LDA (ZPFE),Y ; $3236
+        TAY ; $3238
+        LDA D95C0,Y ; $3239
+        STA ZPFB ; $323C
+        LDA D95C8,Y ; $323E
+        CLC ; $3241
+        ADC #$78 ; $3242
+        STA ZPFC ; $3244
+        LDY #$00 ; $3246
+L3248
+        LDA (ZPFB),Y ; $3248
+        SEC ; $324A
+        SBC #$01 ; $324B
+        STA ZPCB,Y ; $324D
+        INY ; $3250
+        CPY #$06 ; $3251
+        BNE L3248 ; $3253
+        LDX #$06 ; $3255
+L3257
+        LDA #$00 ; $3257
+        STA ZPB2,X ; $3259
+        STA ZPD6,X ; $325B
+        STA ZP76,X ; $325D
+        STA ZPD0,X ; $325F
+        DEX ; $3261
+        BNE L3257 ; $3262
+        LDX #$06 ; $3264
+        LDY ZP62 ; $3266
+L3268
+        TXA ; $3268
+        AND #$01 ; $3269
+        AND TWOPLAYERS ; $326B
+        AND M010C ; $326D
+        STA ZP70,X ; $3270
+        INY ; $3272
+        DEX ; $3273
+        BNE L3268 ; $3274
+        STY ZP62 ; $3276
+        LDY ZPFA ; $3278
+        INY ; $327A
+        LDA (ZPFE),Y ; $327B
+        STA ZPE8 ; $327D
+        INY ; $327F
+        STY ZPFA ; $3280
+        LDA (ZPFE),Y ; $3282
+        TAY ; $3284
+        LDA D97A0,Y ; $3285
+        STA ZPFB ; $3288
+        LDA D97A8,Y ; $328A
+        CLC ; $328D
+        ADC #$78 ; $328E
+        STA ZPFC ; $3290
+        LDY #$06 ; $3292
+L3294
+        LDA (ZPFB),Y ; $3294
+        STA ZP7C,Y ; $3296
+        STA ZPFF,Y ; $3299
+        DEY ; $329C
+        BNE L3294 ; $329D
+        LDY ZPFA ; $329F
+        INY ; $32A1
+        LDA (ZPFE),Y ; $32A2
+        LDX #$00 ; $32A4
+        CMP #$80 ; $32A6
+        BCC L32AC ; $32A8
+        LDX #$FC ; $32AA
+L32AC
+        AND #$7F ; $32AC
+        STA ZP69 ; $32AE
+        INY ; $32B0
+        STY ZPFA ; $32B1
+        LDA (ZPFE),Y ; $32B3
+        TAY ; $32B5
+        LDA D97B0,Y ; $32B6
+        STA ZPFB ; $32B9
+        LDA D97B8,Y ; $32BB
+        CLC ; $32BE
+        ADC #$78 ; $32BF
+        STA ZPFC ; $32C1
+        LDY #$06 ; $32C3
+L32C5
+        LDA (ZPFB),Y ; $32C5
+        STA ZP82,Y ; $32C7
+        STA ZP88,Y ; $32CA
+        DEY ; $32CD
+        BNE L32C5 ; $32CE
+        LDY ZPFA ; $32D0
+        INY ; $32D2
+        STY ZPFA ; $32D3
+        LDA (ZPFE),Y ; $32D5
+        TAY ; $32D7
+        LDA D97C0,Y ; $32D8
+        STA ZPFB ; $32DB
+        LDA D97C8,Y ; $32DD
+        CLC ; $32E0
+        ADC #$78 ; $32E1
+        STA ZPFC ; $32E3
+        LDY #$06 ; $32E5
+L32E7
+        LDA (ZPFB),Y ; $32E7
+        STA ZP8E,Y ; $32E9
+        DEY ; $32EC
+        BNE L32E7 ; $32ED
+        LDA #$00 ; $32EF
+        STA ZP61 ; $32F1
+        JSR SUB346A ; $32F3
+        LDA ZP68 ; $32F6
+        STA ZP61 ; $32F8
+L32FA
+        RTS ; $32FA
+L32FB
+        JMP L344C ; $32FB
+L32FE
+        JMP L33F4 ; $32FE
+SUB3301
+        LDA ZPE1 ; $3301
+        BNE L32FA ; $3303
+        LDX #$00 ; $3305
+        LDA GAMEMUSICMODE ; $3307
+        BNE L32FA ; $3309
+L330B
+        LDA ZP77,X ; $330B
+        CMP #$02 ; $330D
+        BCS L32FE ; $330F
+        LDA ZPC5,X ; $3311
+        CMP #$13 ; $3313
+        BEQ L32FE ; $3315
+        LDY ZPA1,X ; $3317
+        LDA D95D0,Y ; $3319
+        STA ZPFE ; $331C
+        LDA D9608,Y ; $331E
+        CLC ; $3321
+        ADC #$78 ; $3322
+        STA ZPFF ; $3324
+        LDY ZPB9,X ; $3326
+        LDA (ZPFE),Y ; $3328
+        STA ZPFC ; $332A
+        AND #$0F ; $332C
+        STA ZPFD ; $332E
+        LDA ZPFC ; $3330
+        AND #$40 ; $3332
+        BNE L32FB ; $3334
+        LDA ZPFC ; $3336
+        AND #$80 ; $3338
+        BNE L3377 ; $333A
+L333C
+        LDA ZP6A ; $333C
+        AND D34D7,X ; $333E
+        BNE L338E ; $3341
+        JSR MOVEXMINUS ; $3343
+        BCS L33AC ; $3346
+        JSR SUB3356 ; $3348
+        JMP L33AC ; $334B
+MOVEXMINUS
+        LDA ZP95,X ; $334E
+        SEC ; $3350
+        SBC ZPFD ; $3351
+        STA ZP95,X ; $3353
+        RTS ; $3355
+SUB3356
+        LDA ZPA7,X ; $3356
+        AND #$80 ; $3358
+        BNE L3360 ; $335A
+        LDA ZPAD,X ; $335C
+        BEQ L3370 ; $335E
+L3360
+        LDA ZPA7,X ; $3360
+        AND #$7F ; $3362
+        BNE L3370 ; $3364
+        LDA #$02 ; $3366
+        STA ZP77,X ; $3368
+        LDA #$03 ; $336A
+        STA ZPA7,X ; $336C
+        INC ZP63 ; $336E
+L3370
+        RTS ; $3370
+        .BYTE $28,$3C,$50,$64,$78,$8C ; $3371
+L3377
+        LDA ZP6A ; $3377
+        AND D34D7,X ; $3379
+        BNE L33A7 ; $337C
+        JSR MOVEXPLUS ; $337E
+        BCS L339D ; $3381
+        JMP L33AC ; $3383
+MOVEXPLUS
+        LDA ZP95,X ; $3386
+        CLC ; $3388
+        ADC ZPFD ; $3389
+        STA ZP95,X ; $338B
+        RTS ; $338D
+L338E
+        JSR MOVEXMINUS ; $338E
+        BCS L33AC ; $3391
+L3393
+        LDA ZP6A ; $3393
+        AND D34DD,X ; $3395
+        STA ZP6A ; $3398
+        JMP L33AC ; $339A
+L339D
+        LDA ZP6A ; $339D
+        ORA D34D7,X ; $339F
+        STA ZP6A ; $33A2
+        JMP L33AC ; $33A4
+L33A7
+        JSR MOVEXPLUS ; $33A7
+        BCS L3393 ; $33AA
+L33AC
+        LDY ZPA1,X ; $33AC
+        LDA D9640,Y ; $33AE
+        STA ZPFE ; $33B1
+        LDA D9678,Y ; $33B3
+        CLC ; $33B6
+        ADC #$78 ; $33B7
+        STA ZPFF ; $33B9
+        LDY ZPB9,X ; $33BB
+        LDA (ZPFE),Y ; $33BD
+        STA ZPFC ; $33BF
+        AND #$0F ; $33C1
+        STA ZPFD ; $33C3
+        LDA ZPFC ; $33C5
+        AND #$40 ; $33C7
+        BNE L342E ; $33C9
+        LDA ZPFC ; $33CB
+        AND #$80 ; $33CD
+        BNE L33E4 ; $33CF
+L33D1
+        LDA ZP9B,X ; $33D1
+        BEQ L33F4 ; $33D3
+        SEC ; $33D5
+        SBC ZPFD ; $33D6
+        STA ZP9B,X ; $33D8
+        CMP #$42 ; $33DA
+        BCS L33F4 ; $33DC
+        JSR SUB3356 ; $33DE
+        JMP L33F4 ; $33E1
+L33E4
+        LDA ZP9B,X ; $33E4
+        BEQ L33F4 ; $33E6
+        CLC ; $33E8
+        ADC ZPFD ; $33E9
+        STA ZP9B,X ; $33EB
+        CMP #$DE ; $33ED
+        BCC L33F4 ; $33EF
+        JSR SUB3356 ; $33F1
+L33F4
+        JSR SUB3400 ; $33F4
+        INX ; $33F7
+        CPX #$06 ; $33F8
+        BEQ L33FF ; $33FA
+        JMP L330B ; $33FC
+L33FF
+        RTS ; $33FF
+SUB3400
+        LDY ZPA1,X ; $3400
+        LDA D96B0,Y ; $3402
+        STA ZPFE ; $3405
+        LDA D96E8,Y ; $3407
+        CLC ; $340A
+        ADC #$78 ; $340B
+        STA ZPFF ; $340D
+        LDY ZPB9,X ; $340F
+        INC ZPB3,X ; $3411
+        LDA ZPB3,X ; $3413
+        CMP (ZPFE),Y ; $3415
+        BNE L33FF ; $3417
+        LDA #$00 ; $3419
+        STA ZPB3,X ; $341B
+        INC ZPB9,X ; $341D
+        LDA ZPB9,X ; $341F
+        LDY ZPA1,X ; $3421
+        CMP D8700,Y ; $3423
+        BNE L33FF ; $3426
+        LDA D8780,Y ; $3428
+        STA ZPB9,X ; $342B
+        RTS ; $342D
+L342E
+        LDA ZP6B,X ; $342E
+        BNE L3435 ; $3430
+L3432
+        JMP L33F4 ; $3432
+L3435
+        LDY ZP71,X ; $3435
+        LDA ZP9B,X ; $3437
+        CMP ZPEB,Y ; $3439
+        BEQ L3432 ; $343C
+        BCS L3443 ; $343E
+        JMP L33E4 ; $3440
+L3443
+        JMP L33D1 ; $3443
+L3446
+        JMP L333C ; $3446
+L3449
+        JMP L3377 ; $3449
+L344C
+        LDA ZP6B,X ; $344C
+        BNE L3453 ; $344E
+L3450
+        JMP L33AC ; $3450
+L3453
+        TXA ; $3453
+        LDA ZP6A ; $3454
+        AND D3BD7,X ; $3456
+        BNE L3446 ; $3459
+        LDY ZP71,X ; $345B
+        LDA ZP95,X ; $345D
+        CMP ZPE9,Y ; $345F
+        BEQ L3450 ; $3462
+        BCS L3446 ; $3464
+        JMP L3449 ; $3466
+L3469
+        RTS ; $3469
+SUB346A
+        LDX #$00 ; $346A
+        LDA GAMEMUSICMODE ; $346C
+        BNE L3469 ; $346E
+L3470
+        LDA ZP77,X ; $3470
+        BNE L3487 ; $3472
+        LDA ZPBF,X ; $3474
+        CMP #$FF ; $3476
+        BEQ L3487 ; $3478
+        LDA ZP61 ; $347A
+        AND D3BD5,X ; $347C
+        BNE L3487 ; $347F
+        LDA ZPD7,X ; $3481
+        BEQ L348D ; $3483
+        DEC ZPD7,X ; $3485
+L3487
+        INX ; $3487
+        CPX #$06 ; $3488
+        BNE L3470 ; $348A
+        RTS ; $348C
+L348D
+        LDY ZPBF,X ; $348D
+        LDA D9720,Y ; $348F
+        STA ZPFE ; $3492
+        LDA D9738,Y ; $3494
+        CLC ; $3497
+        ADC #$78 ; $3498
+        STA ZPFF ; $349A
+        LDA D9750,Y ; $349C
+        STA ZPFC ; $349F
+        LDA D9768,Y ; $34A1
+        CLC ; $34A4
+        ADC #$78 ; $34A5
+        STA ZPFD ; $34A7
+        INC ZPCB,X ; $34A9
+L34AB
+        LDY ZPCB,X ; $34AB
+        LDA (ZPFE),Y ; $34AD
+        CMP #$FF ; $34AF
+        BEQ L34BC ; $34B1
+        STA ZPC5,X ; $34B3
+        LDA (ZPFC),Y ; $34B5
+        STA ZPD7,X ; $34B7
+        JMP L3487 ; $34B9
+L34BC
+        LDY ZPBF,X ; $34BC
+        LDA D86E0,Y ; $34BE
+        LDA #$00 ; $34C1
+        STA ZPCB,X ; $34C3
+        JMP L34AB ; $34C5
+L34C8
+        LDA #$00 ; $34C8
+        STA ZP63 ; $34CA
+        SETWORD ADR3BC7,VDSLSTH ; $34CC-$34D5
+        RTS ; $34D6
+D34D7
+        .BYTE $04,$08,$10,$20,$40,$80 ; $34D7
+D34DD
+        .BYTE $FB,$F7,$EF,$DF,$BF,$7F ; $34DD
+DRAWPOOL88
+        LDX #$05 ; $34E3
+        STX ZP46 ; $34E5
+        SETPTRXY ZP33,$D88C ; $34E7-$34EE
+L34EF
+        LDY ZP46 ; $34EF
+        LDA ZPAD,Y ; $34F1
+        BEQ L3526 ; $34F4
+        LDA ZP39 ; $34F6
+        EOR #$01 ; $34F8
+        TAX ; $34FA
+        LDA ZPA7,Y ; $34FB
+        AND D3532,X ; $34FE
+        BEQ L350D ; $3501
+        LDX ZP39 ; $3503
+        LDA ZPA7,Y ; $3505
+        AND D3532,X ; $3508
+        BEQ L3526 ; $350B
+L350D
+        JSR SUB3534 ; $350D
+        DEY ; $3510
+        DEY ; $3511
+        DEY ; $3512
+        LDA (ZP33),Y ; $3513
+        STA ZP3D ; $3515
+        DEY ; $3517
+        LDA (ZP33),Y ; $3518
+        STA ZP3C ; $351A
+        JSR SUB35B3 ; $351C
+        LDX #$0A ; $351F
+        STX ZP43 ; $3521
+        JSR SUB3582 ; $3523
+L3526
+        LDA ZP33 ; $3526
+        SEC ; $3528
+        SBC #$14 ; $3529
+        STA ZP33 ; $352B
+        DEC ZP46 ; $352D
+        BPL L34EF ; $352F
+        RTS ; $3531
+D3532
+        .BYTE $01,$02 ; $3532
+SUB3534
+        LDX ZP39 ; $3534
+        LDA HSCROLLA,X ; $3536
+        SEC ; $3538
+        SBC #$0C ; $3539
+        STA ZP38 ; $353B
+        LDY #$01 ; $353D
+        LDA (ZP33),Y ; $353F
+        SEC ; $3541
+        SBC ZP38 ; $3542
+        PHA ; $3544
+        AND #$03 ; $3545
+        STA ZP40 ; $3547
+        PLA ; $3549
+        LSR A ; $354A
+        LSR A ; $354B
+        STA ZP3A ; $354C
+        INY ; $354E
+        LDA (ZP33),Y ; $354F
+        ASL A ; $3551
+        CLC ; $3552
+        ADC (ZP33),Y ; $3553
+        TAY ; $3555
+        LDX BUFFERSELECT ; $3556
+        LDA DLISTPTRS,X ; $3558
+        STA ZP41 ; $355B
+        LDA D3BC0,X ; $355D
+        ADC #$00 ; $3560
+        STA ZP42 ; $3562
+        LDA (ZP41),Y ; $3564
+        CLC ; $3566
+        ADC ZP3A ; $3567
+        STA ZP3A ; $3569
+        PHA ; $356B
+        LDA #$00 ; $356C
+        INY ; $356E
+        ADC (ZP41),Y ; $356F
+        STA ZP3B ; $3571
+        TAX ; $3573
+        LDA #$0B ; $3574
+        CLC ; $3576
+        ADC BUFFERSELECT ; $3577
+        TAY ; $3579
+        TXA ; $357A
+        STA (ZP33),Y ; $357B
+        DEY ; $357D
+        PLA ; $357E
+        STA (ZP33),Y ; $357F
+        RTS ; $3581
+SUB3582
+        LDY #$02 ; $3582
+L3584
+        LDA (ZP3E),Y ; $3584
+        TAX ; $3586
+        LDA (ZP3A),Y ; $3587
+        STA (ZP3C),Y ; $3589
+        AND D4300,X ; $358B
+        ORA (ZP3E),Y ; $358E
+        STA (ZP3A),Y ; $3590
+        DEY ; $3592
+        BPL L3584 ; $3593
+        LDA #$2C ; $3595
+        CLC ; $3597
+        ADC ZP3A ; $3598
+        STA ZP3A ; $359A
+        BCC L35A0 ; $359C
+        INC ZP3B ; $359E
+L35A0
+        LDA #$03 ; $35A0
+        CLC ; $35A2
+        ADC ZP3E ; $35A3
+        STA ZP3E ; $35A5
+        LDA #$03 ; $35A7
+        CLC ; $35A9
+        ADC ZP3C ; $35AA
+        STA ZP3C ; $35AC
+        DEC ZP43 ; $35AE
+        BNE SUB3582 ; $35B0
+        RTS ; $35B2
+SUB35B3
+        LDX ZP46 ; $35B3
+        LDA ZPC5,X ; $35B5
+        ASL A ; $35B7
+        TAX ; $35B8
+        LDA D06C0,X ; $35B9
+        STA ZP3E ; $35BC
+        LDA D06C1,X ; $35BE
+        STA ZP3F ; $35C1
+        LDX ZP40 ; $35C3
+        LDA D3BD1,X ; $35C5
+        CLC ; $35C8
+        ADC ZP3E ; $35C9
+        STA ZP3E ; $35CB
+        RTS ; $35CD
+DRAWPOOL28
+        LDX #$00 ; $35CE
+        STX ZP46 ; $35D0
+        SETPTRXY ZP33,$D828 ; $35D2-$35D9
+L35DA
+        LDY ZP46 ; $35DA
+        LDA ZPAD,Y ; $35DC
+        BEQ L3625 ; $35DF
+        LDA #$0B ; $35E1
+        CLC ; $35E3
+        ADC BUFFERSELECT ; $35E4
+        TAY ; $35E6
+        LDA (ZP33),Y ; $35E7
+        CMP #$FF ; $35E9
+        BEQ L3625 ; $35EB
+        LDA BUFFERSELECT ; $35ED
+        CLC ; $35EF
+        ADC #$06 ; $35F0
+        TAY ; $35F2
+        JSR BLITOBJECT ; $35F3
+        LDX ZP39 ; $35F6
+        LDY ZP46 ; $35F8
+        LDA ZPA7,Y ; $35FA
+        .END

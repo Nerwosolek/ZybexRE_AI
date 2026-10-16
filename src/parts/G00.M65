@@ -1,0 +1,1553 @@
+; ZYBEX: osobny modul MAC/65, adresy stale.
+FRAMEHI          = $13
+FRAMELO          = $14
+PTR0             = $15
+PTR0H            = $16
+PTR1             = $17
+PTR1H            = $18
+TWOPLAYERS       = $51
+LEVELSTATE       = $65
+ZP95             = $95
+ZP9B             = $9B
+P1COLOR          = $F2
+P2COLOR          = $F3
+MUSICENABLED     = $010F
+M0110            = $0110
+MENUICONX        = $011B
+M011F            = $011F
+DLISAVEA         = $0120
+DLISAVEX         = $0122
+M0123            = $0123
+M0124            = $0124
+M0125            = $0125
+TRANSITIONWAIT   = $0126
+TRANSITIONEND    = $0127
+MENUSELECT       = $0128
+MENULASTTICK     = $012B
+M012C            = $012C
+FIRELATCH        = $012D
+M012E            = $012E
+VDSLST           = $0200
+VDSLSTH          = $0201
+SDMCTL           = $022F
+SDLSTL           = $0230
+SDLSTH           = $0231
+PCOLR0           = $02C0
+PCOLR1           = $02C1
+PCOLR2           = $02C2
+PCOLR3           = $02C3
+COLOR0           = $02C4
+COLOR1           = $02C5
+COLOR2           = $02C6
+COLOR3           = $02C7
+CHBAS            = $02F4
+ADR13B6          = $13B6 ; DLIRAINBOW1 (adres dla makra)
+ADR1410          = $1410 ; DLIRAINBOW2 (adres dla makra)
+ADR142F          = $142F ; DLIRAINBOW3 (adres dla makra)
+ADR157B          = $157B ; DLIMENU2A (adres dla makra)
+ADR15CA          = $15CA ; DLIMENU2B (adres dla makra)
+ADR1622          = $1622 ; DLIMENU1 (adres dla makra)
+ADR3CBF          = $3CBF ; D3CBF (adres dla makra)
+MBD18            = $BD18
+MBDE0            = $BDE0
+MBEA8            = $BEA8
+HPOSP0           = $D000
+HPOSM0           = $D004
+HPOSM1           = $D005
+HPOSM2           = $D006
+HPOSM3           = $D007
+GRAFP0           = $D00D
+GRAFP1           = $D00E
+GRAFP2           = $D00F
+GRAFP3           = $D010
+TRIG0            = $D010
+GRAFM            = $D011
+TRIG1            = $D011
+COLPM0           = $D012
+COLPF0           = $D016
+COLPF1           = $D017
+MD017            = $D017
+COLPF2           = $D018
+COLBK            = $D01A
+PRIOR            = $D01B
+GRACTL           = $D01D
+AUDF1            = $D200
+AUDCTL           = $D208
+IRQEN            = $D20E
+SKCTL            = $D20F
+PORTA            = $D300
+PORTB            = $D301
+PACTL            = $D302
+DMACTL           = $D400
+MD402            = $D402
+PMBASE           = $D407
+CHBASE           = $D409
+WSYNC            = $D40A
+NMIEN            = $D40E
+NMIRES           = $D40F
+NMIST            = $D40F
+DLISTA           = $E200
+ME202            = $E202
+ME225            = $E225
+ME22D            = $E22D
+ME23F            = $E23F
+ME264            = $E264
+ME268            = $E268
+ME27D            = $E27D
+ME280            = $E280
+NMIVECL          = $FFFA
+NMIVECH          = $FFFB
+IRQVECL          = $FFFE
+IRQVECH          = $FFFF
+        .MACRO PUSHREGS
+        PHA
+        TXA
+        PHA
+        TYA
+        PHA
+        .ENDM
+        .MACRO POPREGS
+        PLA
+        TAY
+        PLA
+        TAX
+        PLA
+        .ENDM
+        .MACRO SETPTRXY
+        LDX #>%2
+        LDY #<%2
+        STX %1+1
+        STY %1
+        .ENDM
+        .MACRO SETWORD
+        LDA #<%2
+        STA %1
+        LDA #>%2
+        STA %1+1
+        .ENDM
+        .MACRO COPYWORD
+        LDA %2
+        STA %1
+        LDA %2+1
+        STA %1+1
+        .ENDM
+        .MACRO WAITCLOCK
+        LDA %1
+        CLC
+        ADC #%2
+?WAIT
+        CMP %1
+        BNE ?WAIT
+        .ENDM
+
+; Symbole z innych modulow; adresy oryginalne, bez relokacji.
+D3BD5            = $3BD5
+D3BD6            = $3BD6
+D3BD7            = $3BD7
+D3BD8            = $3BD8
+D3BD9            = $3BD9
+D3BDA            = $3BDA
+D3CBF            = $3CBF
+D3D1F            = $3D1F
+D3D20            = $3D20
+D3D28            = $3D28
+D3D2F            = $3D2F
+D3D30            = $3D30
+D3D38            = $3D38
+DB085            = $B085
+DB099            = $B099
+DLIPHASE         = $3D92
+HISCOREP1        = $3D1D
+HISCOREP2        = $3D2D
+HISCOREPOSP1     = $3D3D
+HISCOREPOSP2     = $3D3E
+HISCORES         = $3CBD
+ICONTARGETX      = $3D8C
+INITGAME         = $1874
+MENUDEADLINE     = $3D91
+MENUTICKSTATE    = $3D9D
+MUSICINITVEC     = $6A00
+MUSICSTOPVEC     = $6A03
+MUSICVBI         = $6A06
+PRINT8X8         = $169D
+PRINTBITMAP      = $1709
+PRINTLEVELNAME   = $1DB5
+PRINTTILES       = $170D
+SFX2PRIORITY     = $3ED3
+SFX2REQUEST      = $3ED1
+SFX2TICK         = $4056
+SFX3PRIORITY     = $3ED2
+SFX3REQUEST      = $3ED0
+
+        *= $0600
+LEVELNAMES
+        .WORD LEVELNAME0,LEVELNAME1,LEVELNAME2,LEVELNAME3 ; $0600
+        .WORD LEVELNAME4,LEVELNAME5,LEVELNAME6,LEVELNAME7 ; $0608
+        .WORD LEVELNAME8,LEVELNAME9,LEVELNAME10,LEVELNAME11 ; $0610
+        .WORD LEVELNAME12,LEVELNAME13,LEVELNAME14,LEVELNAME15 ; $0618
+LEVELNAME0
+        .BYTE $41,$52,$43,$54,$55,$52,$55,$53,$20,$1A ; $0620
+LEVELNAME1
+        .BYTE $20,$20,$42,$45,$52,$4F,$53,$20,$20,$1A ; $062A
+LEVELNAME2
+        .BYTE $43,$45,$4E,$54,$41,$55,$52,$55,$53,$1A ; $0634
+LEVELNAME3
+        .BYTE $20,$52,$49,$43,$54,$55,$53,$20,$20,$1A ; $063E
+LEVELNAME4
+        .BYTE $53,$4B,$4F,$52,$50,$49,$55,$53,$20,$1A ; $0648
+LEVELNAME5
+        .BYTE $20,$20,$54,$49,$54,$41,$4E,$20,$20,$1A ; $0652
+LEVELNAME6
+        .BYTE $20,$41,$4E,$54,$41,$52,$45,$53,$20,$1A ; $065C
+LEVELNAME7
+        .BYTE $20,$20,$42,$41,$45,$55,$53,$20,$20,$1A ; $0666
+LEVELNAME8
+        .BYTE $20,$50,$52,$4F,$43,$59,$4F,$4E,$20,$1A ; $0670
+LEVELNAME9
+        .BYTE $20,$4E,$45,$43,$52,$4F,$53,$20,$20,$1A ; $067A
+LEVELNAME10
+        .BYTE $45,$4E,$43,$45,$4C,$41,$44,$55,$53,$1A ; $0684
+LEVELNAME11
+        .BYTE $20,$44,$49,$41,$42,$4C,$4F,$53,$20,$1A ; $068E
+LEVELNAME12
+        .BYTE $20,$20,$50,$59,$52,$49,$58,$20,$20,$1A ; $0698
+LEVELNAME13
+        .BYTE $20,$20,$5A,$45,$4C,$41,$58,$20,$20,$1A ; $06A2
+LEVELNAME14
+        .BYTE $20,$20,$43,$59,$52,$55,$58,$20,$20,$1A ; $06AC
+LEVELNAME15
+        .BYTE $20,$20,$5A,$59,$42,$45,$58,$20,$20,$1A ; $06B6
+D06C0
+        .BYTE $00 ; $06C0
+D06C1
+        .BYTE $44,$80,$44,$00,$45,$80,$45,$00,$46,$80,$46,$00 ; $06C1
+        .BYTE $47,$80,$47,$00,$48,$80,$48,$00,$49,$80,$49,$00 ; $06CD
+        .BYTE $4A,$80,$4A,$00,$4B,$80,$4B,$00,$4C,$80,$4C,$00 ; $06D9
+        .BYTE $4D,$80,$4D,$00,$4E,$80,$4E ; $06E5
+D06EC
+        .BYTE $5F,$65,$6B,$71,$77,$7D,$83,$89,$8F,$95,$9B,$A1 ; $06EC
+        .BYTE $A7,$AD,$B3,$B9,$BF,$C5,$CB,$D1,$D7,$DD,$E3,$E9 ; $06F8
+        .BYTE $EF,$F5,$D9,$DF,$E5,$EB,$F1,$F7 ; $0704
+CREDITLINE
+        .BYTE $54,$54,$54,$54,$54,$54,$54,$54,$54,$54,$54,$54 ; $070C
+        .BYTE $54,$54,$54,$54,$54,$54,$54,$54,$54,$54,$54,$54 ; $0718
+        .BYTE $54,$54,$82,$82,$82,$82,$82,$82,$07,$0E,$50,$52 ; $0724
+        .BYTE $4F,$47,$52,$41,$4D,$4D,$49,$4E,$47,$08,$13,$42 ; $0730
+        .BYTE $59,$0C,$0A,$47,$52,$41,$50,$48,$49,$43,$53,$20 ; $073C
+        .BYTE $41,$4E,$44,$20,$44,$45,$53,$49,$47,$4E,$0D,$13 ; $0748
+        .BYTE $42,$59,$11,$0C,$20,$20,$4D,$55,$53,$49,$43,$20 ; $0754
+        .BYTE $41,$4E,$44,$20,$46,$58,$20,$20,$12,$13,$42,$59 ; $0760
+        .BYTE $1A,$09,$07,$42,$52,$49,$41,$4E,$20,$4A,$4F,$42 ; $076C
+        .BYTE $4C,$49,$4E,$47,$0E,$07,$4D,$49,$43,$48,$41,$45 ; $0778
+        .BYTE $4C,$20,$4F,$57,$45,$4E,$53,$13,$06,$20,$41,$44 ; $0784
+        .BYTE $41,$4D,$20,$47,$49,$4C,$4D,$4F,$52,$45,$20,$1A ; $0790
+LEVELCOLOR0
+        .BYTE $C2,$12,$04,$34,$36,$74,$24,$04,$B4,$74,$34,$72 ; $079C
+        .BYTE $22,$74,$54,$74 ; $07A8
+LEVELCOLOR1
+        .BYTE $C6,$26,$08,$38,$2A,$A8,$28,$06,$C8,$86,$38,$56 ; $07AC
+        .BYTE $D6,$88,$68,$88 ; $07B8
+LEVELCOLOR2
+        .BYTE $CC,$2A,$0C,$2E,$0F,$0F,$FF,$0A,$CF,$0A,$3F,$4F ; $07BC
+        .BYTE $CC,$0F,$6F,$8F ; $07C8
+LEVELTILEPAGE
+        .BYTE $A7,$AD,$AD,$AA,$A7,$A7,$A7,$AD,$A7,$AA,$A7,$AD ; $07CC
+        .BYTE $AA,$A7,$A7,$AD ; $07D8
+D07DC
+        .BYTE $00,$28,$50,$78,$A0,$C8,$F0,$18,$40,$68,$90,$B8 ; $07DC
+        .BYTE $E0,$08,$30,$58,$00,$28,$50,$78,$A0,$C8,$F0,$18 ; $07E8
+        .BYTE $40,$68,$90,$B8,$E0,$08,$30,$58,$80,$A8,$D0 ; $07F4
+D07FF
+        .BYTE $92,$92,$92,$92,$92,$92,$92,$93,$93,$93,$93,$93 ; $07FF
+        .BYTE $93,$94,$94,$94,$4F,$4F,$4F,$4F,$4F,$4F,$4F,$50 ; $080B
+        .BYTE $50,$50,$50,$50,$50,$51,$51,$51,$51,$51,$51 ; $0817
+MENUICONS
+        .BYTE $30,$58,$5A,$37,$0D,$17,$DA,$77,$2E,$1A,$1A,$72 ; $0822
+        .BYTE $40,$40,$40,$C0,$0C,$1A,$6A,$EC,$B0,$E8,$AB,$EE ; $082E
+        .BYTE $74,$58,$5E,$4E,$02,$02,$02,$03,$00,$00,$10,$10 ; $083A
+        .BYTE $10,$00,$38,$38,$38,$38,$10,$10,$10,$38,$00,$00 ; $0846
+        .BYTE $00,$7E,$81,$7E,$C3,$DF,$DF,$C3,$FB,$FB,$C3,$7E ; $0852
+        .BYTE $81,$7E,$00,$00,$00,$00,$22,$22,$22,$00,$77,$77 ; $085E
+        .BYTE $77,$77,$22,$22,$22,$77,$00,$00,$00,$12,$69,$6A ; $086A
+        .BYTE $02,$10,$69,$6D,$6D,$6A,$04,$0E,$69,$6D,$6D,$6D ; $0876
+        .BYTE $6D,$6A,$06,$0C,$69,$6D,$6D,$6D,$6D,$6D,$6D,$6A ; $0882
+        .BYTE $15,$12,$6B,$6C,$13,$10,$6B,$6D,$6D,$6C,$11,$0E ; $088E
+        .BYTE $6B,$6D,$6D,$6D,$6D,$6C,$0F,$0C,$6B,$6D,$6D,$6D ; $089A
+        .BYTE $6D,$6D,$6D,$6C,$1A ; $08A6
+RAINBOWCOLORS
+        .BYTE $70,$72,$74,$76,$78,$7A,$7C,$7E,$7C,$7A,$78,$76 ; $08AB
+        .BYTE $74,$72,$70,$00,$00,$00,$00,$00,$00,$00,$00,$00 ; $08B7
+        .BYTE $00,$00,$00,$00,$00,$00,$00,$00,$20,$22,$24,$26 ; $08C3
+        .BYTE $28,$2A,$2C,$2E,$2C,$2A,$28,$26,$24,$22,$20,$00 ; $08CF
+        .BYTE $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00 ; $08DB
+        .BYTE $00,$00,$00,$00 ; $08E7
+D08EB
+        .BYTE $0B ; $08EB
+D08EC
+        .BYTE $09,$2B,$09,$4B,$09,$6B,$09,$8B,$09,$AB,$09,$CB ; $08EC
+        .BYTE $09,$EB,$09,$0B,$0A,$2B,$0A,$4B,$0A,$6B,$0A,$8B ; $08F8
+        .BYTE $0A,$AB,$0A,$CB,$0A,$EB,$0A,$00,$00,$00,$02,$00 ; $0904
+        .BYTE $00,$02,$22,$22,$04,$04,$04,$04,$02,$02,$08,$00 ; $0910
+        .BYTE $00,$00,$06,$04,$04,$04,$06,$00,$02,$02,$00,$04 ; $091C
+        .BYTE $06,$1C,$1C,$08,$0A,$0A,$22,$02,$08,$1C,$0C,$10 ; $0928
+        .BYTE $0C,$22,$0A,$0A,$24,$0C,$02,$4A,$24,$24,$30,$02 ; $0934
+        .BYTE $0E,$0C,$2A,$2A,$0E,$0C,$06,$0E,$28,$0E,$5A,$12 ; $0940
+        .BYTE $08,$0A,$0A,$06,$00,$04,$04,$0A,$06,$02,$02,$02 ; $094C
+        .BYTE $08,$04,$04,$06,$12,$0A,$06,$12,$04,$02,$2C,$00 ; $0958
+        .BYTE $00,$02,$02,$04,$06,$12,$5C,$12,$64,$06,$0A,$02 ; $0964
+        .BYTE $02,$2E,$14,$04,$04,$12,$0E,$12,$06,$02,$06,$00 ; $0970
+        .BYTE $0A,$02,$08,$0A,$00,$2C,$10,$04,$04,$12,$00,$64 ; $097C
+        .BYTE $1C,$00,$5E,$1A,$16,$16,$64,$16,$10,$10,$28,$0A ; $0988
+        .BYTE $0A,$30,$06,$0A,$08,$08,$30,$30,$06,$0A,$0C,$0C ; $0994
+        .BYTE $16,$64,$4E,$10,$08,$12,$0C,$0C,$28,$50,$5A,$50 ; $09A0
+        .BYTE $50,$28,$1A,$64,$28,$50,$1C,$1E,$1A,$16,$1C,$1C ; $09AC
+        .BYTE $1A,$0E,$1A,$1A,$1E,$64,$16,$64,$12,$20,$64,$50 ; $09B8
+        .BYTE $50,$1A,$1A,$20,$16,$16,$5A,$06,$06,$08,$0C,$00 ; $09C4
+        .BYTE $46,$1A,$12,$02,$16,$4C,$2E,$1C,$04,$20,$0E,$1A ; $09D0
+        .BYTE $1A,$16,$00,$16,$00,$1C,$20,$1A,$28,$28,$0E,$0E ; $09DC
+        .BYTE $20,$16,$5C,$48,$2E,$1A,$1A,$3C,$3C,$3E,$02,$20 ; $09E8
+        .BYTE $20,$16,$16,$1A,$1C,$10,$10,$2E,$48,$0A,$20,$1A ; $09F4
+        .BYTE $48,$0E,$3E,$1C,$3C,$16,$0A,$0A,$0A,$1A,$54,$2E ; $0A00
+        .BYTE $2E,$10,$48,$3C,$3C,$3E,$10,$0E,$64,$20,$64,$3C ; $0A0C
+        .BYTE $3E,$1C,$1E,$1A,$0A,$1C,$1C,$28,$28,$20,$20,$1E ; $0A18
+        .BYTE $08,$08,$1A,$16,$1C,$16,$5A,$0A,$0A,$0A,$12,$06 ; $0A24
+        .BYTE $04,$04,$00,$00,$12,$0A,$0A,$12,$14,$06,$12,$22 ; $0A30
+        .BYTE $12,$1C,$04,$04,$02,$02,$14,$00,$00,$00,$02,$04 ; $0A3C
+        .BYTE $00,$00,$5E,$18,$0C,$0C,$28,$30,$30,$08,$50,$18 ; $0A48
+        .BYTE $50,$2E,$0C,$00,$2E,$0C,$0C,$0C,$18,$0A,$10,$0A ; $0A54
+        .BYTE $0E,$30,$30,$30,$58,$18,$16,$2E,$0E,$4C,$5A,$0E ; $0A60
+        .BYTE $06,$02,$00,$08,$04,$02,$0A,$0A,$12,$04,$04,$02 ; $0A6C
+        .BYTE $00,$06,$06,$02,$02,$64,$64,$04,$04,$02,$2E,$06 ; $0A78
+        .BYTE $00,$0A,$0A,$12,$00,$06,$02,$1C,$02,$00,$64,$4A ; $0A84
+        .BYTE $4C,$64,$0E,$0E,$52,$64,$4A,$56,$20,$64,$54,$1C ; $0A90
+        .BYTE $1C,$1C,$1A,$1C,$58,$58,$58,$1C,$12,$56,$56,$4A ; $0A9C
+        .BYTE $64,$54,$5E,$00,$06,$64,$00,$1C,$04,$00,$02,$0A ; $0AA8
+        .BYTE $02,$02,$64,$12,$02,$06,$04,$04,$00,$04,$0A,$0A ; $0AB4
+        .BYTE $02,$02,$04,$00,$00,$12,$12,$12,$0A,$0A,$60,$1C ; $0AC0
+        .BYTE $1C,$1C,$1A,$3C,$64,$3E,$48,$0C,$58,$58,$52,$4C ; $0ACC
+        .BYTE $16,$20,$20,$20,$28,$28,$58,$64,$48,$1E,$1C,$0E ; $0AD8
+        .BYTE $1A,$1A,$16,$02,$00,$54,$5A,$16,$18,$16,$16,$5A ; $0AE4
+        .BYTE $18,$28,$2E,$18,$08,$16,$0E,$0C,$0C,$50,$00,$0A ; $0AF0
+        .BYTE $0C,$0C,$0E,$00,$28,$30,$30,$00,$16,$00,$0C,$18 ; $0AFC
+        .BYTE $0E,$18,$62 ; $0B08
+D0B0B
+        .BYTE $71 ; $0B0B
+D0B0C
+        .BYTE $0B,$79,$0B,$80,$0B,$87,$0B,$8E,$0B,$95,$0B,$9C ; $0B0C
+        .BYTE $0B,$A3,$0B,$AA,$0B,$B1,$0B,$B8,$0B,$BC,$0B,$C3 ; $0B18
+        .BYTE $0B,$CA,$0B,$D1,$0B,$D8,$0B,$DF,$0B,$E4,$0B,$E8 ; $0B24
+        .BYTE $0B,$EA,$0B,$F0,$0B,$F2,$0B,$F4,$0B,$F8,$0B,$FC ; $0B30
+        .BYTE $0B,$00,$0C,$04,$0C,$06,$0C,$08,$0C,$0A,$0C,$0C ; $0B3C
+        .BYTE $0C,$0E,$0C,$10,$0C,$12,$0C,$14,$0C,$16,$0C,$18 ; $0B48
+        .BYTE $0C,$1A,$0C,$23,$0C,$25,$0C,$29,$0C,$2B,$0C,$34 ; $0B54
+        .BYTE $0C,$3D,$0C,$44,$0C,$4B,$0C,$54,$0C,$5B,$0C,$62 ; $0B60
+        .BYTE $0C,$68,$0C,$6F,$0C,$23,$24,$25,$26,$27,$28,$29 ; $0B6C
+        .BYTE $FF,$08,$09,$0A,$0B,$0C,$0D,$FF,$14,$15,$16,$17 ; $0B78
+        .BYTE $18,$19,$FF,$64,$65,$66,$67,$68,$69,$FF,$82,$83 ; $0B84
+        .BYTE $84,$85,$86,$87,$FF,$0E,$0F,$10,$11,$12,$13,$FF ; $0B90
+        .BYTE $88,$89,$8A,$8B,$8C,$8D,$FF,$70,$71,$72,$73,$74 ; $0B9C
+        .BYTE $75,$FF,$4B,$4C,$4D,$4E,$4F,$50,$FF,$52,$53,$54 ; $0BA8
+        .BYTE $55,$56,$57,$FF,$76,$77,$78,$FF,$6A,$6B,$6C,$6D ; $0BB4
+        .BYTE $6E,$6F,$FF,$33,$34,$35,$36,$34,$35,$FF,$5E,$5F ; $0BC0
+        .BYTE $60,$61,$62,$63,$FF,$58,$59,$5A,$5B,$5C,$5D,$FF ; $0BCC
+        .BYTE $40,$41,$42,$43,$44,$45,$FF,$1F,$20,$21,$22,$FF ; $0BD8
+        .BYTE $2A,$2B,$2C,$FF,$3E,$FF,$79,$80,$81,$82,$83,$FF ; $0BE4
+        .BYTE $3F,$FF,$07,$FF,$07,$2B,$2C,$FF,$05,$04,$04,$FF ; $0BF0
+        .BYTE $3B,$3D,$3C,$FF,$1B,$1A,$1C,$FF,$3A,$FF,$39,$FF ; $0BFC
+        .BYTE $38,$FF,$37,$FF,$1D,$FF,$1E,$FF,$1A,$FF,$1B,$FF ; $0C08
+        .BYTE $1C,$FF,$3E,$FF,$40,$FF,$58,$59,$5A,$5B,$5C,$5D ; $0C14
+        .BYTE $5C,$05,$FF,$04,$FF,$35,$34,$34,$FF,$06,$FF,$58 ; $0C20
+        .BYTE $59,$5A,$5B,$5C,$5D,$5C,$07,$FF,$70,$71,$72,$73 ; $0C2C
+        .BYTE $74,$75,$74,$04,$FF,$2D,$2E,$2F,$30,$31,$32,$FF ; $0C38
+        .BYTE $46,$47,$48,$49,$4A,$47,$FF,$3A,$38,$37,$39,$33 ; $0C44
+        .BYTE $34,$35,$36,$FF,$A3,$9E,$A2,$9F,$A1,$A0,$FF,$9D ; $0C50
+        .BYTE $98,$9A,$99,$9B,$9C,$FF,$8E,$8F,$90,$91,$26,$FF ; $0C5C
+        .BYTE $92,$93,$96,$97,$94,$95,$FF,$01,$02,$FF,$00,$00 ; $0C68
+        .BYTE $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00 ; $0C74
+; Wejscie po loaderze. RAM $0600-$BC7F pochodzi z sektorow 256-620.
+GAMEENTRY
+        JSR STOPMUSIC ; $0C80
+        LDA #$FF ; $0C83
+        STA SFX3REQUEST ; $0C85
+        STA SFX2REQUEST ; $0C88
+        LDA #$00 ; $0C8B
+        STA SFX3PRIORITY ; $0C8D
+        STA SFX2PRIORITY ; $0C90
+        LDA #$03 ; $0C93
+        STA SKCTL ; $0C95
+MENURESET
+        LDX #$FF ; $0C98
+        TXS ; $0C9A
+        LDA #$00 ; $0C9B
+        STA TWOPLAYERS ; $0C9D
+        LDA #$02 ; $0C9F
+        STA MENUSELECT ; $0CA1
+        SETWORD P1COLOR,$7434 ; $0CA4-$0CAB
+        JSR INITMENUNMI ; $0CAC
+        LDA #$00 ; $0CAF
+        STA LEVELSTATE ; $0CB1
+        LDA #$04 ; $0CB3
+        JSR STARTMUSIC ; $0CB5
+TITLESCREEN
+        JSR CLEARMENU ; $0CB8
+        JSR SUB15E9 ; $0CBB
+        JSR SETTITLECOLORS ; $0CBE
+        JSR INITPMG ; $0CC1
+        JSR LOADMENUICONS ; $0CC4
+        LDA FRAMEHI ; $0CC7
+        CLC ; $0CC9
+        ADC #$02 ; $0CCA
+        STA MENUDEADLINE ; $0CCC
+MENULOOP1
+        JSR PACEMENU ; $0CCF
+        JSR MENUSTICK ; $0CD2
+        JSR MENUCOLORS ; $0CD5
+        JSR MENUFIRE ; $0CD8
+        JSR SETMENUPOS ; $0CDB
+        LDA FRAMEHI ; $0CDE
+        CMP MENUDEADLINE ; $0CE0
+        BNE MENULOOP1 ; $0CE3
+MENUSWAP
+        LDA #$40 ; $0CE5
+        STA NMIEN ; $0CE7
+        LDA #$00 ; $0CEA
+        STA DMACTL ; $0CEC
+        STA SDMCTL ; $0CEF
+        STA COLBK ; $0CF2
+        STA LEVELSTATE ; $0CF5
+        JSR CLEARSCREENS ; $0CF7
+        JSR BUILDMENUDLIST ; $0CFA
+        JSR PRINTMENUTEXT ; $0CFD
+        JSR SETMENUCOLORS ; $0D00
+        JSR INITPMG ; $0D03
+        JSR LOADMENUICONS ; $0D06
+        LDA FRAMEHI ; $0D09
+        CLC ; $0D0B
+        ADC #$02 ; $0D0C
+        STA MENUDEADLINE ; $0D0E
+MENULOOP2
+        JSR PACEMENU ; $0D11
+        JSR MENUSTICK ; $0D14
+        JSR MENUCOLORS ; $0D17
+        JSR MENUFIRE ; $0D1A
+        JSR SETMENUPOS ; $0D1D
+        LDA FRAMEHI ; $0D20
+        CMP MENUDEADLINE ; $0D22
+        BNE MENULOOP2 ; $0D25
+        JMP TITLESCREEN ; $0D27
+PRINTMENUTEXT
+        LDX #$3C ; $0D2A
+        LDY #$AC ; $0D2C
+        JMP PRINTBITMAP ; $0D2E
+TITLEDLIST
+        .BYTE $70,$70,$70,$44,$00,$BC,$04,$04,$04,$04,$04,$84 ; $0D31
+        .BYTE $02,$02,$20,$04,$04,$84,$02,$02,$20,$04,$04,$84 ; $0D3D
+        .BYTE $02,$02,$20,$04,$04,$41,$31,$0D ; $0D49
+; A = numer utworu. Zachowuje A na stosie podczas wyciszania.
+STARTMUSIC
+        PHA ; $0D51
+        LDA #$00 ; $0D52
+        STA MUSICENABLED ; $0D54
+        JSR STOPMUSIC ; $0D57
+        LDA #$50 ; $0D5A
+        STA AUDCTL ; $0D5C
+        PLA ; $0D5F
+        JSR MUSICINITVEC ; $0D60
+        LDA #$01 ; $0D63
+        STA MUSICENABLED ; $0D65
+        RTS ; $0D68
+; Wylacza odtwarzanie muzyki i zeruje 9 rejestrow POKEY.
+STOPMUSIC
+        LDA #$00 ; $0D69
+        STA MUSICENABLED ; $0D6B
+        JSR MUSICSTOPVEC ; $0D6E
+        LDX #$08 ; $0D71
+        LDA #$00 ; $0D73
+L0D75
+        STA AUDF1,X ; $0D75
+        DEX ; $0D78
+        BPL L0D75 ; $0D79
+        RTS ; $0D7B
+SETMENUCOLORS
+        SETWORD COLOR0,$0408 ; $0D7C-$0D85
+        LDA #$0F ; $0D86
+        STA COLOR2 ; $0D88
+        SETWORD VDSLST,ADR157B ; $0D8B-$0D94
+        LDX #$C0 ; $0D95
+        LDA ME22D ; $0D97
+        ORA #$80 ; $0D9A
+        TAY ; $0D9C
+        WAITCLOCK FRAMELO,$02 ; $0D9D-$0DA5
+        STY ME22D ; $0DA6
+        STX NMIEN ; $0DA9
+        STY ME23F ; $0DAC
+        RTS ; $0DAF
+MENUCOLORS
+        LDX P1COLOR ; $0DB0
+        LDA MENUSELECT ; $0DB2
+        BNE L0DBA ; $0DB5
+        JSR BLINKCOLOR ; $0DB7
+L0DBA
+        STX PCOLR0 ; $0DBA
+        LDX P2COLOR ; $0DBD
+        LDA MENUSELECT ; $0DBF
+        CMP #$04 ; $0DC2
+        BNE L0DC9 ; $0DC4
+        JSR BLINKCOLOR ; $0DC6
+L0DC9
+        STX COLOR3 ; $0DC9
+        LDX #$0F ; $0DCC
+        LDA TWOPLAYERS ; $0DCE
+        BEQ L0DD4 ; $0DD0
+        LDX #$04 ; $0DD2
+L0DD4
+        LDA MENUSELECT ; $0DD4
+        CMP #$01 ; $0DD7
+        BNE L0DDF ; $0DD9
+        LDX PCOLR1 ; $0DDB
+        INX ; $0DDE
+L0DDF
+        STX PCOLR1 ; $0DDF
+        LDX #$04 ; $0DE2
+        LDA TWOPLAYERS ; $0DE4
+        BEQ L0DEA ; $0DE6
+        LDX #$0F ; $0DE8
+L0DEA
+        LDA MENUSELECT ; $0DEA
+        CMP #$03 ; $0DED
+        BNE L0DF5 ; $0DEF
+        LDX PCOLR3 ; $0DF1
+        INX ; $0DF4
+L0DF5
+        STX PCOLR3 ; $0DF5
+        LDX #$52 ; $0DF8
+        LDA MENUSELECT ; $0DFA
+        CMP #$02 ; $0DFD
+        BNE L0E03 ; $0DFF
+        LDX #$76 ; $0E01
+L0E03
+        STX PCOLR2 ; $0E03
+        RTS ; $0E06
+BLINKCOLOR
+        LDA FRAMELO ; $0E07
+        AND #$1F ; $0E09
+        CMP #$07 ; $0E0B
+        BCS L0E11 ; $0E0D
+        LDX #$0F ; $0E0F
+L0E11
+        RTS ; $0E11
+SETMENUPOS
+        LDX #$03 ; $0E12
+L0E14
+        LDA MENUICONX,X ; $0E14
+        STA HPOSP0,X ; $0E17
+        DEX ; $0E1A
+        BPL L0E14 ; $0E1B
+        LDA M011F ; $0E1D
+        STA HPOSM3 ; $0E20
+        CLC ; $0E23
+        ADC #$02 ; $0E24
+        STA HPOSM2 ; $0E26
+        CLC ; $0E29
+        ADC #$02 ; $0E2A
+        STA HPOSM1 ; $0E2C
+        CLC ; $0E2F
+        ADC #$02 ; $0E30
+        STA HPOSM0 ; $0E32
+        RTS ; $0E35
+PACEMENU
+        LDA FRAMELO ; $0E36
+        AND #$01 ; $0E38
+        BNE L0E4B ; $0E3A
+        LDA FRAMELO ; $0E3C
+        STA MENULASTTICK ; $0E3E
+        JSR STEPICONS ; $0E41
+L0E44
+        LDA FRAMELO ; $0E44
+        CMP MENULASTTICK ; $0E46
+        BEQ L0E44 ; $0E49
+L0E4B
+        RTS ; $0E4B
+STEPICONS
+        LDX #$04 ; $0E4C
+L0E4E
+        LDA MENUICONX,X ; $0E4E
+        CMP ICONTARGETX,X ; $0E51
+        BEQ L0E67 ; $0E54
+        BCS L0E61 ; $0E56
+        CLC ; $0E58
+        ADC #$01 ; $0E59
+        STA MENUICONX,X ; $0E5B
+        JMP L0E67 ; $0E5E
+L0E61
+        SEC ; $0E61
+        SBC #$01 ; $0E62
+        STA MENUICONX,X ; $0E64
+L0E67
+        DEX ; $0E67
+        BPL L0E4E ; $0E68
+        RTS ; $0E6A
+SETTITLECOLORS
+        LDA #$DC ; $0E6B
+        STA COLOR2 ; $0E6D
+        SETWORD COLOR0,$C4C8 ; $0E70-$0E79
+        JSR SUB0E8B ; $0E7A
+        LDX #$07 ; $0E7D
+        LDY #$2C ; $0E7F
+        JSR PRINT8X8 ; $0E81
+        LDX #$07 ; $0E84
+        LDY #$6D ; $0E86
+        JMP PRINTTILES ; $0E88
+SUB0E8B
+        SETPTRXY PTR1,$BC04 ; $0E8B-$0E92
+        SETPTRXY PTR0,$DF60 ; $0E93-$0E9A
+        LDA #$DC ; $0E9B
+        STA CHBAS ; $0E9D
+        LDX #$05 ; $0EA0
+L0EA2
+        LDY #$1F ; $0EA2
+L0EA4
+        LDA (PTR0),Y ; $0EA4
+        CLC ; $0EA6
+        ADC #$01 ; $0EA7
+        STA (PTR1),Y ; $0EA9
+        DEY ; $0EAB
+        BPL L0EA4 ; $0EAC
+        LDA #$28 ; $0EAE
+        CLC ; $0EB0
+        ADC PTR1 ; $0EB1
+        STA PTR1 ; $0EB3
+        BCC L0EB9 ; $0EB5
+        INC PTR1H ; $0EB7
+L0EB9
+        LDA #$20 ; $0EB9
+        CLC ; $0EBB
+        ADC PTR0 ; $0EBC
+        STA PTR0 ; $0EBE
+        BCC L0EC4 ; $0EC0
+        INC PTR0H ; $0EC2
+L0EC4
+        DEX ; $0EC4
+        BNE L0EA2 ; $0EC5
+        RTS ; $0EC7
+; Odczyt kierunkow joysticka z PORTA; wybor pozycji menu.
+MENUSTICK
+        LDA #$3C ; $0EC8
+        STA PACTL ; $0ECA
+        LDA PORTA ; $0ECD
+        LSR A ; $0ED0
+        LSR A ; $0ED1
+        LSR A ; $0ED2
+        LSR A ; $0ED3
+        AND PORTA ; $0ED4
+        AND #$0F ; $0ED7
+        CMP #$0F ; $0ED9
+        BEQ L0EF2 ; $0EDB
+        LDX M012C ; $0EDD
+        BNE L0EF1 ; $0EE0
+        LDX #$01 ; $0EE2
+        STX M012C ; $0EE4
+        BIT D3BD7 ; $0EE7
+        BEQ L0EF8 ; $0EEA
+        BIT D3BD8 ; $0EEC
+        BEQ L0F03 ; $0EEF
+L0EF1
+        RTS ; $0EF1
+L0EF2
+        LDA #$00 ; $0EF2
+        STA M012C ; $0EF4
+        RTS ; $0EF7
+L0EF8
+        DEC MENUSELECT ; $0EF8
+        BPL L0EF1 ; $0EFB
+        LDA #$04 ; $0EFD
+        STA MENUSELECT ; $0EFF
+        RTS ; $0F02
+L0F03
+        INC MENUSELECT ; $0F03
+        LDA MENUSELECT ; $0F06
+        CMP #$05 ; $0F09
+        BCC L0EF1 ; $0F0B
+        LDA #$00 ; $0F0D
+        STA MENUSELECT ; $0F0F
+        RTS ; $0F12
+; TRIG0/TRIG1 to ODCZYT $D010/$D011, nie GRAFP3/GRAFM.
+MENUFIRE
+        LDA TRIG0 ; $0F13
+        AND TRIG1 ; $0F16
+        BNE L0F59 ; $0F19
+        LDA FIRELATCH ; $0F1B
+        BNE L0F58 ; $0F1E
+        LDA #$01 ; $0F20
+        STA FIRELATCH ; $0F22
+        LDA MENUSELECT ; $0F25
+        BNE L0F32 ; $0F28
+        LDA P1COLOR ; $0F2A
+        CLC ; $0F2C
+        ADC #$10 ; $0F2D
+        STA P1COLOR ; $0F2F
+        RTS ; $0F31
+L0F32
+        LDA MENUSELECT ; $0F32
+        CMP #$04 ; $0F35
+        BNE L0F41 ; $0F37
+        LDA P2COLOR ; $0F39
+        CLC ; $0F3B
+        ADC #$10 ; $0F3C
+        STA P2COLOR ; $0F3E
+        RTS ; $0F40
+L0F41
+        LDA MENUSELECT ; $0F41
+        CMP #$01 ; $0F44
+        BNE L0F4D ; $0F46
+        LDA #$00 ; $0F48
+        STA TWOPLAYERS ; $0F4A
+        RTS ; $0F4C
+L0F4D
+        LDA MENUSELECT ; $0F4D
+        CMP #$03 ; $0F50
+        BNE STARTREQUEST ; $0F52
+        LDA #$01 ; $0F54
+        STA TWOPLAYERS ; $0F56
+L0F58
+        RTS ; $0F58
+L0F59
+        LDA #$00 ; $0F59
+        STA FIRELATCH ; $0F5B
+        RTS ; $0F5E
+; Zeruje stos, czeka na zwolnienie fire, przechodzi do startu gry.
+STARTREQUEST
+        LDX #$FF ; $0F5F
+        TXS ; $0F61
+L0F62
+        LDA TRIG0 ; $0F62
+        AND TRIG1 ; $0F65
+        BEQ L0F62 ; $0F68
+        JSR STOPMUSIC ; $0F6A
+        JSR TRANSITION ; $0F6D
+        LDA #$02 ; $0F70
+        JSR STARTMUSIC ; $0F72
+        LDX #$3D ; $0F75
+        LDY #$FA ; $0F77
+        JSR PRINTBITMAP ; $0F79
+        JSR PRINTLEVELNAME ; $0F7C
+        LDX #$3E ; $0F7F
+        LDY #$1A ; $0F81
+        LDA TWOPLAYERS ; $0F83
+        BEQ L0F8B ; $0F85
+        LDX #$3E ; $0F87
+        LDY #$23 ; $0F89
+L0F8B
+        JSR PRINTBITMAP ; $0F8B
+        JSR INITPMG ; $0F8E
+L0F91
+        LDA TRANSITIONWAIT ; $0F91
+        BNE L0F91 ; $0F94
+        JMP INITGAME ; $0F96
+TRANSITION
+        LDA #$01 ; $0F99
+        STA TRANSITIONWAIT ; $0F9B
+        STA SM13E4+1 ; $0F9E
+        LDA FRAMEHI ; $0FA1
+        CLC ; $0FA3
+        ADC #$02 ; $0FA4
+        STA TRANSITIONEND ; $0FA6
+        LDA #$00 ; $0FA9
+        STA COLBK ; $0FAB
+        STA GRACTL ; $0FAE
+        STA GRAFP0 ; $0FB1
+        STA GRAFP1 ; $0FB4
+        STA GRAFP2 ; $0FB7
+        STA GRAFP3 ; $0FBA
+        STA GRAFM ; $0FBD
+        JSR CLEARSCREENS ; $0FC0
+        JSR BUILDMENUDLIST ; $0FC3
+        LDA #$40 ; $0FC6
+        STA NMIEN ; $0FC8
+        SETWORD VDSLST,ADR13B6 ; $0FCB-$0FD4
+        LDX #$C0 ; $0FD5
+        LDA ME202 ; $0FD7
+        ORA #$80 ; $0FDA
+        STA ME202 ; $0FDC
+        LDY #$8E ; $0FDF
+        STY ME27D ; $0FE1
+        STY ME264 ; $0FE4
+        WAITCLOCK FRAMELO,$01 ; $0FE7-$0FEF
+        STX NMIEN ; $0FF0
+        LDX #$08 ; $0FF3
+        LDY #$72 ; $0FF5
+        JSR PRINTBITMAP ; $0FF7
+        LDA #$00 ; $0FFA
+        STA SM13E4+1 ; $0FFC
+        RTS ; $0FFF
+; Wylacza ROM przez PORTB=$FE i instaluje wlasne NMI/IRQ w RAM.
+INITMENUNMI
+        LDA #$00 ; $1000
+        SEI ; $1002
+        STA NMIEN ; $1003
+        STA IRQEN ; $1006
+        SEI ; $1009
+        STA DMACTL ; $100A
+        LDA #$FE ; $100D
+        STA PORTB ; $100F
+        LDA #>MENUNMI ; $1012
+        STA NMIVECH ; $1014
+        LDA #<MENUNMI ; $1017
+        STA NMIVECL ; $1019
+        LDA #>MENUEMPTYIRQ ; $101C
+        STA IRQVECH ; $101E
+        LDA #<MENUEMPTYIRQ ; $1021
+        STA IRQVECL ; $1023
+        LDA #$40 ; $1026
+        STA NMIEN ; $1028
+        RTS ; $102B
+MENUEMPTYIRQ
+        RTI ; $102C
+; Bit 7 NMIST: DLI -> JMP (VDSLST); inaczej obsluga VBI menu.
+MENUNMI
+        BIT NMIST ; $102D
+        BPL MENUVBI ; $1030
+        JMP (VDSLST) ; $1032
+; VBI: muzyka lub SFX, zegar $13/$14, kolory i cienie ANTIC.
+MENUVBI
+        STA NMIRES ; $1035
+        PUSHREGS ; $1038-$103C
+        LDA MUSICENABLED ; $103D
+        BEQ L1048 ; $1040
+        JSR MUSICVBI ; $1042
+        JMP L104B ; $1045
+L1048
+        JSR SFX2TICK ; $1048
+L104B
+        INC FRAMELO ; $104B
+        BNE L1051 ; $104D
+        INC FRAMEHI ; $104F
+L1051
+        LDX #$08 ; $1051
+L1053
+        LDA PCOLR0,X ; $1053
+        STA COLPM0,X ; $1056
+        DEX ; $1059
+        BPL L1053 ; $105A
+        COPYWORD MD402,SDLSTL ; $105C-$1067
+        LDA SDMCTL ; $1068
+        STA DMACTL ; $106B
+        LDA CHBAS ; $106E
+        STA CHBASE ; $1071
+        POPREGS ; $1074-$1078
+        RTI ; $1079
+; Sciezka tabeli wynikow i wprowadzania inicjalow.
+HISCOREENTRY
+        LDA #$00 ; $107A
+        STA LEVELSTATE ; $107C
+        JSR INITMENUNMI ; $107E
+        LDA #$03 ; $1081
+        JSR STARTMUSIC ; $1083
+        JSR TRANSITION ; $1086
+        LDA FRAMEHI ; $1089
+        CLC ; $108B
+        ADC #$04 ; $108C
+        STA TRANSITIONEND ; $108E
+        LDX #$3E ; $1091
+        LDY #$0D ; $1093
+        JSR PRINTBITMAP ; $1095
+        JSR INITPMG ; $1098
+L109B
+        LDA TRANSITIONWAIT ; $109B
+        BNE L109B ; $109E
+L10A0
+        JSR CLEARSCREENS ; $10A0
+        JSR BUILDMENUDLIST ; $10A3
+        LDA #$9C ; $10A6
+        STA COLOR2 ; $10A8
+        LDA #$72 ; $10AB
+        STA COLOR1 ; $10AD
+        LDA #$78 ; $10B0
+        STA COLOR0 ; $10B2
+        LDA #$40 ; $10B5
+        STA NMIEN ; $10B7
+        LDA #$12 ; $10BA
+        STA VDSLSTH ; $10BC
+        LDA #$8F ; $10BF
+        STA VDSLST ; $10C1
+        LDY #$8E ; $10C4
+        LDX #$C0 ; $10C6
+        LDA FRAMELO ; $10C8
+L10CA
+        CMP FRAMELO ; $10CA
+        BNE L10CA ; $10CC
+        STX NMIEN ; $10CE
+        STY ME225 ; $10D1
+        STY ME268 ; $10D4
+        STY ME280 ; $10D7
+        JSR COPYSCORES ; $10DA
+        JSR SORTSCORES ; $10DD
+        LDA #$00 ; $10E0
+        JSR STARTMUSIC ; $10E2
+        JSR FINDHISCORE ; $10E5
+        LDA HISCOREPOSP1 ; $10E8
+        AND HISCOREPOSP2 ; $10EB
+        CMP #$FF ; $10EE
+        BEQ L114D ; $10F0
+        LDX #$3D ; $10F2
+        LDY #$A6 ; $10F4
+        LDA HISCOREPOSP1 ; $10F6
+        ORA HISCOREPOSP2 ; $10F9
+        CMP #$FF ; $10FC
+        BEQ L1104 ; $10FE
+        LDX #$3D ; $1100
+        LDY #$C2 ; $1102
+L1104
+        JSR PRINTBITMAP ; $1104
+        LDA HISCOREPOSP1 ; $1107
+        BMI L1113 ; $110A
+        LDX #$3D ; $110C
+        LDY #$E0 ; $110E
+        JSR PRINTBITMAP ; $1110
+L1113
+        LDA HISCOREPOSP2 ; $1113
+        BMI L111F ; $1116
+        LDX #$3D ; $1118
+        LDY #$ED ; $111A
+        JSR PRINTBITMAP ; $111C
+L111F
+        LDA HISCOREPOSP1 ; $111F
+        BMI L1133 ; $1122
+        LDA #$06 ; $1124
+        STA ZP95 ; $1126
+        LDA #$08 ; $1128
+        STA ZP9B ; $112A
+        LDX #$3D ; $112C
+        LDY #$1D ; $112E
+        JSR PRINTBITMAP ; $1130
+L1133
+        LDA HISCOREPOSP2 ; $1133
+        BMI L1147 ; $1136
+        LDA #$15 ; $1138
+        STA ZP9B ; $113A
+        LDA #$06 ; $113C
+        STA ZP95 ; $113E
+        LDX #$3D ; $1140
+        LDY #$2D ; $1142
+        JSR PRINTBITMAP ; $1144
+L1147
+        JSR ENTERINITIALS ; $1147
+        JSR SAVEHISCORES ; $114A
+L114D
+        LDA #$02 ; $114D
+        STA MENUSELECT ; $114F
+        LDA #$04 ; $1152
+        JSR STARTMUSIC ; $1154
+        JMP MENUSWAP ; $1157
+SAVEHISCORES
+        LDY HISCOREPOSP2 ; $115A
+        BMI L116D ; $115D
+        LDX #$00 ; $115F
+L1161
+        LDA HISCOREP2,X ; $1161
+        STA HISCORES,Y ; $1164
+        INY ; $1167
+        INX ; $1168
+        CPX #$0E ; $1169
+        BNE L1161 ; $116B
+L116D
+        LDY HISCOREPOSP1 ; $116D
+        BMI L1180 ; $1170
+        LDX #$00 ; $1172
+L1174
+        LDA HISCOREP1,X ; $1174
+        STA HISCORES,Y ; $1177
+        INY ; $117A
+        INX ; $117B
+        CPX #$0E ; $117C
+        BNE L1174 ; $117E
+L1180
+        RTS ; $1180
+ENTERINITIALS
+        LDX #$03 ; $1181
+        LDA HISCOREPOSP1 ; $1183
+        BMI L118A ; $1186
+        LDX #$00 ; $1188
+L118A
+        STX M0124 ; $118A
+        LDX #$03 ; $118D
+        LDA HISCOREPOSP2 ; $118F
+        BMI L1196 ; $1192
+        LDX #$00 ; $1194
+L1196
+        STX M0125 ; $1196
+L1199
+        INC M0110 ; $1199
+        LDA M0110 ; $119C
+        AND #$0F ; $119F
+        BNE L11B3 ; $11A1
+        LDA HISCOREPOSP1 ; $11A3
+        BMI L11AB ; $11A6
+        JSR P1INITIALS ; $11A8
+L11AB
+        LDA HISCOREPOSP2 ; $11AB
+        BMI L11B3 ; $11AE
+        JSR P2INITIALS ; $11B0
+L11B3
+        LDA HISCOREPOSP1 ; $11B3
+        BMI L11C7 ; $11B6
+        LDA #$1C ; $11B8
+        STA ZP95 ; $11BA
+        LDA #$08 ; $11BC
+        STA ZP9B ; $11BE
+        LDX #$3D ; $11C0
+        LDY #$28 ; $11C2
+        JSR PRINTBITMAP ; $11C4
+L11C7
+        LDA HISCOREPOSP2 ; $11C7
+        BMI L11DB ; $11CA
+        LDA #$1C ; $11CC
+        STA ZP95 ; $11CE
+        LDA #$15 ; $11D0
+        STA ZP9B ; $11D2
+        LDX #$3D ; $11D4
+        LDY #$38 ; $11D6
+        JSR PRINTBITMAP ; $11D8
+L11DB
+        LDA #$03 ; $11DB
+        CMP M0124 ; $11DD
+        BNE L1199 ; $11E0
+        CMP M0125 ; $11E2
+        BNE L1199 ; $11E5
+        RTS ; $11E7
+P1INITIALS
+        LDA M0124 ; $11E8
+        CMP #$03 ; $11EB
+        BEQ L1224 ; $11ED
+        LDA PORTA ; $11EF
+        BIT D3BD5 ; $11F2
+        BEQ L1215 ; $11F5
+        BIT D3BD6 ; $11F7
+        BEQ L1225 ; $11FA
+        LDA TRIG0 ; $11FC
+        BNE L120F ; $11FF
+        LDA FIRELATCH ; $1201
+        BNE L120E ; $1204
+        LDA #$01 ; $1206
+        STA FIRELATCH ; $1208
+        INC M0124 ; $120B
+L120E
+        RTS ; $120E
+L120F
+        LDA #$00 ; $120F
+        STA FIRELATCH ; $1211
+        RTS ; $1214
+L1215
+        LDX M0124 ; $1215
+        LDA #$01 ; $1218
+        CLC ; $121A
+        ADC D3D28,X ; $121B
+        JSR WRAPLETTER ; $121E
+        STA D3D28,X ; $1221
+L1224
+        RTS ; $1224
+L1225
+        LDX M0124 ; $1225
+        LDA D3D28,X ; $1228
+        SEC ; $122B
+        SBC #$01 ; $122C
+        JSR WRAPLETTER ; $122E
+        STA D3D28,X ; $1231
+        RTS ; $1234
+WRAPLETTER
+        CMP #$5B ; $1235
+        BCC L123B ; $1237
+        LDA #$41 ; $1239
+L123B
+        CMP #$41 ; $123B
+        BCS L1241 ; $123D
+        LDA #$5A ; $123F
+L1241
+        RTS ; $1241
+P2INITIALS
+        LDA M0125 ; $1242
+        CMP #$03 ; $1245
+        BEQ L1224 ; $1247
+        LDA PORTA ; $1249
+        BIT D3BD9 ; $124C
+        BEQ L126F ; $124F
+        BIT D3BDA ; $1251
+        BEQ L127F ; $1254
+        LDA TRIG1 ; $1256
+        BNE L1269 ; $1259
+        LDA M012E ; $125B
+        BNE L1224 ; $125E
+        LDA #$01 ; $1260
+        STA M012E ; $1262
+        INC M0125 ; $1265
+        RTS ; $1268
+L1269
+        LDA #$00 ; $1269
+        STA M012E ; $126B
+        RTS ; $126E
+L126F
+        LDX M0125 ; $126F
+        LDA #$01 ; $1272
+        CLC ; $1274
+        ADC D3D38,X ; $1275
+        JSR WRAPLETTER ; $1278
+        STA D3D38,X ; $127B
+        RTS ; $127E
+L127F
+        LDX M0125 ; $127F
+        LDA D3D38,X ; $1282
+        SEC ; $1285
+        SBC #$01 ; $1286
+        JSR WRAPLETTER ; $1288
+        STA D3D38,X ; $128B
+        RTS ; $128E
+DLIHISCORE
+        STA DLISAVEA ; $128F
+        STX DLISAVEX ; $1292
+        LDA FRAMELO ; $1295
+        CMP MENUTICKSTATE ; $1297
+        BEQ L12A4 ; $129A
+        STA MENUTICKSTATE ; $129C
+        LDX #$00 ; $129F
+        STX DLIPHASE ; $12A1
+L12A4
+        LDX DLIPHASE ; $12A4
+        LDA HISCOLOR2,X ; $12A7
+        STA WSYNC ; $12AA
+        STA COLPF2 ; $12AD
+        LDA HISCOLOR0,X ; $12B0
+        STA COLPF0 ; $12B3
+        LDA HISCOLOR1,X ; $12B6
+        STA COLPF1 ; $12B9
+        INC DLIPHASE ; $12BC
+        LDA DLISAVEA ; $12BF
+        LDX DLISAVEX ; $12C2
+        RTI ; $12C5
+HISCOLOR1
+        .BYTE $C2,$22,$32 ; $12C6
+HISCOLOR0
+        .BYTE $D6,$28,$38 ; $12C9
+HISCOLOR2
+        .BYTE $DF,$FE,$0F ; $12CC
+COPYSCORES
+        LDA #$01 ; $12CF
+        STA D3D1F ; $12D1
+        LDX #$05 ; $12D4
+L12D6
+        LDA DB085,X ; $12D6
+        SEC ; $12D9
+        SBC #$3C ; $12DA
+        STA D3D20,X ; $12DC
+        DEX ; $12DF
+        BPL L12D6 ; $12E0
+        LDA #$02 ; $12E2
+        STA D3D2F ; $12E4
+        LDX #$05 ; $12E7
+L12E9
+        LDA DB099,X ; $12E9
+        SEC ; $12EC
+        SBC #$3C ; $12ED
+        STA D3D30,X ; $12EF
+        DEX ; $12F2
+        BPL L12E9 ; $12F3
+        LDX #$02 ; $12F5
+        LDA #$70 ; $12F7
+L12F9
+        STA D3D38,X ; $12F9
+        STA D3D28,X ; $12FC
+        DEX ; $12FF
+        BPL L12F9 ; $1300
+        RTS ; $1302
+FINDHISCORE
+        LDY #$FF ; $1303
+        STY HISCOREPOSP1 ; $1305
+        STY HISCOREPOSP2 ; $1308
+        INY ; $130B
+L130C
+        LDA D3CBF,Y ; $130C
+        CMP #$01 ; $130F
+        BEQ L1347 ; $1311
+        CMP #$02 ; $1313
+        BEQ L1351 ; $1315
+L1317
+        TYA ; $1317
+        CLC ; $1318
+        ADC #$10 ; $1319
+        TAY ; $131B
+        CPY #$60 ; $131C
+        BNE L130C ; $131E
+        LDY HISCOREPOSP2 ; $1320
+        BMI L1333 ; $1323
+        LDX #$00 ; $1325
+L1327
+        LDA HISCORES,Y ; $1327
+        STA HISCOREP2,X ; $132A
+        INY ; $132D
+        INX ; $132E
+        CPX #$0E ; $132F
+        BNE L1327 ; $1331
+L1333
+        LDY HISCOREPOSP1 ; $1333
+        BMI L1346 ; $1336
+        LDX #$00 ; $1338
+L133A
+        LDA HISCORES,Y ; $133A
+        STA HISCOREP1,X ; $133D
+        INY ; $1340
+        INX ; $1341
+        CPX #$0E ; $1342
+        BNE L133A ; $1344
+L1346
+        RTS ; $1346
+L1347
+        LDA #$20 ; $1347
+        STA D3CBF,Y ; $1349
+        STY HISCOREPOSP1 ; $134C
+        BNE L1317 ; $134F
+L1351
+        LDA #$20 ; $1351
+        STA D3CBF,Y ; $1353
+        STY HISCOREPOSP2 ; $1356
+        BNE L1317 ; $1359
+SORTSCORES
+        LDX #$07 ; $135B
+        STX M0123 ; $135D
+L1360
+        SETPTRXY PTR0,ADR3CBF ; $1360-$1367
+        SETPTRXY PTR1,$3CCF ; $1368-$136F
+        LDX #$07 ; $1370
+L1372
+        LDY #$01 ; $1372
+L1374
+        LDA (PTR0),Y ; $1374
+        CMP (PTR1),Y ; $1376
+        BEQ L1382 ; $1378
+        BCS L1387 ; $137A
+        JSR SWAPSCORE ; $137C
+        JMP L1387 ; $137F
+L1382
+        INY ; $1382
+        CPY #$07 ; $1383
+        BNE L1374 ; $1385
+L1387
+        LDA #$10 ; $1387
+        CLC ; $1389
+        ADC PTR0 ; $138A
+        STA PTR0 ; $138C
+        BCC L1392 ; $138E
+        INC PTR0H ; $1390
+L1392
+        LDA #$10 ; $1392
+        CLC ; $1394
+        ADC PTR1 ; $1395
+        STA PTR1 ; $1397
+        BCC L139D ; $1399
+        INC PTR1H ; $139B
+L139D
+        DEX ; $139D
+        BNE L1372 ; $139E
+        DEC M0123 ; $13A0
+        BNE L1360 ; $13A3
+        RTS ; $13A5
+SWAPSCORE
+        LDY #$0B ; $13A6
+L13A8
+        LDA (PTR0),Y ; $13A8
+        PHA ; $13AA
+        LDA (PTR1),Y ; $13AB
+        STA (PTR0),Y ; $13AD
+        PLA ; $13AF
+        STA (PTR1),Y ; $13B0
+        DEY ; $13B2
+        BPL L13A8 ; $13B3
+        RTS ; $13B5
+DLIRAINBOW1
+        PUSHREGS ; $13B6-$13BA
+        LDA FRAMELO ; $13BB
+        AND #$3F ; $13BD
+        TAY ; $13BF
+        LDX #$40 ; $13C0
+L13C2
+        LDA RAINBOWCOLORS,Y ; $13C2
+        STA WSYNC ; $13C5
+        STA COLPF0 ; $13C8
+        INY ; $13CB
+        TYA ; $13CC
+        AND #$3F ; $13CD
+        TAY ; $13CF
+        DEX ; $13D0
+        BPL L13C2 ; $13D1
+        LDA FRAMEHI ; $13D3
+        CMP TRANSITIONEND ; $13D5
+        BNE L13DF ; $13D8
+        LDA #$00 ; $13DA
+        STA TRANSITIONWAIT ; $13DC
+L13DF
+        LDA TRANSITIONWAIT ; $13DF
+        BEQ L13F1 ; $13E2
+SM13E4
+        LDA #$FF ; $13E4
+        BNE L13F1 ; $13E6
+        LDA TRIG0 ; $13E8
+        AND TRIG1 ; $13EB
+        STA TRANSITIONWAIT ; $13EE
+L13F1
+        SETPTRXY VDSLST,ADR1410 ; $13F1-$13FA
+        LDA #$54 ; $13FB
+        STA COLPF1 ; $13FD
+        LDA #$58 ; $1400
+        STA COLPF0 ; $1402
+        LDA #$5F ; $1405
+        STA COLPF2 ; $1407
+        POPREGS ; $140A-$140E
+        RTI ; $140F
+DLIRAINBOW2
+        PHA ; $1410
+        LDA #$C8 ; $1411
+        STA WSYNC ; $1413
+        STA COLPF0 ; $1416
+        SETWORD MD017,$CFC4 ; $1419-$1422
+        SETWORD VDSLST,ADR142F ; $1423-$142C
+        PLA ; $142D
+        RTI ; $142E
+DLIRAINBOW3
+        PUSHREGS ; $142F-$1433
+        LDA FRAMELO ; $1434
+        AND #$3F ; $1436
+        TAY ; $1438
+        LDX #$3F ; $1439
+L143B
+        LDA RAINBOWCOLORS,Y ; $143B
+        STA WSYNC ; $143E
+        STA COLPF0 ; $1441
+        DEY ; $1444
+        TYA ; $1445
+        AND #$3F ; $1446
+        TAY ; $1448
+        DEX ; $1449
+        BPL L143B ; $144A
+        SETPTRXY VDSLST,DLIRAINBOW1 ; $144C-$1455
+        POPREGS ; $1456-$145A
+        RTI ; $145B
+; Czysci 4 strony od $BC00; operand STA jest modyfikowany.
+CLEARMENU
+        LDX #$04 ; $145C
+        LDA #$BC ; $145E
+        STA CLEARBCSTA+2 ; $1460
+        LDY #$00 ; $1463
+        TYA ; $1465
+; UWAGA SMC: poczatkowe $FF00 nie jest docelowym adresem czyszczenia.
+CLEARBCSTA
+        STA $FF00,Y ; $1466
+        DEY ; $1469
+        BNE CLEARBCSTA ; $146A
+        INC CLEARBCSTA+2 ; $146C
+        DEX ; $146F
+        BNE CLEARBCSTA ; $1470
+        LDA #$01 ; $1472
+        LDX #$4F ; $1474
+L1476
+        STA MBD18,X ; $1476
+        STA MBDE0,X ; $1479
+        STA MBEA8,X ; $147C
+        DEX ; $147F
+        BPL L1476 ; $1480
+        RTS ; $1482
+; Czysci $C000-$CFFF i $F000-$FEFF. Nie kasuje strony $FF00.
+CLEARSCREENS
+        LDA #$C0 ; $1483
+        LDY #$00 ; $1485
+        LDX #$10 ; $1487
+        JSR CLEARPAGES ; $1489
+        LDA #$F0 ; $148C
+        LDX #$0F ; $148E
+CLEARPAGES
+        STA CLEARPAGESTA+2 ; $1490
+        LDA #$00 ; $1493
+; UWAGA SMC: starszy bajt adresu STA zmienia sie w petli.
+CLEARPAGESTA
+        STA $FF00,Y ; $1495
+        DEY ; $1498
+        BNE CLEARPAGESTA ; $1499
+        INC CLEARPAGESTA+2 ; $149B
+        DEX ; $149E
+        BNE CLEARPAGESTA ; $149F
+        RTS ; $14A1
+; Konfiguracja DMA, PMBASE=$70 i grafiki player/missile.
+INITPMG
+        LDA #$3E ; $14A2
+        STA SDMCTL ; $14A4
+        LDA #$70 ; $14A7
+        STA PMBASE ; $14A9
+        LDA #$03 ; $14AC
+        STA GRACTL ; $14AE
+        LDA #$11 ; $14B1
+        STA PRIOR ; $14B3
+        LDA #$73 ; $14B6
+        STA CLEARPMGSTA+2 ; $14B8
+        LDX #$04 ; $14BB
+        LDY #$00 ; $14BD
+        TYA ; $14BF
+CLEARPMGSTA
+        STA $FF00,Y ; $14C0
+        DEY ; $14C3
+        BNE CLEARPMGSTA ; $14C4
+        INC CLEARPMGSTA+2 ; $14C6
+        DEX ; $14C9
+        BPL CLEARPMGSTA ; $14CA
+        LDX #$04 ; $14CC
+L14CE
+        STA HPOSP0,X ; $14CE
+        DEX ; $14D1
+        BPL L14CE ; $14D2
+        RTS ; $14D4
+LOADMENUICONS
+        SETPTRXY PTR0,$73E0 ; $14D5-$14DC
+        SETPTRXY PTR1,MENUICONS ; $14DD-$14E4
+        LDX #$05 ; $14E5
+L14E7
+        JSR COPY16BYTES ; $14E7
+        LDA #$10 ; $14EA
+        CLC ; $14EC
+        ADC PTR1 ; $14ED
+        STA PTR1 ; $14EF
+        BCC L14F5 ; $14F1
+        INC PTR1H ; $14F3
+L14F5
+        INC PTR0H ; $14F5
+        DEX ; $14F7
+        BNE L14E7 ; $14F8
+        LDA #$7B ; $14FA
+        LDX #$04 ; $14FC
+L14FE
+        STA MENUICONX,X ; $14FE
+        DEX ; $1501
+        BPL L14FE ; $1502
+        RTS ; $1504
+COPY16BYTES
+        LDY #$0F ; $1505
+L1507
+        LDA (PTR1),Y ; $1507
+        STA (PTR0),Y ; $1509
+        DEY ; $150B
+        BPL L1507 ; $150C
+        RTS ; $150E
+; Buduje liste ANTIC od $E200: dwa obszary bitmapy $C000 i $F000.
+BUILDMENUDLIST
+        LDA #$10 ; $150F
+        STA FRAMELO ; $1511
+        LDA #$40 ; $1513
+        STA NMIEN ; $1515
+        SETPTRXY PTR1,DLISTA ; $1518-$151F
+        LDY #$02 ; $1520
+        LDA #$70 ; $1522
+L1524
+        STA (PTR1),Y ; $1524
+        DEY ; $1526
+        BPL L1524 ; $1527
+        LDY #$03 ; $1529
+        LDA #$4E ; $152B
+        STA (PTR1),Y ; $152D
+        INY ; $152F
+        LDA #$00 ; $1530
+        STA (PTR1),Y ; $1532
+        INY ; $1534
+        LDA #$C0 ; $1535
+        STA (PTR1),Y ; $1537
+        INY ; $1539
+        LDX #$5F ; $153A
+        LDA #$0E ; $153C
+L153E
+        STA (PTR1),Y ; $153E
+        INY ; $1540
+        DEX ; $1541
+        BNE L153E ; $1542
+        LDA #$65 ; $1544
+        CLC ; $1546
+        ADC PTR1 ; $1547
+        STA PTR1 ; $1549
+        LDY #$00 ; $154B
+        LDA #$4E ; $154D
+        STA (PTR1),Y ; $154F
+        INY ; $1551
+        LDA #$00 ; $1552
+        STA (PTR1),Y ; $1554
+        INY ; $1556
+        LDA #$F0 ; $1557
+        STA (PTR1),Y ; $1559
+        INY ; $155B
+        LDX #$5F ; $155C
+        LDA #$0E ; $155E
+L1560
+        STA (PTR1),Y ; $1560
+        INY ; $1562
+        DEX ; $1563
+        BNE L1560 ; $1564
+        LDA #$41 ; $1566
+        STA (PTR1),Y ; $1568
+        LDA #$00 ; $156A
+        STA SDLSTL ; $156C
+        INY ; $156F
+        STA (PTR1),Y ; $1570
+        LDA #$E2 ; $1572
+        STA SDLSTH ; $1574
+        INY ; $1577
+        STA (PTR1),Y ; $1578
+        RTS ; $157A
+DLIMENU2A
+        STA DLISAVEA ; $157B
+        STX DLISAVEX ; $157E
+SM1581
+        LDA #$FE ; $1581
+        STA WSYNC ; $1583
+        STA COLPF2 ; $1586
+SM1589
+        LDA #$24 ; $1589
+        STA COLPF1 ; $158B
+SM158E
+        LDA #$28 ; $158E
+        STA COLPF0 ; $1590
+        INC MENUCOLORPHASE ; $1593
+        LDA MENUCOLORPHASE ; $1596
+        AND #$0F ; $1599
+        LSR A ; $159B
+        LSR A ; $159C
+        TAX ; $159D
+        LDA D15C3,X ; $159E
+        STA SM1581+1 ; $15A1
+        LDA D15C2,X ; $15A4
+        STA SM1589+1 ; $15A7
+        LDA MENUCOLORCYCLE,X ; $15AA
+        STA SM158E+1 ; $15AD
+        SETWORD VDSLST,ADR15CA ; $15B0-$15B9
+        LDA DLISAVEA ; $15BA
+        LDX DLISAVEX ; $15BD
+        RTI ; $15C0
+MENUCOLORCYCLE
+        .BYTE $FE ; $15C1
+D15C2
+        .BYTE $28 ; $15C2
+D15C3
+        .BYTE $24,$28,$FE,$28,$24,$28 ; $15C3
+MENUCOLORPHASE
+        .BYTE $00 ; $15C9
+DLIMENU2B
+        PHA ; $15CA
+        LDA #$72 ; $15CB
+        STA WSYNC ; $15CD
+        STA COLPF1 ; $15D0
+        LDA #$78 ; $15D3
+        STA COLPF0 ; $15D5
+        LDA #$9C ; $15D8
+        STA COLPF2 ; $15DA
+        SETWORD VDSLST,DLIMENU2A ; $15DD-$15E6
+        PLA ; $15E7
+        RTI ; $15E8
+SUB15E9
+        LDA #$00 ; $15E9
+        STA NMIEN ; $15EB
+        LDA #$10 ; $15EE
+        STA FRAMELO ; $15F0
+        STA CHBAS ; $15F2
+        SETWORD VDSLST,ADR1622 ; $15F5-$15FE
+        .END

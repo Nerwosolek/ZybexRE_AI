@@ -1,0 +1,12 @@
+test_all_official_encodings (__main__.ReconstructionTests.test_all_official_encodings) ... ok
+test_decimal_results_and_carry (__main__.ReconstructionTests.test_decimal_results_and_carry) ... ok
+test_dynamic_coverage (__main__.ReconstructionTests.test_dynamic_coverage) ... ok
+test_macro_local_labels (__main__.ReconstructionTests.test_macro_local_labels) ... ok
+test_nmi_rti_stack (__main__.ReconstructionTests.test_nmi_rti_stack) ... ok
+test_nmos_jmp_page_wrap (__main__.ReconstructionTests.test_nmos_jmp_page_wrap) ... ok
+test_reject_branch_overflow (__main__.ReconstructionTests.test_reject_branch_overflow) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.116s
+
+OK

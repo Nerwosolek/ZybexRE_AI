@@ -1,0 +1,394 @@
+{
+  "module": "boot",
+  "start": 1152,
+  "end": 4351,
+  "size": 3200,
+  "instruction_count": 123,
+  "code_bytes": 272,
+  "data_or_unknown_bytes": 2928,
+  "labels": 29,
+  "equates": 25,
+  "manual_code_labels": 21,
+  "macro_invocations": 6,
+  "macro_types": {
+    "SETWORD": 2,
+    "SETPTRXY": 4
+  },
+  "macro_covered_bytes": 50,
+  "smc_direct_writes": 0,
+  "smc_target_bytes": 0,
+  "smc_instructions": 0,
+  "seeds": [
+    1158,
+    1160,
+    1335
+  ],
+  "issues": [],
+  "vectors": [],
+  "source_lines": 452,
+  "native_max_line": 461,
+  "roundtrip_macros": true,
+  "roundtrip_flat": true,
+  "roundtrip_native_text": true,
+  "code": [
+    1158,
+    1159,
+    1160,
+    1162,
+    1165,
+    1167,
+    1169,
+    1172,
+    1174,
+    1177,
+    1179,
+    1182,
+    1185,
+    1187,
+    1189,
+    1191,
+    1194,
+    1195,
+    1197,
+    1200,
+    1201,
+    1203,
+    1206,
+    1208,
+    1211,
+    1212,
+    1214,
+    1217,
+    1218,
+    1220,
+    1223,
+    1226,
+    1228,
+    1229,
+    1231,
+    1233,
+    1235,
+    1238,
+    1240,
+    1243,
+    1245,
+    1247,
+    1249,
+    1251,
+    1253,
+    1255,
+    1258,
+    1260,
+    1263,
+    1266,
+    1268,
+    1271,
+    1273,
+    1276,
+    1279,
+    1282,
+    1284,
+    1286,
+    1289,
+    1291,
+    1293,
+    1296,
+    1299,
+    1301,
+    1303,
+    1306,
+    1309,
+    1312,
+    1314,
+    1316,
+    1318,
+    1321,
+    1324,
+    1326,
+    1329,
+    1332,
+    1335,
+    1337,
+    1338,
+    1340,
+    1343,
+    1573,
+    1575,
+    1577,
+    1579,
+    1581,
+    1583,
+    1585,
+    1587,
+    1589,
+    1591,
+    1594,
+    1596,
+    1598,
+    1600,
+    1602,
+    1604,
+    1607,
+    1609,
+    1611,
+    1613,
+    1615,
+    1617,
+    1619,
+    1620,
+    1623,
+    1624,
+    1626,
+    1629,
+    1631,
+    1633,
+    1635,
+    1636,
+    1638,
+    1640,
+    1642,
+    1643,
+    1645,
+    1647,
+    1650,
+    1652,
+    1655,
+    1656
+  ],
+  "edges": [
+    [
+      1187,
+      1206,
+      "BNE"
+    ],
+    [
+      1201,
+      1191,
+      "BPL"
+    ],
+    [
+      1203,
+      1223,
+      "JMP"
+    ],
+    [
+      1218,
+      1208,
+      "BPL"
+    ],
+    [
+      1220,
+      1220,
+      "JMP"
+    ],
+    [
+      1223,
+      1573,
+      "JSR"
+    ],
+    [
+      1233,
+      1231,
+      "BNE"
+    ],
+    [
+      1235,
+      1258,
+      "JSR"
+    ],
+    [
+      1255,
+      3200,
+      "JMP"
+    ],
+    [
+      1276,
+      58451,
+      "JSR"
+    ],
+    [
+      1284,
+      1296,
+      "BNE"
+    ],
+    [
+      1291,
+      1296,
+      "BNE"
+    ],
+    [
+      1293,
+      1337,
+      "JMP"
+    ],
+    [
+      1301,
+      1306,
+      "BNE"
+    ],
+    [
+      1314,
+      1324,
+      "BEQ"
+    ],
+    [
+      1321,
+      1276,
+      "JMP"
+    ],
+    [
+      1332,
+      1276,
+      "JMP"
+    ],
+    [
+      1335,
+      1338,
+      "BMI"
+    ],
+    [
+      1343,
+      58487,
+      "JSR"
+    ],
+    [
+      1591,
+      1617,
+      "JSR"
+    ],
+    [
+      1604,
+      1617,
+      "JSR"
+    ],
+    [
+      1636,
+      1631,
+      "BNE"
+    ],
+    [
+      1643,
+      1631,
+      "BNE"
+    ]
+  ],
+  "smc": [],
+  "symbols": {
+    "BOOTRETURN": 1158,
+    "BOOTINIT": 1160,
+    "COPYLOADMSG": 1191,
+    "WARNBASIC": 1206,
+    "COPYWARNMSG": 1208,
+    "WAITRESET": 1220,
+    "BOOTCONTINUE": 1223,
+    "WAITBOOTCLOCK": 1231,
+    "LOADPAYLOAD": 1258,
+    "READSECTOR": 1276,
+    "NEXTSECTOR": 1296,
+    "INCSECTORLO": 1306,
+    "NEXTBUFPAGE": 1324,
+    "UNUSEDCHECK": 1335,
+    "LOADDONE": 1337,
+    "BOOTERROR": 1338,
+    "COPYRESOURCES": 1573,
+    "COPYFONTMAP": 1594,
+    "COPYLOGODATA": 1607,
+    "COPYTOPRAM": 1617,
+    "COPYRESOURCE": 1631,
+    "BOOTHEADER": 1152,
+    "BOOTDLIST": 1348,
+    "BOOTSCREEN": 1361,
+    "LOADMESSAGE": 1453,
+    "WARNMESSAGE": 1533,
+    "GLYPHSIMAGE": 1792,
+    "FONTMAPIMAGE": 3072,
+    "LOGOIMAGE": 3328,
+    "COLOR0": 708,
+    "ATRACT": 65,
+    "COLOR2": 710,
+    "SDLSTL": 560,
+    "ADR0544": 1348,
+    "PORTB": 54017,
+    "RTCLOKLO": 20,
+    "COLDST": 580,
+    "BOOTFLAG": 9,
+    "DOSINI": 12,
+    "GAMEENTRY": 3200,
+    "DBUFLO": 772,
+    "DAUX1": 778,
+    "DBUFHI": 773,
+    "DAUX2": 779,
+    "DSKINV": 58451,
+    "COLDSV": 58487,
+    "COPYSRC": 146,
+    "ADR0700": 1792,
+    "COPYDST": 148,
+    "NMIEN": 54286,
+    "COPYSRCH": 147,
+    "COPYDSTH": 149,
+    "SDLSTH": 561,
+    "DOSINIH": 13
+  },
+  "macros": [
+    {
+      "address": 1172,
+      "end": 1181,
+      "name": "SETWORD",
+      "args": [
+        560,
+        1348
+      ],
+      "bytes": 10
+    },
+    {
+      "address": 1247,
+      "end": 1254,
+      "name": "SETWORD",
+      "args": [
+        12,
+        3200
+      ],
+      "bytes": 8
+    },
+    {
+      "address": 1573,
+      "end": 1580,
+      "name": "SETPTRXY",
+      "args": [
+        146,
+        1792
+      ],
+      "bytes": 8
+    },
+    {
+      "address": 1581,
+      "end": 1588,
+      "name": "SETPTRXY",
+      "args": [
+        148,
+        58368
+      ],
+      "bytes": 8
+    },
+    {
+      "address": 1594,
+      "end": 1601,
+      "name": "SETPTRXY",
+      "args": [
+        148,
+        65280
+      ],
+      "bytes": 8
+    },
+    {
+      "address": 1607,
+      "end": 1614,
+      "name": "SETPTRXY",
+      "args": [
+        148,
+        56320
+      ],
+      "bytes": 8
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+; Nieuzyty fragment; punkt $067A dobrany jako poczatek spojnosc kodu.
+; NIE jest potwierdzonym punktem wejscia. Plik tylko pomocniczy.
+067A  A0 00     LDY #$00
+067C  86 95     STX $95
+067E  84 94     STY $94
+0680  A2 04     LDX #$04
+0682  A9 00     LDA #$00
+0684  78        SEI 
+0685  8D 0E D4  STA $D40E
+0688  78        SEI 
+0689  A9 FE     LDA #$FE
+068B  8D 01 D3  STA $D301
+068E  A0 00     LDY #$00
+0690  B1 92     LDA ($92),Y
+0692  91 94     STA ($94),Y
+0694  C8        INY 
+0695  D0 F9     BNE $0690
+0697  E6 93     INC $93
+0699  E6 95     INC $95
+069B  CA        DEX 
+069C  D0 F2     BNE $0690
+069E  A9 FF     LDA #$FF
+06A0  8D 01 D3  STA $D301
+06A3  A9 40     LDA #$40
+06A5  8D 0E D4  STA $D40E
+06A8  58        CLI 
+06A9  60        RTS 
+06AA  00        BRK 
+06AB  00        BRK 

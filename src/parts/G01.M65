@@ -1,0 +1,2285 @@
+; ZYBEX: osobny modul MAC/65, adresy stale.
+FRAMEHI          = $13
+FRAMELO          = $14
+PTR0             = $15
+PTR0H            = $16
+MAPINDEX         = $1D
+MAPSTEP          = $1E
+ZP33             = $33
+ZP34             = $34
+ZP35             = $35
+ZP36             = $36
+ZP37             = $37
+ZP46             = $46
+ZP49             = $49
+ZP4A             = $4A
+TWOPLAYERS       = $51
+ZP53             = $53
+ZP54             = $54
+ZP57             = $57
+ZP58             = $58
+ZP59             = $59
+ZP5A             = $5A
+LOOPCOUNT        = $5B
+ZP61             = $61
+ZP63             = $63
+ZP64             = $64
+LEVELSTATE       = $65
+ZP66             = $66
+GAMEMUSICMODE    = $67
+ZP69             = $69
+ZP6A             = $6A
+ZP77             = $77
+ZP78             = $78
+ZP79             = $79
+ZP7A             = $7A
+ZP7B             = $7B
+ZP7C             = $7C
+ZP7D             = $7D
+ZP83             = $83
+ZP89             = $89
+ZP8F             = $8F
+TEXTCOL          = $95
+ZP95             = $95
+ZP96             = $96
+TEXTROW          = $9B
+ZP9B             = $9B
+ZP9C             = $9C
+ZPA1             = $A1
+ZPA7             = $A7
+ZPA8             = $A8
+ZPAD             = $AD
+ZPB9             = $B9
+ZPBF             = $BF
+ZPC5             = $C5
+ZPC6             = $C6
+ZPCB             = $CB
+ZPD1             = $D1
+ZPE1             = $E1
+ZPE8             = $E8
+ZPED             = $ED
+ZPF0             = $F0
+ZPF1             = $F1
+ZPFE             = $FE
+ZPFF             = $FF
+M0100            = $0100
+M0106            = $0106
+M0109            = $0109
+M010A            = $010A
+M010B            = $010B
+M010C            = $010C
+M010D            = $010D
+M010E            = $010E
+M0118            = $0118
+M0119            = $0119
+DLISAVEA         = $0120
+M0121            = $0121
+DLISAVEX         = $0122
+VDSLST           = $0200
+VDSLSTH          = $0201
+SDMCTL           = $022F
+SDLSTL           = $0230
+COLOR0           = $02C4
+COLOR1           = $02C5
+COLOR2           = $02C6
+COLOR4           = $02C8
+ADR3BC7          = $3BC7 ; D3BC7 (adres dla makra)
+TRIG0            = $D010
+TRIG1            = $D011
+COLPM0           = $D012
+COLPM1           = $D013
+COLPF0           = $D016
+COLPF1           = $D017
+COLPF2           = $D018
+COLBK            = $D01A
+AUDCTL           = $D208
+PORTA            = $D300
+PACTL            = $D302
+DMACTL           = $D400
+CHBASE           = $D409
+WSYNC            = $D40A
+NMIEN            = $D40E
+MD801            = $D801
+MD802            = $D802
+MD815            = $D815
+MD816            = $D816
+MD829            = $D829
+MD82A            = $D82A
+MD83D            = $D83D
+ME228            = $E228
+ME250            = $E250
+ME25A            = $E25A
+ME278            = $E278
+ME27D            = $E27D
+ME2B4            = $E2B4
+FONT2X2MAP       = $FF00
+MFF01            = $FF01
+MFF02            = $FF02
+MFF03            = $FF03
+        .MACRO SETWORD
+        LDA #<%2
+        STA %1
+        LDA #>%2
+        STA %1+1
+        .ENDM
+        .MACRO WAITCLOCK
+        LDA %1
+        CLC
+        ADC #%2
+?WAIT
+        CMP %1
+        BNE ?WAIT
+        .ENDM
+
+; Symbole z innych modulow; adresy oryginalne, bez relokacji.
+BUILDMENUDLIST   = $150F
+CHECKSELECT      = $260C
+CLEARSCREENS     = $1483
+CREDITLINE       = $070C
+D06EC            = $06EC
+D260A            = $260A
+D260B            = $260B
+D3BD5            = $3BD5
+D3BD6            = $3BD6
+D3C15            = $3C15
+D3C1E            = $3C1E
+D3C5D            = $3C5D
+D3C7D            = $3C7D
+D3C86            = $3C86
+D3C8A            = $3C8A
+D3D69            = $3D69
+D3D6E            = $3D6E
+D3D93            = $3D93
+D3D96            = $3D96
+D3D99            = $3D99
+D3D9C            = $3D9C
+D3D9E            = $3D9E
+D3E2F            = $3E2F
+D3E36            = $3E36
+D3E57            = $3E57
+D3E58            = $3E58
+D3E5B            = $3E5B
+D3E5C            = $3E5C
+D3E63            = $3E63
+D4200            = $4200
+D4201            = $4201
+D4202            = $4202
+D4203            = $4203
+D4204            = $4204
+D420B            = $420B
+D420D            = $420D
+D7400            = $7400
+D7500            = $7500
+D7600            = $7600
+D7700            = $7700
+D94B0            = $94B0
+D94B1            = $94B1
+D94B3            = $94B3
+D9720            = $9720
+D9738            = $9738
+DB030            = $B030
+DB085            = $B085
+DB089            = $B089
+DB08C            = $B08C
+DB08E            = $B08E
+DB099            = $B099
+DB09D            = $B09D
+DB0A0            = $B0A0
+DB0A2            = $B0A2
+DB0A8            = $B0A8
+DLIPHASE         = $3D92
+DRAWPLAYERPOOL   = $370B
+DRAWPOOL28       = $35CE
+DRAWPOOL42       = $3676
+DRAWPOOL88       = $34E3
+HISCOREENTRY     = $107A
+INITGAMENMI      = $37A3
+INITHUD          = $2698
+INITMENUNMI      = $1000
+INITOBJECTRAM    = $2DEA
+INITPLAYFIELD    = $3881
+INITPMG          = $14A2
+INITSHOTPOOL     = $2E58
+L0F62            = $0F62
+L10A0            = $10A0
+LEVELNAMES       = $0600
+MENUTICKSTATE    = $3D9D
+P1CHECKPOINT     = $3C66
+P1LIVES          = $3C7F
+P1STATE          = $3C78
+P2CHECKPOINT     = $3C6F
+P2LIVES          = $3C88
+P2STATE          = $3C81
+PLAYERSVBI       = $2770
+SCORETEXT1       = $3D44
+SCORETEXT2       = $3D58
+SCROLLWORLD      = $39DD
+SETLEVELDATA     = $2630
+SFX2PRIORITY     = $3ED3
+SFX2REQUEST      = $3ED1
+SFX3PRIORITY     = $3ED2
+SFX3REQUEST      = $3ED0
+SM382D           = $382D
+SM39B6           = $39B6
+SM39BB           = $39BB
+SM39C0           = $39C0
+STOPMUSIC        = $0D69
+SUB26DE          = $26DE
+SUB2AA1          = $2AA1
+SUB2B18          = $2B18
+SUB2DC5          = $2DC5
+SUB2EC4          = $2EC4
+SUB3009          = $3009
+SUB30FC          = $30FC
+SUB3301          = $3301
+SUB3356          = $3356
+SUB346A          = $346A
+TITLEDLIST       = $0D31
+TRANSITION       = $0F99
+WAITFRAMEFLIP    = $3B91
+
+        *= $15FF
+        SETWORD SDLSTL,TITLEDLIST ; $15FF-$1608
+        LDA #$40 ; $1609
+        STA NMIEN ; $160B
+        LDY #$EE ; $160E
+        LDX #$C0 ; $1610
+        WAITCLOCK FRAMELO,$01 ; $1612-$161A
+        STX NMIEN ; $161B
+        STY SCROLLADJUST ; $161E
+        RTS ; $1621
+DLIMENU1
+        STA DLISAVEA ; $1622
+        STY M0121 ; $1625
+        STX DLISAVEX ; $1628
+        LDX #$E4 ; $162B
+        STX CHBASE ; $162D
+        LDA #$00 ; $1630
+        STA COLPF1 ; $1632
+        STA COLPF2 ; $1635
+        LDA FRAMELO ; $1638
+        STA MENUTICKSTATE ; $163A
+        LDX #$10 ; $163D
+L163F
+        LDA MENUTICKSTATE ; $163F
+        LSR A ; $1642
+        AND #$07 ; $1643
+        TAY ; $1645
+        LDA D3D9E,Y ; $1646
+        STA COLPF2 ; $1649
+        STA WSYNC ; $164C
+; UWAGA SMC: opcode $EE (INC abs) jest zmieniany na $CE (DEC abs).
+SCROLLADJUST
+        INC MENUTICKSTATE ; $164F
+        DEX ; $1652
+        BNE L163F ; $1653
+        LDA FRAMELO ; $1655
+        CMP D3D9C ; $1657
+        STA D3D9C ; $165A
+        BEQ L1664 ; $165D
+        LDX #$00 ; $165F
+        STX DLIPHASE ; $1661
+L1664
+        LDX DLIPHASE ; $1664
+        LDA D3D99,X ; $1667
+        STA WSYNC ; $166A
+        STA COLPF2 ; $166D
+        LDA D3D96,X ; $1670
+        STA COLPF1 ; $1673
+        LDA D3D93,X ; $1676
+        STA COLPF0 ; $1679
+        LDA SCROLLADJUST ; $167C
+        ORA #$20 ; $167F
+        STA SCROLLADJUST ; $1681
+        CPX #$00 ; $1684
+        BNE L1690 ; $1686
+        LDA SCROLLADJUST ; $1688
+        EOR #$20 ; $168B
+        STA SCROLLADJUST ; $168D
+L1690
+        INC DLIPHASE ; $1690
+        LDA DLISAVEA ; $1693
+        LDY M0121 ; $1696
+        LDX DLISAVEX ; $1699
+        RTI ; $169C
+; Renderer tekstu; $15/$16 = wskaznik. Terminator tekstu: $1A.
+PRINT8X8
+        STX PTR0H ; $169D
+        STY PTR0 ; $169F
+L16A1
+        LDY #$00 ; $16A1
+        LDA (PTR0),Y ; $16A3
+        CMP #$1A ; $16A5
+        BCC L16C3 ; $16A7
+        BEQ L16BA ; $16A9
+        JSR DRAWCHAR8X8 ; $16AB
+L16AE
+        JSR INCPTR0 ; $16AE
+        JMP L16A1 ; $16B1
+INCPTR0
+        INC PTR0 ; $16B4
+        BNE L16BA ; $16B6
+        INC PTR0H ; $16B8
+L16BA
+        RTS ; $16BA
+GETNEXTBYTE
+        JSR INCPTR0 ; $16BB
+        LDY #$00 ; $16BE
+        LDA (PTR0),Y ; $16C0
+        RTS ; $16C2
+L16C3
+        STA TEXTROW ; $16C3
+        JSR GETNEXTBYTE ; $16C5
+        STA TEXTCOL ; $16C8
+        JMP L16AE ; $16CA
+DRAWCHAR8X8
+        CMP #$20 ; $16CD
+        BNE L16D3 ; $16CF
+        LDA #$F1 ; $16D1
+L16D3
+        CLC ; $16D3
+        ADC #$10 ; $16D4
+        PHA ; $16D6
+        LDX #$00 ; $16D7
+        STX SM1700+2 ; $16D9
+        LDA TEXTROW ; $16DC
+        ASL A ; $16DE
+        ASL A ; $16DF
+        ASL A ; $16E0
+        TAX ; $16E1
+        ASL A ; $16E2
+        ROL SM1700+2 ; $16E3
+        ASL A ; $16E6
+        ROL SM1700+2 ; $16E7
+        STA SM1700+1 ; $16EA
+        TXA ; $16ED
+        CLC ; $16EE
+        ADC SM1700+1 ; $16EF
+        STA SM1700+1 ; $16F2
+        LDA #$BC ; $16F5
+        ADC SM1700+2 ; $16F7
+        STA SM1700+2 ; $16FA
+        LDY TEXTCOL ; $16FD
+        PLA ; $16FF
+SM1700
+        STA $FFFF,Y ; $1700
+        INC TEXTCOL ; $1703
+L1705
+        RTS ; $1705
+TEXTRENDERMODE
+        .BYTE $00 ; $1706
+D1707
+        .BYTE $00 ; $1707
+D1708
+        .BYTE $00 ; $1708
+; Tekst bitmapowy. Bajty < $1A ustawiaja wspolrzedne; $1A konczy.
+PRINTBITMAP
+        LDA #$01 ; $1709
+        BNE L170F ; $170B
+; Alternatywny tryb: znaki zlozone z kafelkow 2x2.
+PRINTTILES
+        LDA #$00 ; $170D
+L170F
+        STA TEXTRENDERMODE ; $170F
+        STX PTR0H ; $1712
+        STY PTR0 ; $1714
+L1716
+        LDY #$00 ; $1716
+        LDA (PTR0),Y ; $1718
+        CMP #$1A ; $171A
+        BCC L1734 ; $171C
+        BEQ L1705 ; $171E
+        LDY TEXTRENDERMODE ; $1720
+        BNE L172B ; $1723
+        JSR DRAWCHAR2X2 ; $1725
+        JMP L172E ; $1728
+L172B
+        JSR DRAWBITMAPCHAR ; $172B
+L172E
+        JSR INCPTR0 ; $172E
+        JMP L1716 ; $1731
+L1734
+        STA TEXTROW ; $1734
+        JSR GETNEXTBYTE ; $1736
+        STA TEXTCOL ; $1739
+        JMP L172E ; $173B
+; Mapa 4 kafelkow znaku jest w RAM $FF00 skopiowanym przez boot.
+DRAWCHAR2X2
+        CMP #$20 ; $173E
+        BEQ L1791 ; $1740
+        SEC ; $1742
+        SBC #$41 ; $1743
+        PHA ; $1745
+        LDX #$00 ; $1746
+        STX SM1799+2 ; $1748
+        LDA TEXTROW ; $174B
+        ASL A ; $174D
+        ASL A ; $174E
+        ASL A ; $174F
+        TAX ; $1750
+        ASL A ; $1751
+        ROL SM1799+2 ; $1752
+        ASL A ; $1755
+        ROL SM1799+2 ; $1756
+        STA SM1799+1 ; $1759
+        TXA ; $175C
+        CLC ; $175D
+        ADC SM1799+1 ; $175E
+        STA SM1799+1 ; $1761
+        LDA #$BC ; $1764
+        ADC SM1799+2 ; $1766
+        STA SM1799+2 ; $1769
+        PLA ; $176C
+        ASL A ; $176D
+        ASL A ; $176E
+        TAX ; $176F
+        LDY TEXTCOL ; $1770
+        LDA FONT2X2MAP,X ; $1772
+        JSR STORECHARCELL ; $1775
+        LDA MFF02,X ; $1778
+        INY ; $177B
+        JSR STORECHARCELL ; $177C
+        TYA ; $177F
+        CLC ; $1780
+        ADC #$27 ; $1781
+        TAY ; $1783
+        LDA MFF01,X ; $1784
+        JSR STORECHARCELL ; $1787
+        LDA MFF03,X ; $178A
+        INY ; $178D
+        JSR STORECHARCELL ; $178E
+L1791
+        INC TEXTCOL ; $1791
+        INC TEXTCOL ; $1793
+        RTS ; $1795
+STORECHARCELL
+        CLC ; $1796
+        ADC #$02 ; $1797
+SM1799
+        STA $FFFF,Y ; $1799
+        RTS ; $179C
+SETBITMAPDEST
+        LDX #$C0 ; $179D
+        LDA TEXTROW ; $179F
+        CMP #$0C ; $17A1
+        BCC L17AA ; $17A3
+        SEC ; $17A5
+        SBC #$0C ; $17A6
+        LDX #$F0 ; $17A8
+L17AA
+        STX D1707 ; $17AA
+        STA ZP54 ; $17AD
+        LDX #$00 ; $17AF
+        STX SM1861+1 ; $17B1
+        LSR A ; $17B4
+        ROR SM1861+1 ; $17B5
+        LSR A ; $17B8
+        ROR SM1861+1 ; $17B9
+        CLC ; $17BC
+        ADC ZP54 ; $17BD
+        STA SM1861+2 ; $17BF
+        LDA SM1861+1 ; $17C2
+        CLC ; $17C5
+        ADC TEXTCOL ; $17C6
+        STA SM1861+1 ; $17C8
+        LDA D1707 ; $17CB
+        ADC SM1861+2 ; $17CE
+        STA SM1861+2 ; $17D1
+        RTS ; $17D4
+DRAWBITMAPCHAR
+        LDY #$FF ; $17D5
+        CMP #$20 ; $17D7
+        BNE L17DD ; $17D9
+        LDY #$00 ; $17DB
+L17DD
+        STY SM185F+1 ; $17DD
+        CMP #$41 ; $17E0
+        BCS L17E7 ; $17E2
+        CLC ; $17E4
+        ADC #$2F ; $17E5
+L17E7
+        SEC ; $17E7
+        SBC #$41 ; $17E8
+        ASL A ; $17EA
+        ASL A ; $17EB
+        TAY ; $17EC
+        JSR SETBITMAPDEST ; $17ED
+        LDA FONT2X2MAP,Y ; $17F0
+        STY D1708 ; $17F3
+        JSR SETGLYPHSRC ; $17F6
+        INC TEXTROW ; $17F9
+        JSR SETBITMAPDEST ; $17FB
+        INC D1708 ; $17FE
+        LDY D1708 ; $1801
+        LDA FONT2X2MAP,Y ; $1804
+        STY D1708 ; $1807
+        JSR SETGLYPHSRC ; $180A
+        DEC TEXTROW ; $180D
+        INC TEXTCOL ; $180F
+        JSR SETBITMAPDEST ; $1811
+        INC D1708 ; $1814
+        LDY D1708 ; $1817
+        LDA FONT2X2MAP,Y ; $181A
+        STY D1708 ; $181D
+        JSR SETGLYPHSRC ; $1820
+        INC TEXTROW ; $1823
+        JSR SETBITMAPDEST ; $1825
+        INC D1708 ; $1828
+        LDY D1708 ; $182B
+        LDA FONT2X2MAP,Y ; $182E
+        JSR SETGLYPHSRC ; $1831
+        INC TEXTCOL ; $1834
+        DEC TEXTROW ; $1836
+        RTS ; $1838
+SETGLYPHSRC
+        LDX #$00 ; $1839
+        STX SM185C+2 ; $183B
+        ASL A ; $183E
+        ROL SM185C+2 ; $183F
+        ASL A ; $1842
+        ROL SM185C+2 ; $1843
+        ASL A ; $1846
+        ROL SM185C+2 ; $1847
+        CLC ; $184A
+        ADC #$10 ; $184B
+        STA SM185C+1 ; $184D
+        LDA SM185C+2 ; $1850
+        ADC #$E4 ; $1853
+        STA SM185C+2 ; $1855
+        LDX #$00 ; $1858
+        LDY #$00 ; $185A
+SM185C
+        LDA $FFFF,X ; $185C
+SM185F
+        AND #$FF ; $185F
+SM1861
+        STA $FFFF,Y ; $1861
+        TYA ; $1864
+        CLC ; $1865
+        ADC #$28 ; $1866
+        TAY ; $1868
+        BCC L186E ; $1869
+        INC SM1861+2 ; $186B
+L186E
+        INX ; $186E
+        CPX #$08 ; $186F
+        BNE SM185C ; $1871
+        RTS ; $1873
+; Nowa rozgrywka lub powrot do etapu; inicjalizacja stanu graczy.
+INITGAME
+        LDA #$00 ; $1874
+        STA SDMCTL ; $1876
+        STA DMACTL ; $1879
+        STA SM382D+1 ; $187C
+        JSR INITGAMENMI ; $187F
+        JSR STOPMUSIC ; $1882
+        LDA LEVELSTATE ; $1885
+        BNE L18D9 ; $1887
+        LDX #$07 ; $1889
+        LDA #$00 ; $188B
+L188D
+        STA P1STATE,X ; $188D
+        STA P2STATE,X ; $1890
+        STA P1CHECKPOINT,X ; $1893
+        STA P2CHECKPOINT,X ; $1896
+        DEX ; $1899
+        BPL L188D ; $189A
+        LDA #$00 ; $189C
+        STA D251D ; $189E
+        STA D251E ; $18A1
+        STA BONUSSTATE ; $18A4
+        LDX #$0F ; $18A7
+L18A9
+        STA LEVELFLAGS,X ; $18A9
+        DEX ; $18AC
+        BPL L18A9 ; $18AD
+        LDA #$30 ; $18AF
+        LDX #$05 ; $18B1
+L18B3
+        STA SCORETEXT1,X ; $18B3
+        STA SCORETEXT2,X ; $18B6
+        DEX ; $18B9
+        BPL L18B3 ; $18BA
+        LDA #$01 ; $18BC
+        STA P1STATE ; $18BE
+        STA P2STATE ; $18C1
+        STA P1CHECKPOINT ; $18C4
+        LDA TWOPLAYERS ; $18C7
+        BEQ L18CE ; $18C9
+        STA P2CHECKPOINT ; $18CB
+L18CE
+        LDA #$05 ; $18CE
+        STA P1LIVES ; $18D0
+        STA P2LIVES ; $18D3
+        JMP L18F2 ; $18D6
+L18D9
+        LDA LEVELSTATE ; $18D9
+        BPL L18DF ; $18DB
+        LDA #$00 ; $18DD
+L18DF
+        STA LEVELSTATE ; $18DF
+        LDX #$04 ; $18E1
+L18E3
+        LDA P1STATE,X ; $18E3
+        STA P1CHECKPOINT,X ; $18E6
+        LDA P2STATE,X ; $18E9
+        STA P2CHECKPOINT,X ; $18EC
+        DEX ; $18EF
+        BPL L18E3 ; $18F0
+L18F2
+        JSR INITPLAYFIELD ; $18F2
+        JSR INITOBJECTRAM ; $18F5
+        JSR INITSHOTPOOL ; $18F8
+        JSR INITHUD ; $18FB
+        LDA #$90 ; $18FE
+        STA CHBASE ; $1900
+        LDA #$00 ; $1903
+        STA M0109 ; $1905
+        STA M010A ; $1908
+        STA COLOR4 ; $190B
+        STA ZP37 ; $190E
+        STA ZP36 ; $1910
+        STA ZP35 ; $1912
+        STA ZP58 ; $1914
+        STA ZP57 ; $1916
+        STA COLBK ; $1918
+        STA ZP49 ; $191B
+        STA ZP4A ; $191D
+        STA MAPINDEX ; $191F
+        STA MAPSTEP ; $1921
+        STA M010E ; $1923
+        STA GAMEMUSICMODE ; $1926
+        STA D3C7D ; $1928
+        STA D3C86 ; $192B
+        STA AUDCTL ; $192E
+        LDA #$FF ; $1931
+        STA ZP64 ; $1933
+        STA M010B ; $1935
+        STA M010C ; $1938
+        LDA #$01 ; $193B
+        STA ZP66 ; $193D
+        LDA #$06 ; $193F
+        STA ZP63 ; $1941
+        JSR SETLEVELDATA ; $1943
+        LDA #$AA ; $1946
+        STA D94B0 ; $1948
+        STA D94B1 ; $194B
+        STA D94B3 ; $194E
+        LDA #$0F ; $1951
+        STA COLOR2 ; $1953
+        LDA #$08 ; $1956
+        STA COLOR1 ; $1958
+        LDA #$04 ; $195B
+        STA COLOR0 ; $195D
+        LDA #$24 ; $1960
+        STA SM39B6+1 ; $1962
+        LDA #$28 ; $1965
+        STA SM39BB+1 ; $1967
+        LDA #$2F ; $196A
+        STA SM39C0+1 ; $196C
+        JSR INITPMG ; $196F
+        LDA #$00 ; $1972
+        STA PLAYERSVBI+1 ; $1974
+L1977
+        LDA #$FF ; $1977
+        STA SM382D+1 ; $1979
+        JSR CHECKSELECT ; $197C
+; Glowna petla: synchronizacja, obiekty, scrolling, gracze, uzbrojenie.
+MAINLOOP
+        INC LOOPCOUNT ; $197F
+        JSR WAITFRAMEFLIP ; $1981
+        JSR DRAWPOOL28 ; $1984
+        JSR DRAWPLAYERPOOL ; $1987
+        JSR SCROLLWORLD ; $198A
+        JSR DRAWPOOL42 ; $198D
+        JSR DRAWPOOL88 ; $1990
+        JSR SUB30FC ; $1993
+        JSR SUB3301 ; $1996
+        JSR SUB3301 ; $1999
+        JSR SUB26DE ; $199C
+        JSR SUB346A ; $199F
+        JSR SUB2346 ; $19A2
+        JSR SUB1F93 ; $19A5
+        LDA LOOPCOUNT ; $19A8
+        AND #$01 ; $19AA
+        BEQ L19CA ; $19AC
+        JSR SUB3009 ; $19AE
+        JSR SUB2B18 ; $19B1
+        JSR UPDATEP1WEAPON ; $19B4
+        JSR UPDATEP2WEAPON ; $19B7
+        INC ZP59 ; $19BA
+        INC ZP5A ; $19BC
+        LDA ZP57 ; $19BE
+        BEQ L19C4 ; $19C0
+        DEC ZP57 ; $19C2
+L19C4
+        LDA ZP58 ; $19C4
+        BEQ L19CA ; $19C6
+        DEC ZP58 ; $19C8
+L19CA
+        JSR SUB2AA1 ; $19CA
+        JSR UPDATEORBITALS ; $19CD
+        JSR SUB2EC4 ; $19D0
+        JSR SUB2231 ; $19D3
+        JSR SUB20C9 ; $19D6
+        LDA P1LIVES ; $19D9
+        BPL L1A00 ; $19DC
+        LDA M010B ; $19DE
+        BEQ L1A0F ; $19E1
+        LDA #$00 ; $19E3
+        STA M010B ; $19E5
+        LDX #$4F ; $19E8
+        LDA #$0F ; $19EA
+L19EC
+        STA DB030,X ; $19EC
+        DEX ; $19EF
+        BPL L19EC ; $19F0
+        LDX #$00 ; $19F2
+        TXA ; $19F4
+L19F5
+        STA D7400,X ; $19F5
+        STA D7500,X ; $19F8
+        DEX ; $19FB
+        BNE L19F5 ; $19FC
+        BEQ L1A0F ; $19FE
+L1A00
+        LDA P1LIVES ; $1A00
+        CMP #$09 ; $1A03
+        BCC L1A09 ; $1A05
+        LDA #$09 ; $1A07
+L1A09
+        CLC ; $1A09
+        ADC #$6C ; $1A0A
+        STA DB08C ; $1A0C
+L1A0F
+        LDA P2LIVES ; $1A0F
+        BPL L1A36 ; $1A12
+        LDA M010C ; $1A14
+        BEQ L1A45 ; $1A17
+        LDA #$00 ; $1A19
+        STA M010C ; $1A1B
+        LDX #$4F ; $1A1E
+        LDA #$0F ; $1A20
+L1A22
+        STA DB0A8,X ; $1A22
+        DEX ; $1A25
+        BPL L1A22 ; $1A26
+        LDX #$00 ; $1A28
+        TXA ; $1A2A
+L1A2B
+        STA D7600,X ; $1A2B
+        STA D7700,X ; $1A2E
+        DEX ; $1A31
+        BNE L1A2B ; $1A32
+        BEQ L1A45 ; $1A34
+L1A36
+        LDA P2LIVES ; $1A36
+        CMP #$09 ; $1A39
+        BCC L1A3F ; $1A3B
+        LDA #$09 ; $1A3D
+L1A3F
+        CLC ; $1A3F
+        ADC #$6C ; $1A40
+        STA DB0A0 ; $1A42
+L1A45
+        LDA M010E ; $1A45
+        BNE L1A5E ; $1A48
+        LDA TWOPLAYERS ; $1A4A
+        BEQ L1A53 ; $1A4C
+        LDA M010C ; $1A4E
+        BNE L1A58 ; $1A51
+L1A53
+        LDA M010B ; $1A53
+        BEQ L1A5B ; $1A56
+L1A58
+        JMP L1977 ; $1A58
+L1A5B
+        JMP HISCOREENTRY ; $1A5B
+L1A5E
+        LDA #$00 ; $1A5E
+        STA SDMCTL ; $1A60
+        STA DMACTL ; $1A63
+        JSR INITMENUNMI ; $1A66
+        JSR STOPMUSIC ; $1A69
+        LDA #$40 ; $1A6C
+        STA NMIEN ; $1A6E
+        JSR BUILDMENUDLIST ; $1A71
+        JSR CLEARSCREENS ; $1A74
+        LDA #$0F ; $1A77
+        STA COLOR2 ; $1A79
+        SETWORD COLOR0,$C4C8 ; $1A7C-$1A85
+        LDA #$40 ; $1A86
+        STA NMIEN ; $1A88
+        LDA #$1E ; $1A8B
+        STA VDSLSTH ; $1A8D
+        LDA #$15 ; $1A90
+        STA VDSLST ; $1A92
+        LDX #$00 ; $1A95
+        STX SM1E18+1 ; $1A97
+        LDX #$C0 ; $1A9A
+        LDY #$8E ; $1A9C
+        WAITCLOCK FRAMELO,$01 ; $1A9E-$1AA6
+        STX NMIEN ; $1AA7
+        STY ME250 ; $1AAA
+        STY ME278 ; $1AAD
+        JSR INITPMG ; $1AB0
+        LDX #$30 ; $1AB3
+        LDA D3C7D ; $1AB5
+L1AB8
+        SEC ; $1AB8
+        SBC #$0A ; $1AB9
+        BCC L1AC0 ; $1ABB
+        INX ; $1ABD
+        BNE L1AB8 ; $1ABE
+L1AC0
+        CLC ; $1AC0
+        ADC #$3A ; $1AC1
+        STA D1E9D ; $1AC3
+        STX D1E9C ; $1AC6
+        LDX #$30 ; $1AC9
+        LDA D3C86 ; $1ACB
+L1ACE
+        SEC ; $1ACE
+        SBC #$0A ; $1ACF
+        BCC L1AD6 ; $1AD1
+        INX ; $1AD3
+        BNE L1ACE ; $1AD4
+L1AD6
+        CLC ; $1AD6
+        ADC #$3A ; $1AD7
+        STA D1EB5 ; $1AD9
+        STX D1EB4 ; $1ADC
+        LDX #$05 ; $1ADF
+L1AE1
+        LDA DB085,X ; $1AE1
+        SEC ; $1AE4
+        SBC #$3C ; $1AE5
+        STA D1E9F,X ; $1AE7
+        LDA DB099,X ; $1AEA
+        SEC ; $1AED
+        SBC #$3C ; $1AEE
+        STA D1EB7,X ; $1AF0
+        DEX ; $1AF3
+        BPL L1AE1 ; $1AF4
+        LDX #$1E ; $1AF6
+        LDY #$80 ; $1AF8
+        JSR PRINTBITMAP ; $1AFA
+        LDA TWOPLAYERS ; $1AFD
+        BEQ L1B08 ; $1AFF
+        LDX #$1E ; $1B01
+        LDY #$A6 ; $1B03
+        JSR PRINTBITMAP ; $1B05
+L1B08
+        LDA FRAMELO ; $1B08
+        AND #$07 ; $1B0A
+        BNE L1B08 ; $1B0C
+        LDA FRAMELO ; $1B0E
+L1B10
+        CMP FRAMELO ; $1B10
+        BEQ L1B10 ; $1B12
+        LDA D1E9C ; $1B14
+        CMP #$30 ; $1B17
+        BNE L1B22 ; $1B19
+        LDA D1E9D ; $1B1B
+        CMP #$30 ; $1B1E
+        BEQ L1B48 ; $1B20
+L1B22
+        JSR ADDBONUSP1 ; $1B22
+        LDA #$0B ; $1B25
+        STA SFX2REQUEST ; $1B27
+        LDA #$03 ; $1B2A
+        STA SFX2PRIORITY ; $1B2C
+        DEC D1E9D ; $1B2F
+        LDA D1E9D ; $1B32
+        CMP #$2F ; $1B35
+        BNE L1B41 ; $1B37
+        LDA #$39 ; $1B39
+        STA D1E9D ; $1B3B
+        DEC D1E9C ; $1B3E
+L1B41
+        LDX #$1E ; $1B41
+        LDY #$9A ; $1B43
+        JSR PRINTBITMAP ; $1B45
+L1B48
+        LDA TWOPLAYERS ; $1B48
+        BEQ L1B83 ; $1B4A
+        LDA D1EB4 ; $1B4C
+        CMP #$30 ; $1B4F
+        BNE L1B5A ; $1B51
+        LDA D1EB5 ; $1B53
+        CMP #$30 ; $1B56
+        BEQ L1B83 ; $1B58
+L1B5A
+        JSR ADDBONUSP2 ; $1B5A
+        LDA #$0B ; $1B5D
+        STA SFX2REQUEST ; $1B5F
+        LDA #$01 ; $1B62
+        STA SFX2PRIORITY ; $1B64
+        DEC D1EB5 ; $1B67
+        LDA D1EB5 ; $1B6A
+        CMP #$2F ; $1B6D
+        BNE L1B79 ; $1B6F
+        LDA #$39 ; $1B71
+        STA D1EB5 ; $1B73
+        DEC D1EB4 ; $1B76
+L1B79
+        LDX #$1E ; $1B79
+        LDY #$B2 ; $1B7B
+        JSR PRINTBITMAP ; $1B7D
+        JMP L1B08 ; $1B80
+L1B83
+        LDA D1E9C ; $1B83
+        CMP #$30 ; $1B86
+        BEQ L1B8D ; $1B88
+L1B8A
+        JMP L1B08 ; $1B8A
+L1B8D
+        LDA D1E9D ; $1B8D
+        CMP #$30 ; $1B90
+        BNE L1B8A ; $1B92
+        LDX LEVELSTATE ; $1B94
+        CPX #$0F ; $1B96
+        BNE L1B9D ; $1B98
+        JMP L1CE7 ; $1B9A
+L1B9D
+        LDA FRAMEHI ; $1B9D
+        CLC ; $1B9F
+        ADC #$02 ; $1BA0
+        TAX ; $1BA2
+L1BA3
+        LDA TRIG0 ; $1BA3
+        AND TRIG1 ; $1BA6
+        BEQ L1BAF ; $1BA9
+        CPX FRAMEHI ; $1BAB
+        BNE L1BA3 ; $1BAD
+L1BAF
+        JSR BUILDMENUDLIST ; $1BAF
+        JSR CLEARSCREENS ; $1BB2
+        LDA #$1E ; $1BB5
+        STA VDSLSTH ; $1BB7
+        LDA #$3F ; $1BBA
+        STA VDSLST ; $1BBC
+        LDX #$00 ; $1BBF
+        STX SM1E42+1 ; $1BC1
+        LDX #$C0 ; $1BC4
+        LDY #$8E ; $1BC6
+        WAITCLOCK FRAMELO,$01 ; $1BC8-$1BD0
+        STX NMIEN ; $1BD1
+        STY ME228 ; $1BD4
+        STY ME25A ; $1BD7
+        STY ME27D ; $1BDA
+        STY ME2B4 ; $1BDD
+        JSR INITPMG ; $1BE0
+        LDX #$3E ; $1BE3
+        LDY #$40 ; $1BE5
+        JSR PRINTBITMAP ; $1BE7
+        LDX LEVELSTATE ; $1BEA
+        LDA #$01 ; $1BEC
+        STA LEVELFLAGS,X ; $1BEE
+        LDA BONUSSTATE ; $1BF1
+        LDX #$30 ; $1BF4
+L1BF6
+        SEC ; $1BF6
+        SBC #$0A ; $1BF7
+        BCC L1BFE ; $1BF9
+        INX ; $1BFB
+        BNE L1BF6 ; $1BFC
+L1BFE
+        CLC ; $1BFE
+        ADC #$3A ; $1BFF
+        STA D3E5C ; $1C01
+        CPX #$30 ; $1C04
+        BNE L1C0A ; $1C06
+        LDX #$20 ; $1C08
+L1C0A
+        STX D3E5B ; $1C0A
+        LDX #$20 ; $1C0D
+        CMP #$31 ; $1C0F
+        BEQ L1C15 ; $1C11
+        LDX #$53 ; $1C13
+L1C15
+        STX D3E63 ; $1C15
+L1C18
+        JSR PRINTLEVELNUM ; $1C18
+        LDX LEVELSTATE ; $1C1B
+        LDA LEVELFLAGS,X ; $1C1D
+        BEQ L1C2C ; $1C20
+        LDX #$3E ; $1C22
+        LDY #$6B ; $1C24
+        JSR PRINTBITMAP ; $1C26
+        JMP L1C61 ; $1C29
+L1C2C
+        LDX #$3E ; $1C2C
+        LDY #$83 ; $1C2E
+        JSR PRINTBITMAP ; $1C30
+        LDX LEVELSTATE ; $1C33
+        CPX #$0C ; $1C35
+        BCC L1C61 ; $1C37
+        LDA LEVELSTATE ; $1C39
+        CLC ; $1C3B
+        SBC BONUSSTATE ; $1C3C
+        BCS L1C43 ; $1C3F
+        LDA #$00 ; $1C41
+L1C43
+        CMP #$04 ; $1C43
+        BCC L1C49 ; $1C45
+        LDA #$03 ; $1C47
+L1C49
+        CLC ; $1C49
+        ADC #$30 ; $1C4A
+        STA D3E2F ; $1C4C
+        LDX #$20 ; $1C4F
+        CMP #$31 ; $1C51
+        BEQ L1C57 ; $1C53
+        LDX #$53 ; $1C55
+L1C57
+        STX D3E36 ; $1C57
+        LDX #$3E ; $1C5A
+        LDY #$2D ; $1C5C
+        JSR PRINTBITMAP ; $1C5E
+L1C61
+        LDA LEVELSTATE ; $1C61
+        STA SM1CC3+1 ; $1C63
+L1C66
+        LDA #$3C ; $1C66
+        STA PACTL ; $1C68
+        LDA PORTA ; $1C6B
+        CMP #$FF ; $1C6E
+        BNE L1C66 ; $1C70
+L1C72
+        LDA TRIG0 ; $1C72
+        AND TRIG1 ; $1C75
+        BEQ L1CCC ; $1C78
+        LDA PORTA ; $1C7A
+        CMP #$FF ; $1C7D
+        BEQ L1C72 ; $1C7F
+        AND #$0F ; $1C81
+        STA SM1C8D+1 ; $1C83
+        LDA PORTA ; $1C86
+        LSR A ; $1C89
+        LSR A ; $1C8A
+        LSR A ; $1C8B
+        LSR A ; $1C8C
+SM1C8D
+        AND #$FF ; $1C8D
+        BIT D3BD5 ; $1C8F
+        BNE L1CAC ; $1C92
+        LDA #$06 ; $1C94
+        STA SFX2REQUEST ; $1C96
+        LDA #$08 ; $1C99
+        STA SFX2PRIORITY ; $1C9B
+        INC LEVELSTATE ; $1C9E
+        LDA LEVELSTATE ; $1CA0
+        CMP #$10 ; $1CA2
+        BCC SM1CC3 ; $1CA4
+        LDA #$00 ; $1CA6
+        STA LEVELSTATE ; $1CA8
+        BEQ SM1CC3 ; $1CAA
+L1CAC
+        BIT D3BD6 ; $1CAC
+        BNE SM1CC3 ; $1CAF
+        LDA #$05 ; $1CB1
+        STA SFX2REQUEST ; $1CB3
+        LDA #$08 ; $1CB6
+        STA SFX2PRIORITY ; $1CB8
+        DEC LEVELSTATE ; $1CBB
+        BPL SM1CC3 ; $1CBD
+        LDA #$0F ; $1CBF
+        STA LEVELSTATE ; $1CC1
+SM1CC3
+        LDA #$FF ; $1CC3
+        CMP LEVELSTATE ; $1CC5
+        BEQ L1C66 ; $1CC7
+        JMP L1C18 ; $1CC9
+L1CCC
+        LDX LEVELSTATE ; $1CCC
+        LDA LEVELFLAGS,X ; $1CCE
+        BNE SM1CC3 ; $1CD1
+        CPX #$0C ; $1CD3
+        BCC L1CE1 ; $1CD5
+        LDA BONUSSTATE ; $1CD7
+        CLC ; $1CDA
+        ADC #$01 ; $1CDB
+        CMP LEVELSTATE ; $1CDD
+        BCC SM1CC3 ; $1CDF
+L1CE1
+        JSR UPDATESCORETEXT ; $1CE1
+        JMP L0F62 ; $1CE4
+L1CE7
+        JSR UPDATESCORETEXT ; $1CE7
+        JSR TRANSITION ; $1CEA
+        LDA #$3A ; $1CED
+        STA SDMCTL ; $1CEF
+        LDX #$1D ; $1CF2
+        LDY #$05 ; $1CF4
+        JSR PRINTBITMAP ; $1CF6
+        WAITCLOCK FRAMEHI,$04 ; $1CF9-$1D01
+        JMP L10A0 ; $1D02
+WINMESSAGE
+        .BYTE $08,$06,$43,$4F,$4E,$47,$52,$41,$54,$55,$4C,$41 ; $1D05
+        .BYTE $54,$49,$4F,$4E,$53,$0B,$0C,$59,$4F,$55,$20,$48 ; $1D11
+        .BYTE $41,$56,$45,$0D,$06,$43,$4F,$4D,$50,$4C,$45,$54 ; $1D1D
+        .BYTE $45,$44,$20,$5A,$59,$42,$45,$58,$1A ; $1D29
+UPDATESCORETEXT
+        LDX #$05 ; $1D32
+L1D34
+        LDA D1E9F,X ; $1D34
+        STA SCORETEXT1,X ; $1D37
+        LDA D1EB7,X ; $1D3A
+        STA SCORETEXT2,X ; $1D3D
+        DEX ; $1D40
+        BPL L1D34 ; $1D41
+        RTS ; $1D43
+PRINTLEVELNUM
+        LDX #$30 ; $1D44
+        LDA LEVELSTATE ; $1D46
+        CLC ; $1D48
+        ADC #$01 ; $1D49
+L1D4B
+        SEC ; $1D4B
+        SBC #$0A ; $1D4C
+        BCC L1D53 ; $1D4E
+        INX ; $1D50
+        BNE L1D4B ; $1D51
+L1D53
+        CLC ; $1D53
+        ADC #$3A ; $1D54
+        STA D3E58 ; $1D56
+        CPX #$30 ; $1D59
+        BNE L1D5F ; $1D5B
+        LDX #$20 ; $1D5D
+L1D5F
+        STX D3E57 ; $1D5F
+        LDX #$3E ; $1D62
+        LDY #$4F ; $1D64
+        JSR PRINTBITMAP ; $1D66
+        LDA LEVELSTATE ; $1D69
+        CMP #$0C ; $1D6B
+        BCS L1D88 ; $1D6D
+        LDA #$72 ; $1D6F
+        STA D1E6C ; $1D71
+        LDA #$78 ; $1D74
+        STA D1E68 ; $1D76
+        LDA #$0F ; $1D79
+        STA D1E64 ; $1D7B
+L1D7E
+        LDX #$0B ; $1D7E
+        STX ZP9B ; $1D80
+        INX ; $1D82
+        STX ZP95 ; $1D83
+        JMP PRINTLEVELNAME ; $1D85
+L1D88
+        LDY #$00 ; $1D88
+        LDA BONUSSTATE ; $1D8A
+        CMP #$07 ; $1D8D
+        BCC L1D93 ; $1D8F
+        LDY #$72 ; $1D91
+L1D93
+        STY D1E6C ; $1D93
+        LDY #$00 ; $1D96
+        CMP #$09 ; $1D98
+        BCC L1D9E ; $1D9A
+        LDY #$78 ; $1D9C
+L1D9E
+        STY D1E68 ; $1D9E
+        LDY #$00 ; $1DA1
+        LDA BONUSSTATE ; $1DA3
+        CLC ; $1DA6
+        ADC #$01 ; $1DA7
+        CMP LEVELSTATE ; $1DA9
+        BCC L1DAF ; $1DAB
+        LDY #$0F ; $1DAD
+L1DAF
+        STY D1E64 ; $1DAF
+        JMP L1D7E ; $1DB2
+; LEVELSTATE wybiera 16-bitowy wskaznik z tabeli LEVELNAMES.
+PRINTLEVELNAME
+        LDA LEVELSTATE ; $1DB5
+        ASL A ; $1DB7
+        TAX ; $1DB8
+        LDY LEVELNAMES,X ; $1DB9
+        LDA LEVELNAMES+1,X ; $1DBC
+        TAX ; $1DBF
+        JMP PRINTBITMAP ; $1DC0
+ADDBONUSP1
+        INC D1EA2 ; $1DC3
+        LDA D1EA2 ; $1DC6
+        CMP #$3A ; $1DC9
+        BEQ L1DCE ; $1DCB
+        RTS ; $1DCD
+L1DCE
+        LDA #$30 ; $1DCE
+        STA D1EA2 ; $1DD0
+        LDY #$02 ; $1DD3
+L1DD5
+        LDA D1E9F,Y ; $1DD5
+        CLC ; $1DD8
+        ADC #$01 ; $1DD9
+        CMP #$3A ; $1DDB
+        BCC L1DE8 ; $1DDD
+        LDA #$30 ; $1DDF
+        STA D1E9F,Y ; $1DE1
+        DEY ; $1DE4
+        BPL L1DD5 ; $1DE5
+        RTS ; $1DE7
+L1DE8
+        STA D1E9F,Y ; $1DE8
+        RTS ; $1DEB
+ADDBONUSP2
+        INC D1EBA ; $1DEC
+        LDA D1EBA ; $1DEF
+        CMP #$3A ; $1DF2
+        BEQ L1DF7 ; $1DF4
+        RTS ; $1DF6
+L1DF7
+        LDA #$30 ; $1DF7
+        STA D1EBA ; $1DF9
+        LDY #$02 ; $1DFC
+L1DFE
+        LDA D1EB7,Y ; $1DFE
+        CLC ; $1E01
+        ADC #$01 ; $1E02
+        CMP #$3A ; $1E04
+        BCC L1E11 ; $1E06
+        LDA #$30 ; $1E08
+        STA D1EB7,Y ; $1E0A
+        DEY ; $1E0D
+        BPL L1DFE ; $1E0E
+        RTS ; $1E10
+L1E11
+        STA D1EB7,Y ; $1E11
+        RTS ; $1E14
+DLIBONUSP1
+        PHA ; $1E15
+        TXA ; $1E16
+        PHA ; $1E17
+SM1E18
+        LDA #$00 ; $1E18
+        AND #$01 ; $1E1A
+        TAX ; $1E1C
+        LDA D1E39,X ; $1E1D
+        STA WSYNC ; $1E20
+        STA COLPF2 ; $1E23
+        LDA D1E3B,X ; $1E26
+        STA COLPF0 ; $1E29
+        LDA D1E3D,X ; $1E2C
+        STA COLPF1 ; $1E2F
+        INC SM1E18+1 ; $1E32
+        PLA ; $1E35
+        TAX ; $1E36
+        PLA ; $1E37
+        RTI ; $1E38
+D1E39
+        .BYTE $8F,$2F ; $1E39
+D1E3B
+        .BYTE $78,$28 ; $1E3B
+D1E3D
+        .BYTE $72,$32 ; $1E3D
+DLIBONUSP2
+        PHA ; $1E3F
+        TXA ; $1E40
+        PHA ; $1E41
+SM1E42
+        LDA #$00 ; $1E42
+        AND #$03 ; $1E44
+        TAX ; $1E46
+        LDA D1E63,X ; $1E47
+        STA WSYNC ; $1E4A
+        STA COLPF2 ; $1E4D
+        LDA D1E67,X ; $1E50
+        STA COLPF0 ; $1E53
+        LDA D1E6B,X ; $1E56
+        STA COLPF1 ; $1E59
+        INC SM1E42+1 ; $1E5C
+        PLA ; $1E5F
+        TAX ; $1E60
+        PLA ; $1E61
+        RTI ; $1E62
+D1E63
+        .BYTE $0F ; $1E63
+D1E64
+        .BYTE $00,$0F,$FC ; $1E64
+D1E67
+        .BYTE $38 ; $1E67
+D1E68
+        .BYTE $00,$08,$28 ; $1E68
+D1E6B
+        .BYTE $32 ; $1E6B
+D1E6C
+        .BYTE $00,$04,$24 ; $1E6C
+LEVELFLAGS
+        .BYTE $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00 ; $1E6F
+        .BYTE $00,$00,$00,$00 ; $1E7B
+BONUSSTATE
+        .BYTE $00 ; $1E7F
+BONUSTEXTP1
+        .BYTE $02,$0A,$50,$4C,$41,$59,$45,$52,$20,$4F,$4E,$45 ; $1E80
+        .BYTE $0B,$08,$42,$4F,$4E,$55,$53,$20,$54,$4F,$4B,$45 ; $1E8C
+        .BYTE $4E,$53,$06,$0B ; $1E98
+D1E9C
+        .BYTE $30 ; $1E9C
+D1E9D
+        .BYTE $30,$20 ; $1E9D
+D1E9F
+        .BYTE $30,$30,$30 ; $1E9F
+D1EA2
+        .BYTE $30,$30,$30,$1A,$0F,$0A ; $1EA2
+BONUSTEXTP2
+        .BYTE $50,$4C,$41,$59,$45,$52,$20,$54,$57,$4F,$13,$0B ; $1EA8
+D1EB4
+        .BYTE $30 ; $1EB4
+D1EB5
+        .BYTE $30,$20 ; $1EB5
+D1EB7
+        .BYTE $30,$30,$30 ; $1EB7
+D1EBA
+        .BYTE $30,$30,$30,$1A ; $1EBA
+D1EBE
+        .BYTE $00 ; $1EBE
+L1EBF
+        RTS ; $1EBF
+; Pozycje orbitalow wyliczane z 12-elementowych ORBITDX/ORBITDY.
+UPDATEORBITALS
+        LDA GAMEMUSICMODE ; $1EC0
+        BNE L1EBF ; $1EC2
+        INC D1EBE ; $1EC4
+        LDA D1EBE ; $1EC7
+        AND #$01 ; $1ECA
+        BNE L1EBF ; $1ECC
+        LDA ZP49 ; $1ECE
+        ORA M0109 ; $1ED0
+        BNE L1F02 ; $1ED3
+        TAX ; $1ED5
+        LDA P1STATE,X ; $1ED6
+        CMP #$03 ; $1ED9
+        BCC L1F02 ; $1EDB
+        LDA MD801 ; $1EDD
+        BEQ L1F02 ; $1EE0
+        STA ZP53 ; $1EE2
+        LDA MD802 ; $1EE4
+        SEC ; $1EE7
+        SBC #$07 ; $1EE8
+        STA ZP54 ; $1EEA
+        LDX #$D9 ; $1EEC
+        LDY #$A0 ; $1EEE
+        INC M0118 ; $1EF0
+        LDA M0118 ; $1EF3
+        CMP #$0C ; $1EF6
+        BCC L1EFF ; $1EF8
+        LDA #$00 ; $1EFA
+        STA M0118 ; $1EFC
+L1EFF
+        JSR SETORBITPOS ; $1EFF
+L1F02
+        LDA TWOPLAYERS ; $1F02
+        BEQ L1F63 ; $1F04
+        LDA ZP4A ; $1F06
+        ORA M010A ; $1F08
+        BNE L1F63 ; $1F0B
+        TAX ; $1F0D
+        LDA P2STATE,X ; $1F0E
+        CMP #$03 ; $1F11
+        BCC L1F63 ; $1F13
+        LDA MD815 ; $1F15
+        BEQ L1F63 ; $1F18
+        STA ZP53 ; $1F1A
+        LDA MD816 ; $1F1C
+        SEC ; $1F1F
+        SBC #$07 ; $1F20
+        STA ZP54 ; $1F22
+        LDX #$DA ; $1F24
+        LDY #$A0 ; $1F26
+        INC M0119 ; $1F28
+        LDA M0119 ; $1F2B
+        CMP #$0C ; $1F2E
+        BCC SETORBITPOS ; $1F30
+        LDA #$00 ; $1F32
+        STA M0119 ; $1F34
+SETORBITPOS
+        STX ZP34 ; $1F37
+        STY ZP33 ; $1F39
+        STA SM1F47+1 ; $1F3B
+        LDY #$00 ; $1F3E
+        LDA (ZP33),Y ; $1F40
+        BNE SM1F47 ; $1F42
+        JSR INITORBITAL ; $1F44
+SM1F47
+        LDX #$FF ; $1F47
+        LDA ZP53 ; $1F49
+        INY ; $1F4B
+        CLC ; $1F4C
+        ADC ORBITDX,X ; $1F4D
+        BCS L1F56 ; $1F50
+        CMP #$04 ; $1F52
+        BCS L1F58 ; $1F54
+L1F56
+        LDA #$04 ; $1F56
+L1F58
+        STA (ZP33),Y ; $1F58
+        INY ; $1F5A
+        LDA ZP54 ; $1F5B
+        CLC ; $1F5D
+        ADC ORBITDY,X ; $1F5E
+        STA (ZP33),Y ; $1F61
+L1F63
+        RTS ; $1F63
+INITORBITAL
+        LDA #$02 ; $1F64
+        STA (ZP33),Y ; $1F66
+        LDY #$05 ; $1F68
+        LDA #$00 ; $1F6A
+        STA (ZP33),Y ; $1F6C
+        LDY #$0B ; $1F6E
+        LDA #$FF ; $1F70
+        STA (ZP33),Y ; $1F72
+        INY ; $1F74
+        INY ; $1F75
+        STA (ZP33),Y ; $1F76
+        LDY #$00 ; $1F78
+        RTS ; $1F7A
+ORBITDX
+        .BYTE $0B,$0E,$12,$13,$12,$0E,$0B,$07,$02,$01,$02,$07 ; $1F7B
+ORBITDY
+        .BYTE $01,$02,$06,$09,$0C,$0F,$10,$0F,$0C,$09,$06,$02 ; $1F87
+SUB1F93
+        LDA GAMEMUSICMODE ; $1F93
+        BEQ L1FFB ; $1F95
+        LDA ZPE1 ; $1F97
+        BNE L1FFB ; $1F99
+        LDA GAMEMUSICMODE ; $1F9B
+        CMP #$02 ; $1F9D
+        BNE L1FA4 ; $1F9F
+        JMP L2039 ; $1FA1
+L1FA4
+        CMP #$03 ; $1FA4
+        BNE L1FAB ; $1FA6
+        JMP L2056 ; $1FA8
+L1FAB
+        LDA MD801 ; $1FAB
+        CMP #$3C ; $1FAE
+        BEQ L1FBF ; $1FB0
+        LDA #$FF ; $1FB2
+        BCS L1FB8 ; $1FB4
+        LDA #$01 ; $1FB6
+L1FB8
+        CLC ; $1FB8
+        ADC MD801 ; $1FB9
+        STA MD801 ; $1FBC
+L1FBF
+        LDA MD802 ; $1FBF
+        CMP #$1E ; $1FC2
+        BEQ L1FD3 ; $1FC4
+        LDA #$FF ; $1FC6
+        BCS L1FCC ; $1FC8
+        LDA #$01 ; $1FCA
+L1FCC
+        CLC ; $1FCC
+        ADC MD802 ; $1FCD
+        STA MD802 ; $1FD0
+L1FD3
+        LDA MD815 ; $1FD3
+        CMP #$32 ; $1FD6
+        BEQ L1FE7 ; $1FD8
+        LDA #$FF ; $1FDA
+        BCS L1FE0 ; $1FDC
+        LDA #$01 ; $1FDE
+L1FE0
+        CLC ; $1FE0
+        ADC MD815 ; $1FE1
+        STA MD815 ; $1FE4
+L1FE7
+        LDA MD816 ; $1FE7
+        CMP #$1E ; $1FEA
+        BEQ L1FFC ; $1FEC
+        LDA #$FF ; $1FEE
+        BCS L1FF4 ; $1FF0
+        LDA #$01 ; $1FF2
+L1FF4
+        CLC ; $1FF4
+        ADC MD816 ; $1FF5
+        STA MD816 ; $1FF8
+L1FFB
+        RTS ; $1FFB
+L1FFC
+        LDA MD801 ; $1FFC
+        CMP #$3C ; $1FFF
+        BNE L1FFB ; $2001
+        LDA MD802 ; $2003
+        CMP #$1E ; $2006
+        BNE L1FFB ; $2008
+        LDA MD815 ; $200A
+        CMP #$32 ; $200D
+        BNE L1FFB ; $200F
+        LDA MD816 ; $2011
+        CMP #$1E ; $2014
+        BNE L1FFB ; $2016
+        SETWORD ADR3BC7,$0102 ; $2018-$2021
+        LDA #$01 ; $2022
+        STA ZPE1 ; $2024
+        LDA #$02 ; $2026
+        STA GAMEMUSICMODE ; $2028
+        STA ZP79 ; $202A
+        STA ZP7A ; $202C
+        STA ZP7B ; $202E
+        STA ZP7C ; $2030
+        LDA #$00 ; $2032
+        STA ZP77 ; $2034
+        STA ZP78 ; $2036
+        RTS ; $2038
+L2039
+        SETWORD ZP95,$1C0C ; $2039-$2040
+        LDA #$66 ; $2041
+        STA ZP9B ; $2043
+        STA ZP9C ; $2045
+        LDA #$00 ; $2047
+        STA ZP6A ; $2049
+        STA ZPC5 ; $204B
+        LDA #$01 ; $204D
+        STA ZPC6 ; $204F
+        LDA #$03 ; $2051
+        STA GAMEMUSICMODE ; $2053
+        RTS ; $2055
+L2056
+        LDA M010D ; $2056
+        BNE L2075 ; $2059
+        LDA MD829 ; $205B
+        CLC ; $205E
+        ADC #$03 ; $205F
+        CMP MD801 ; $2061
+        BEQ L2075 ; $2064
+        LDA ZP95 ; $2066
+        CLC ; $2068
+        ADC #$02 ; $2069
+        STA ZP95 ; $206B
+        LDA ZP96 ; $206D
+        CLC ; $206F
+        ADC #$02 ; $2070
+        STA ZP96 ; $2072
+        RTS ; $2074
+L2075
+        LDA #$01 ; $2075
+        STA M010D ; $2077
+        LDA MD829 ; $207A
+        CLC ; $207D
+        ADC #$03 ; $207E
+        STA MD801 ; $2080
+        SEC ; $2083
+        SBC #$0A ; $2084
+        STA MD815 ; $2086
+        LDA ZP95 ; $2089
+        CLC ; $208B
+        ADC #$02 ; $208C
+        STA ZP95 ; $208E
+        BCC L2098 ; $2090
+        LDA #$04 ; $2092
+        ORA ZP6A ; $2094
+        STA ZP6A ; $2096
+L2098
+        LDA ZP96 ; $2098
+        CLC ; $209A
+        ADC #$02 ; $209B
+        STA ZP96 ; $209D
+        BCC L20A7 ; $209F
+        LDA #$08 ; $20A1
+        ORA ZP6A ; $20A3
+        STA ZP6A ; $20A5
+L20A7
+        LDA MD83D ; $20A7
+        CMP #$A2 ; $20AA
+        BCC L20B6 ; $20AC
+        LDA #$00 ; $20AE
+        STA COLPM0 ; $20B0
+        STA COLPM1 ; $20B3
+L20B6
+        LDA MD829 ; $20B6
+        CMP #$A5 ; $20B9
+        BCC L20C8 ; $20BB
+        LDA #$03 ; $20BD
+        STA ZPA7 ; $20BF
+        STA ZPA8 ; $20C1
+        LDA #$01 ; $20C3
+        STA M010E ; $20C5
+L20C8
+        RTS ; $20C8
+SUB20C9
+        LDX #$00 ; $20C9
+L20CB
+        LDA ZP77,X ; $20CB
+        BMI L20F1 ; $20CD
+        LDA ZPD1,X ; $20CF
+        BEQ L20EA ; $20D1
+        STA D20F0 ; $20D3
+        LDA #$00 ; $20D6
+        STA ZPD1,X ; $20D8
+        LDA ZP61 ; $20DA
+        AND D3BD5,X ; $20DC
+        BEQ L20E4 ; $20DF
+        JMP L217E ; $20E1
+L20E4
+        LDA ZP89,X ; $20E4
+        BEQ L2146 ; $20E6
+        DEC ZP89,X ; $20E8
+L20EA
+        INX ; $20EA
+        CPX #$06 ; $20EB
+        BNE L20CB ; $20ED
+        RTS ; $20EF
+D20F0
+        .BYTE $00 ; $20F0
+L20F1
+        AND #$0F ; $20F1
+        LSR A ; $20F3
+        CMP #$05 ; $20F4
+        BCS L2106 ; $20F6
+        CLC ; $20F8
+        ADC #$08 ; $20F9
+        STA ZPC5,X ; $20FB
+        LDA #$00 ; $20FD
+        STA ZPD1,X ; $20FF
+        INC ZP77,X ; $2101
+        JMP L20EA ; $2103
+L2106
+        LDA #$00 ; $2106
+        STA ZPD1,X ; $2108
+        LDY ZP64 ; $210A
+SM210C
+        LDA $FFFF,Y ; $210C
+        TAY ; $210F
+        LDA D06EC,Y ; $2110
+        STA SM211D+1 ; $2113
+        LDA CREDITLINE,Y ; $2116
+        STA SM211D+2 ; $2119
+        INX ; $211C
+SM211D
+        LDY $FFFF,X ; $211D
+        PHP ; $2120
+        DEX ; $2121
+        PLP ; $2122
+        BEQ L2140 ; $2123
+        LDA D3C5D,Y ; $2125
+        CLC ; $2128
+        ADC #$0C ; $2129
+        STA ZPC5,X ; $212B
+        LDA #$11 ; $212D
+        STA ZPA1,X ; $212F
+        LDA #$FF ; $2131
+        STA ZPBF,X ; $2133
+        LDA #$00 ; $2135
+        STA ZPB9,X ; $2137
+        LDA #$01 ; $2139
+        STA ZP77,X ; $213B
+        JMP L20EA ; $213D
+L2140
+        JSR SUB3356 ; $2140
+        JMP L20EA ; $2143
+L2146
+        STX D21B2 ; $2146
+L2149
+        STX D21B3 ; $2149
+        LDA #$80 ; $214C
+        STA ZP77,X ; $214E
+        LDA D20F0 ; $2150
+        CMP #$01 ; $2153
+        BNE L215D ; $2155
+        JSR SUB21B6 ; $2157
+        JMP L2160 ; $215A
+L215D
+        JSR SUB21F6 ; $215D
+L2160
+        LDA #$08 ; $2160
+        STA SFX2REQUEST ; $2162
+        LDA #$14 ; $2165
+        STA SFX2PRIORITY ; $2167
+        LDA ZP8F,X ; $216A
+        CMP D21B3 ; $216C
+        BCC L2178 ; $216F
+        BEQ L2178 ; $2171
+        TAX ; $2173
+        CPX #$06 ; $2174
+        BCC L2149 ; $2176
+L2178
+        LDX D21B2 ; $2178
+        JMP L20EA ; $217B
+L217E
+        LDA ZP89,X ; $217E
+        BEQ L2187 ; $2180
+        DEC ZP89,X ; $2182
+L2184
+        JMP L20EA ; $2184
+L2187
+        LDA ZP83,X ; $2187
+        STA ZP89,X ; $2189
+        LDY ZPBF,X ; $218B
+        LDA D9720,Y ; $218D
+        STA ZPFE ; $2190
+        LDA D9738,Y ; $2192
+        CLC ; $2195
+        ADC #$78 ; $2196
+        STA ZPFF ; $2198
+        INC ZPCB,X ; $219A
+        LDY ZPCB,X ; $219C
+        LDA (ZPFE),Y ; $219E
+        CMP #$FF ; $21A0
+        BEQ L21AF ; $21A2
+        LDY ZP64 ; $21A4
+        CPY #$1F ; $21A6
+        BEQ L2184 ; $21A8
+        STA ZPC5,X ; $21AA
+        JMP L20EA ; $21AC
+L21AF
+        JMP L2146 ; $21AF
+D21B2
+        .BYTE $00 ; $21B2
+D21B3
+        .BYTE $00 ; $21B3
+D21B4
+        .BYTE $00 ; $21B4
+D21B5
+        .BYTE $00 ; $21B5
+SUB21B6
+        STX D21B4 ; $21B6
+        STY D21B5 ; $21B9
+        LDX ZP69 ; $21BC
+L21BE
+        LDA #$05 ; $21BE
+        CLC ; $21C0
+        ADC DB089 ; $21C1
+        CMP #$76 ; $21C4
+        BEQ L21D5 ; $21C6
+        STA DB089 ; $21C8
+        DEX ; $21CB
+        BNE L21BE ; $21CC
+L21CE
+        LDX D21B4 ; $21CE
+        LDY D21B5 ; $21D1
+        RTS ; $21D4
+L21D5
+        LDA #$6C ; $21D5
+        STA DB089 ; $21D7
+        LDY #$03 ; $21DA
+L21DC
+        LDA DB085,Y ; $21DC
+        CLC ; $21DF
+        ADC #$01 ; $21E0
+        CMP #$76 ; $21E2
+        BCC L21F0 ; $21E4
+        LDA #$6C ; $21E6
+        STA DB085,Y ; $21E8
+        DEY ; $21EB
+        BPL L21DC ; $21EC
+        BMI L21CE ; $21EE
+L21F0
+        STA DB085,Y ; $21F0
+        JMP L21CE ; $21F3
+SUB21F6
+        STX D21B4 ; $21F6
+        STY D21B5 ; $21F9
+        LDX ZP69 ; $21FC
+L21FE
+        LDA #$05 ; $21FE
+        CLC ; $2200
+        ADC DB09D ; $2201
+        CMP #$76 ; $2204
+        BEQ L2210 ; $2206
+        STA DB09D ; $2208
+        DEX ; $220B
+        BNE L21FE ; $220C
+        BEQ L21CE ; $220E
+L2210
+        LDA #$6C ; $2210
+        STA DB09D ; $2212
+        LDY #$03 ; $2215
+L2217
+        LDA DB099,Y ; $2217
+        CLC ; $221A
+        ADC #$01 ; $221B
+        CMP #$76 ; $221D
+        BCC L222B ; $221F
+        LDA #$6C ; $2221
+        STA DB099,Y ; $2223
+        DEY ; $2226
+        BPL L2217 ; $2227
+        BMI L21CE ; $2229
+L222B
+        STA DB099,Y ; $222B
+        JMP L21CE ; $222E
+SUB2231
+        LDX #$05 ; $2231
+        LDY #$64 ; $2233
+L2235
+        LDA ZP77,X ; $2235
+        CMP #$01 ; $2237
+        BEQ L223E ; $2239
+        JMP L233A ; $223B
+L223E
+        LDA M0109 ; $223E
+        BNE L22BF ; $2241
+        LDA M010B ; $2243
+        BEQ L22BF ; $2246
+        LDA MD801 ; $2248
+        CLC ; $224B
+        ADC #$06 ; $224C
+        SEC ; $224E
+        SBC MD829,Y ; $224F
+        BCC L22BF ; $2252
+        CMP #$0A ; $2254
+        BCS L22BF ; $2256
+        LDA MD802 ; $2258
+        SEC ; $225B
+        SBC MD82A,Y ; $225C
+        BCC L22BF ; $225F
+        CMP #$0A ; $2261
+        BCS L22BF ; $2263
+        STX ZPED ; $2265
+        LDA ZPC5,X ; $2267
+        SEC ; $2269
+        SBC #$0D ; $226A
+        TAX ; $226C
+        LDA P1STATE,X ; $226D
+        CPX #$05 ; $2270
+        BCS L228D ; $2272
+        PHA ; $2274
+        LDA #$08 ; $2275
+        STA SFX3REQUEST ; $2277
+        LDA #$19 ; $227A
+        STA SFX3PRIORITY ; $227C
+        PLA ; $227F
+        CMP #$04 ; $2280
+        BCS L22B7 ; $2282
+        CMP #$00 ; $2284
+        BNE L228D ; $2286
+        LDA #$01 ; $2288
+        STA P1CHECKPOINT,X ; $228A
+L228D
+        CPX #$06 ; $228D
+        BNE L2298 ; $228F
+        LDA LEVELSTATE ; $2291
+        BEQ L2298 ; $2293
+        INC BONUSSTATE ; $2295
+L2298
+        INC P1STATE,X ; $2298
+        CPX #$05 ; $229B
+        BNE L22A9 ; $229D
+        LDA #$1E ; $229F
+        STA SFX3PRIORITY ; $22A1
+        LDA #$02 ; $22A4
+        STA SFX3REQUEST ; $22A6
+L22A9
+        CPX #$07 ; $22A9
+        BNE L22B7 ; $22AB
+        LDA #$3C ; $22AD
+        STA SFX3PRIORITY ; $22AF
+        LDA #$04 ; $22B2
+        STA SFX3REQUEST ; $22B4
+L22B7
+        LDX ZPED ; $22B7
+        JSR SUB3356 ; $22B9
+        JMP L233A ; $22BC
+L22BF
+        LDA TWOPLAYERS ; $22BF
+        AND M010C ; $22C1
+        BEQ L233A ; $22C4
+        LDA MD815 ; $22C6
+        CLC ; $22C9
+        ADC #$06 ; $22CA
+        SEC ; $22CC
+        SBC MD829,Y ; $22CD
+        BCC L233A ; $22D0
+        CMP #$0A ; $22D2
+        BCS L233A ; $22D4
+        LDA MD816 ; $22D6
+        SEC ; $22D9
+        SBC MD82A,Y ; $22DA
+        BCC L233A ; $22DD
+        CMP #$0A ; $22DF
+        BCS L233A ; $22E1
+        STX ZPED ; $22E3
+        LDA ZPC5,X ; $22E5
+        SEC ; $22E7
+        SBC #$0D ; $22E8
+        TAX ; $22EA
+        LDA P2STATE,X ; $22EB
+        CPX #$05 ; $22EE
+        BCS L230B ; $22F0
+        PHA ; $22F2
+        LDA #$0D ; $22F3
+        STA SFX2REQUEST ; $22F5
+        LDA #$19 ; $22F8
+        STA SFX2PRIORITY ; $22FA
+        PLA ; $22FD
+        CMP #$04 ; $22FE
+        BCS L2335 ; $2300
+        CMP #$00 ; $2302
+        BNE L230B ; $2304
+        LDA #$01 ; $2306
+        STA P2CHECKPOINT,X ; $2308
+L230B
+        CPX #$06 ; $230B
+        BNE L2316 ; $230D
+        LDA LEVELSTATE ; $230F
+        BEQ L2316 ; $2311
+        INC BONUSSTATE ; $2313
+L2316
+        INC P2STATE,X ; $2316
+        CPX #$05 ; $2319
+        BNE L2327 ; $231B
+        LDA #$1E ; $231D
+        STA SFX2PRIORITY ; $231F
+        LDA #$02 ; $2322
+        STA SFX2REQUEST ; $2324
+L2327
+        CPX #$07 ; $2327
+        BNE L2335 ; $2329
+        LDA #$3C ; $232B
+        STA SFX2PRIORITY ; $232D
+        LDA #$04 ; $2330
+        STA SFX2REQUEST ; $2332
+L2335
+        LDX ZPED ; $2335
+        JSR SUB3356 ; $2337
+L233A
+        TYA ; $233A
+        SEC ; $233B
+        SBC #$14 ; $233C
+        TAY ; $233E
+        DEX ; $233F
+        BMI L2345 ; $2340
+        JMP L2235 ; $2342
+L2345
+        RTS ; $2345
+SUB2346
+        LDA GAMEMUSICMODE ; $2346
+        BNE L2345 ; $2348
+        LDX #$05 ; $234A
+L234C
+        LDA ZP77,X ; $234C
+        BNE L236A ; $234E
+        LDA ZPAD,X ; $2350
+        BEQ L236A ; $2352
+        LDY D236E,X ; $2354
+        LDA D4200,Y ; $2357
+        BNE L236A ; $235A
+        LDA M0100,X ; $235C
+        CMP #$FF ; $235F
+        BEQ L236A ; $2361
+        CMP #$00 ; $2363
+        BEQ L2374 ; $2365
+        DEC M0100,X ; $2367
+L236A
+        DEX ; $236A
+        BPL L234C ; $236B
+        RTS ; $236D
+D236E
+        .BYTE $00,$14,$28,$3C,$50,$64 ; $236E
+L2374
+        LDA MD829,Y ; $2374
+        STA D4201,Y ; $2377
+        LDA MD82A,Y ; $237A
+        CLC ; $237D
+        ADC #$04 ; $237E
+        STA D4202,Y ; $2380
+        LDA #$15 ; $2383
+        STA D4200,Y ; $2385
+        LDA ZP7D,X ; $2388
+        STA M0100,X ; $238A
+        STX M0106 ; $238D
+        LDX ZPE8 ; $2390
+        LDA ANIMPTRLO,X ; $2392
+        STA SM23A7+1 ; $2395
+        STA SM23B2+1 ; $2398
+        LDA ANIMPTRHI,X ; $239B
+        STA SM23A7+2 ; $239E
+        STA SM23B2+2 ; $23A1
+        LDX M0106 ; $23A4
+SM23A7
+        LDA $FFFF,X ; $23A7
+        STA D4203,Y ; $23AA
+        TXA ; $23AD
+        CLC ; $23AE
+        ADC #$06 ; $23AF
+        TAX ; $23B1
+SM23B2
+        LDA $FFFF,X ; $23B2
+        STA D4204,Y ; $23B5
+        LDA #$0A ; $23B8
+        STA SFX2REQUEST ; $23BA
+        LDA #$06 ; $23BD
+        STA SFX2PRIORITY ; $23BF
+        LDX M0106 ; $23C2
+        LDA #$FF ; $23C5
+        STA D420B,Y ; $23C7
+        STA D420D,Y ; $23CA
+        JMP L236A ; $23CD
+ANIMPTRLO
+        .BYTE $DA,$E6,$F2,$FE,$0A ; $23D0
+ANIMPTRHI
+        .BYTE $23,$23,$23,$23,$24,$00,$00,$00,$00,$00,$00,$FD ; $23D5
+        .BYTE $03,$FD,$03,$FD,$03,$FD,$FD,$FD,$FD,$FD,$FD,$00 ; $23E1
+        .BYTE $00,$00,$00,$00,$00,$FB,$FB,$FB,$FB,$FB,$FB,$FB ; $23ED
+        .BYTE $00,$00,$00,$00,$05,$FD,$FD,$FD,$FD,$FD,$FD,$FD ; $23F9
+        .BYTE $03,$FD,$03,$FD,$03,$03,$00,$FD,$FD,$FD,$00,$00 ; $2405
+        .BYTE $FD,$FD,$00,$03,$03 ; $2411
+UPDATEP1WEAPON
+        LDA M010B ; $2416
+        BEQ L2463 ; $2419
+        LDA #$00 ; $241B
+        STA SM25A0+1 ; $241D
+        STA DRAWICONLEVEL+1 ; $2420
+        LDA TRIG0 ; $2423
+        BNE L2436 ; $2426
+        LDA ZPF0 ; $2428
+        BNE L243A ; $242A
+        LDA #$01 ; $242C
+        STA ZPF0 ; $242E
+        JSR SELECTP1WEAPON ; $2430
+        JMP L243A ; $2433
+L2436
+        LDA #$00 ; $2436
+        STA ZPF0 ; $2438
+L243A
+        LDX #$05 ; $243A
+        STX ZP46 ; $243C
+L243E
+        LDX ZP46 ; $243E
+        LDA P1CHECKPOINT,X ; $2440
+        BEQ L2451 ; $2443
+        PHA ; $2445
+        LDA #$00 ; $2446
+        STA P1CHECKPOINT,X ; $2448
+        PLA ; $244B
+        BMI L2464 ; $244C
+        JSR DRAWICONBASE ; $244E
+L2451
+        LDA P1STATE,X ; $2451
+        CMP D251D ; $2454
+        BEQ L245F ; $2457
+        STA D251D ; $2459
+        JSR LOADP1WEAPON ; $245C
+L245F
+        DEC ZP46 ; $245F
+        BPL L243E ; $2461
+L2463
+        RTS ; $2463
+L2464
+        LDX ZP49 ; $2464
+        BEQ L245F ; $2466
+        DEC P1STATE,X ; $2468
+        STX D251F ; $246B
+        JSR SELECTP1WEAPON ; $246E
+        LDX D251F ; $2471
+        JSR DRAWICONLEVEL ; $2474
+        JMP L245F ; $2477
+SELECTP1WEAPON
+        LDX ZP49 ; $247A
+L247C
+        INX ; $247C
+        CPX #$05 ; $247D
+        BCC L2483 ; $247F
+        LDX #$00 ; $2481
+L2483
+        CPX ZP49 ; $2483
+        BEQ L2463 ; $2485
+        LDA P1STATE,X ; $2487
+        BEQ L247C ; $248A
+        STX D24CC ; $248C
+        LDX ZP49 ; $248F
+        JSR DRAWICONBASE ; $2491
+        LDX D24CC ; $2494
+        STX ZP49 ; $2497
+        JSR DRAWWEAPONICON ; $2499
+        LDX #$D9 ; $249C
+        LDY #$00 ; $249E
+        JSR SUB2DC5 ; $24A0
+LOADP1WEAPON
+        LDX ZP49 ; $24A3
+        LDA P1STATE,X ; $24A5
+        CLC ; $24A8
+        ADC #$04 ; $24A9
+        TAX ; $24AB
+        JSR DRAWICONBASE ; $24AC
+        LDX ZP49 ; $24AF
+        LDA D3D69,X ; $24B1
+        STA SM24BF+1 ; $24B4
+        LDA D3D6E,X ; $24B7
+        STA SM24BF+2 ; $24BA
+        LDX #$04 ; $24BD
+SM24BF
+        LDA $FFFF,X ; $24BF
+        CLC ; $24C2
+        ADC #$10 ; $24C3
+        STA DB08E,X ; $24C5
+        DEX ; $24C8
+        BPL SM24BF ; $24C9
+L24CB
+        RTS ; $24CB
+D24CC
+        .BYTE $00 ; $24CC
+UPDATEP2WEAPON
+        LDA TWOPLAYERS ; $24CD
+        AND M010C ; $24CF
+        BEQ L24CB ; $24D2
+        LDA #$78 ; $24D4
+        STA SM25A0+1 ; $24D6
+        STA DRAWICONLEVEL+1 ; $24D9
+        LDA TRIG1 ; $24DC
+        BNE L24EF ; $24DF
+        LDA ZPF1 ; $24E1
+        BNE L24F3 ; $24E3
+        LDA #$01 ; $24E5
+        STA ZPF1 ; $24E7
+        JSR SELECTP2WEAPON ; $24E9
+        JMP L24F3 ; $24EC
+L24EF
+        LDA #$00 ; $24EF
+        STA ZPF1 ; $24F1
+L24F3
+        LDX #$05 ; $24F3
+        STX ZP46 ; $24F5
+L24F7
+        LDX ZP46 ; $24F7
+        LDA P2CHECKPOINT,X ; $24F9
+        BEQ L250A ; $24FC
+        PHA ; $24FE
+        LDA #$00 ; $24FF
+        STA P2CHECKPOINT,X ; $2501
+        PLA ; $2504
+        BMI L2520 ; $2505
+        JSR DRAWICONBASE ; $2507
+L250A
+        LDA P2STATE,X ; $250A
+        CMP D251E ; $250D
+        BEQ L2518 ; $2510
+        STA D251E ; $2512
+        JSR LOADP2WEAPON ; $2515
+L2518
+        DEC ZP46 ; $2518
+        BPL L24F7 ; $251A
+        RTS ; $251C
+D251D
+        .BYTE $00 ; $251D
+D251E
+        .BYTE $00 ; $251E
+D251F
+        .BYTE $00 ; $251F
+L2520
+        LDX ZP4A ; $2520
+        BEQ L2518 ; $2522
+        DEC P2STATE,X ; $2524
+        STX D251F ; $2527
+        JSR SELECTP2WEAPON ; $252A
+        LDX D251F ; $252D
+        JSR DRAWICONLEVEL ; $2530
+        JMP L2518 ; $2533
+SELECTP2WEAPON
+        LDX ZP4A ; $2536
+L2538
+        INX ; $2538
+        CPX #$05 ; $2539
+        BCC L253F ; $253B
+        LDX #$00 ; $253D
+L253F
+        CPX ZP4A ; $253F
+        BEQ L2587 ; $2541
+        LDA P2STATE,X ; $2543
+        BEQ L2538 ; $2546
+        STX D24CC ; $2548
+        LDX ZP4A ; $254B
+        JSR DRAWICONBASE ; $254D
+        LDX D24CC ; $2550
+        STX ZP4A ; $2553
+        JSR DRAWWEAPONICON ; $2555
+        LDX #$DA ; $2558
+        LDY #$00 ; $255A
+        JSR SUB2DC5 ; $255C
+LOADP2WEAPON
+        LDX ZP4A ; $255F
+        LDA P2STATE,X ; $2561
+        CLC ; $2564
+        ADC #$04 ; $2565
+        TAX ; $2567
+        JSR DRAWICONBASE ; $2568
+        LDX ZP4A ; $256B
+        LDA D3D69,X ; $256D
+        STA SM257B+1 ; $2570
+        LDA D3D6E,X ; $2573
+        STA SM257B+2 ; $2576
+        LDX #$04 ; $2579
+SM257B
+        LDA $FFFF,X ; $257B
+        CLC ; $257E
+        ADC #$10 ; $257F
+        STA DB0A2,X ; $2581
+        DEX ; $2584
+        BPL SM257B ; $2585
+L2587
+        RTS ; $2587
+DRAWWEAPONICON
+        LDY #$80 ; $2588
+        BNE L258E ; $258A
+DRAWICONBASE
+        LDY #$00 ; $258C
+L258E
+        STY SM25B9+1 ; $258E
+        STX D260A ; $2591
+        LDA D3C15,X ; $2594
+        STA SM25B6+1 ; $2597
+        LDA D3C1E,X ; $259A
+        STA SM25B6+2 ; $259D
+SM25A0
+        LDA #$00 ; $25A0
+        CLC ; $25A2
+        ADC D3C8A,X ; $25A3
+        TAY ; $25A6
+        LDA #$B0 ; $25A7
+        STA PTR0H ; $25A9
+        LDA #$30 ; $25AB
+        STA PTR0 ; $25AD
+        LDX #$02 ; $25AF
+        STX D260B ; $25B1
+L25B4
+        LDX #$00 ; $25B4
+SM25B6
+        LDA $FFFF,X ; $25B6
+SM25B9
+        ORA #$00 ; $25B9
+        STA (PTR0),Y ; $25BB
+        INY ; $25BD
+        INX ; $25BE
+        CPX #$03 ; $25BF
+        BNE SM25B6 ; $25C1
+        TYA ; $25C3
+        CLC ; $25C4
+        ADC #$25 ; $25C5
+        TAY ; $25C7
+        LDA #$03 ; $25C8
+        CLC ; $25CA
+        ADC SM25B6+1 ; $25CB
+        STA SM25B6+1 ; $25CE
+        BCC L25D6 ; $25D1
+        INC SM25B6+2 ; $25D3
+L25D6
+        DEC D260B ; $25D6
+        BNE L25B4 ; $25D9
+        LDX D260A ; $25DB
+        RTS ; $25DE
+DRAWICONLEVEL
+        LDA #$00 ; $25DF
+        CLC ; $25E1
+        ADC D3C8A,X ; $25E2
+        TAY ; $25E5
+        LDA #$B0 ; $25E6
+        STA PTR0H ; $25E8
+        LDA #$30 ; $25EA
+        STA PTR0 ; $25EC
+        LDX #$02 ; $25EE
+        STX D260B ; $25F0
+L25F3
+        LDX #$00 ; $25F3
+L25F5
+        LDA #$0F ; $25F5
+        STA (PTR0),Y ; $25F7
+        INY ; $25F9
+        INX ; $25FA
+        CPX #$03 ; $25FB
+        BNE L25F5 ; $25FD
+        .END

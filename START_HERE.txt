@@ -1,0 +1,14 @@
+ZYBEX / NMOS 6502 / OSS MAC/65
+
+Read README_PL.md first.
+Main source: src/GAME.M65
+Boot source: src/BOOT.M65
+Address/byte listing: analysis/game_listing.txt
+
+Rebuild and compare every byte:
+  python tools/rebuild.py
+  python tools/selftest.py
+
+This package uses a bundled subset assembler for verification.
+Native MAC/65 and full Atari hardware emulation were NOT run.
+All semantic labels are proposed, not recovered original names.
