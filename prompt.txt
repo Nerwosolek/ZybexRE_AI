@@ -1,0 +1,7 @@
+Zybex stąd: https://atarionline.pl/v01/kazip.php?ct=kazip&sub=Z&title=+Zybex&file=Zybex+%28v1%29.atr
+
+Zrób reverse engineering tej klasycznej gry na Atari 65xe. Wyekstrahuj kod maszynowy i przedstaw go zgodnie z mnemonikami assemblera 6502 i zgodnie ze składnią MAC Assemblera. Zaproponuj w odpowiednich miejscach etykiety, które ułatwiają czytanie kodu przez programistę. Powtarzalne fragmenty kodu opakuje w makra. Powodzenia!
+
+
+
+
